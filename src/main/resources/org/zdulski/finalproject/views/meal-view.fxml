@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="600.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+fx:controller="org.zdulski.finalproject.viewcontrollers.MealController">
+   <children>
+      <HBox>
+         <children>
+            <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" text="#MEAL_NAME#" textAlignment="CENTER" wrappingWidth="273.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <ButtonBar prefHeight="40.0" prefWidth="94.0">
+              <buttons>
+                <Button minWidth="45.0" mnemonicParsing="false" onAction="#addToFavourite" prefHeight="45.0" text="Fav" />
+              </buttons>
+            </ButtonBar>
+         </children>
+      </HBox>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab text="Info">
+               <content>
+                  <AnchorPane />
+               </content>
+            </Tab>
+            <Tab text="Ingredients">
+               <content>
+                  <AnchorPane />
+               </content>
+            </Tab>
+            <Tab text="execution">
+               <content>
+                  <AnchorPane />
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </children>
+</VBox>

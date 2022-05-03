@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zdulski.finalproject.viewcontrollers.MainController">
+   <children>
+      <BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="640.0" minWidth="360.0" prefHeight="640.0" prefWidth="360.0">
+         <top>
+            <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="302.0" BorderPane.alignment="CENTER_LEFT">
+               <children>
+                  <Circle radius="18.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.6368371248245239" green="0.9200000166893005" blue="0.06440000236034393" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.9200000166893005" green="0.3456571400165558" blue="0.07360000163316727" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                  </Circle>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" MealLover" wrappingWidth="139.13671875">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Text>
+               </children>
+            </HBox>
+         </top>
+      </BorderPane>
+      <JFXDrawer fx:id="drawer" layoutY="52.0" prefHeight="588.0" prefWidth="360.0" translateZ="2.0" />
+      <ButtonBar layoutX="270.0" prefHeight="48.0" prefWidth="90.0">
+         <buttons>
+            <JFXHamburger fx:id="menuBtn" onMouseClicked="#onMainMenuBtnClicked" />
+         </buttons>
+      </ButtonBar>
+   </children>
+</AnchorPane>
