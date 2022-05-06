@@ -1,25 +1,32 @@
 package org.zdulski.finalproject.mealdb.dto;
 
+import lombok.Getter;
 import org.json.simple.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Meal {
     private String id;
+    @Getter
     private String name;
+    @Getter
     private String thumbnail;
+    @Getter
     private String youtubeUrl;
-
+    @Getter
     private String category;
+    @Getter
     private String area;
-
+    @Getter
     private String instructions;
-
-    private String[] ingredients = new String[20];
-    private String[] ingredientMeasure = new String[20];
-
+    @Getter
+    private Map<String, String> ingredients = new HashMap<>();
+    @Getter
     private String tags;
 
     public Meal(JSONObject jsonObject) {
-        //TODO solve some are empty string some are NULL
+        //TODO secure in case some of values might be empty string or NULL
         //for now String.valueOf() solved problem but
         //fields that were NULL now contains "null"
 
@@ -30,13 +37,17 @@ public class Meal {
         category = String.valueOf(jsonObject.get("strCategory"));
         area = String.valueOf(jsonObject.get("strArea"));
         instructions = String.valueOf(jsonObject.get("strInstructions"));
-        tags = String.valueOf(jsonObject.get("strTags"));
+        tags = String.valueOf(jsonObject.get("strTags")).replaceAll(",",", ");
         for (int i=1; i<=20; i++){
-            ingredients[i-1] = String.valueOf(jsonObject.get("strIngredient"+i));
-            ingredientMeasure[i-1] = String.valueOf(jsonObject.get("strMeasure"+i));
+            String ingredient = String.valueOf(jsonObject.get("strIngredient"+i));
+            String ingMeasure = String.valueOf(jsonObject.get("strMeasure"+i));
+            ingredients.put(ingredient, ingMeasure);
         }
+        ingredients.remove("");
+        ingredients.remove("null");
     }
 
+    //only for test purpose
     @Override
     public String toString(){
         StringBuilder builder = new StringBuilder();
@@ -48,10 +59,7 @@ public class Meal {
                 .append("area: ").append(area).append("\n")
                 .append("instructions:\n").append(instructions).append("\n")
                 .append("tags: ").append(tags).append("\n")
-                .append("ingredients:[ ").append("\n");
-        for (int i=0; i<20; i++){
-            builder.append("\t"+ingredients[i]+":"+ingredientMeasure[i]+",\n");
-        }
+                .append("ingredients: ").append(ingredients).append("\n");
         return builder.toString();
     }
 }
