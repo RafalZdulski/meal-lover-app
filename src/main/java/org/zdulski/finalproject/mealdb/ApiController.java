@@ -15,6 +15,12 @@ import java.nio.charset.StandardCharsets;
 
 public class ApiController {
     public Meal getRandomMeal(){
+//        try {
+//            TimeUnit.SECONDS.sleep(10);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
         Meal ret = null;
         URLConnection connection = null;
         try {

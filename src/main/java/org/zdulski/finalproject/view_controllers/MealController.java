@@ -15,6 +15,8 @@ import org.zdulski.finalproject.mealdb.dto.Meal;
 
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 
 public class MealController implements Initializable {
     protected Meal meal;
@@ -62,10 +64,18 @@ public class MealController implements Initializable {
 
     @FXML
     public void getRandomMeal() {
-        ApiController apiController = new ApiController();
-        meal = apiController.getRandomMeal();
-        showMeal();
-        System.out.println(meal);
+        //TODO QUESTION why does this work, if future is never used?
+        CompletableFuture<Meal> future = CompletableFuture.supplyAsync(new Supplier<Meal>() {
+            @Override
+            public Meal get() {
+                //TODO add loading animation - custom component?
+                return new ApiController().getRandomMeal();
+            }
+        }).thenApply(result -> {
+            meal = result;
+            showMeal();
+            return result;
+        });
     }
 
     @FXML

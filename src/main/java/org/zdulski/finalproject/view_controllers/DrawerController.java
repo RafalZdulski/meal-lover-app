@@ -1,5 +1,6 @@
 package org.zdulski.finalproject.view_controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,6 +14,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 
 public class DrawerController implements Initializable {
     @FXML
@@ -24,20 +27,49 @@ public class DrawerController implements Initializable {
     @FXML
     public void onRandomClick(){
         System.out.println("random clicked");
-//        ApiController apiController = new ApiController();
-//        Meal meal = apiController.getRandomMeal();
-//        System.out.println("meal:\n"+meal);
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/zdulski/finalproject/views/meal-view.fxml"));
-            Pane mealViewPane = loader.load();
-            //TODO RETHINK if Im handling communication by mediator then shouldn't this be also moved to mediator
-            //or maybe it should be realized by listener/observer
-            ViewMediator.getInstance().setCenter(mealViewPane);
-            MealController mealController = loader.getController();
-            mealController.getRandomMeal();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        CompletableFuture<FXMLLoader> futurePane = CompletableFuture.supplyAsync(new Supplier<FXMLLoader>() {
+            @Override
+            public FXMLLoader get() {
+//                try {
+//                    TimeUnit.SECONDS.sleep(5);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+                return new FXMLLoader(getClass().getResource("/org/zdulski/finalproject/views/meal-view.fxml"));
+            }
+        }).thenApply(loader -> {
+            Platform.runLater( () -> {
+                try {
+                    Pane mealPane = loader.load();
+                    ViewMediator.getInstance().setCenter(mealPane);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            return loader;
+        }).thenApply(loader -> {
+            Platform.runLater(() ->{
+                MealController controller = loader.getController();
+                System.out.println(controller);
+                controller.getRandomMeal();
+            });
+            return loader;
+        });
+
+//        try {
+//            //TODO RETHINK if Im handling communication by mediator then shouldn't this be also moved to mediator
+//            //or maybe it should be realized by listener/observer
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/zdulski/finalproject/views/meal-view.fxml"));
+//            Pane mealViewPane = loader.load();
+//            ViewMediator.getInstance().setCenter(mealViewPane);
+//            MealController mealController = loader.getController();
+//            mealController.getRandomMeal();
+//            mealController = loader.getController();
+//            System.out.println("3");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
     }
 
 
