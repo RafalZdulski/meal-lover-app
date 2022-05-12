@@ -17,6 +17,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
+    //TODO add magnifying glass icon next to burger and add search by area, category, (name?) functionality
+
     @FXML
     protected BorderPane mainPane;
 

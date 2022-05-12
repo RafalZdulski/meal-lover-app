@@ -19,6 +19,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 public class MealController implements Initializable {
+    //TODO differ between random meal and searched meal
+    //TODO add go back button for searched meal
+
+
     protected Meal meal;
 
     @FXML
@@ -108,5 +112,10 @@ public class MealController implements Initializable {
         ingredientCol.setCellValueFactory(new MapValueFactory<>("Ingredient"));
         ingredientMeasureCol.setCellValueFactory(new MapValueFactory<>("Measure"));
         ingredientsTable.getItems().addAll(list);
+    }
+
+    public void setMeal(Meal meal) {
+        this.meal = meal;
+        showMeal();
     }
 }

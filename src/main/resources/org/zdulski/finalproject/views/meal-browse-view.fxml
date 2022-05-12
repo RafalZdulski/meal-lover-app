@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="345.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zdulski.finalproject.view_controllers.MealBrowseViewController">
+   <children>
+      <GridPane layoutX="7.0" prefHeight="120.0" prefWidth="335.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="280.0" minWidth="10.0" prefWidth="215.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="120.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="66.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="52.0" minHeight="9.0" prefHeight="32.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" text="##MEAL_NAME##" wrappingWidth="237.13671875" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="thumbnail" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowSpan="3" />
+            <Text fx:id="tags" strokeType="OUTSIDE" strokeWidth="0.0" text="##TAGS##" wrappingWidth="240.994140625" GridPane.rowIndex="2" GridPane.valignment="TOP">
+               <font>
+                  <Font size="16.0" />
+               </font></Text>
+            <GridPane GridPane.rowIndex="1">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.0" minWidth="10.0" prefWidth="139.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="173.0" minWidth="10.0" prefWidth="141.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Text fx:id="area" strokeType="OUTSIDE" strokeWidth="0.0" text="##AREA##" wrappingWidth="116.087890625" GridPane.valignment="TOP">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Text>
+                  <Text fx:id="category" strokeType="OUTSIDE" strokeWidth="0.0" text="##CATEGORY##" wrappingWidth="113.9765625" GridPane.columnIndex="1" GridPane.valignment="TOP">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Text>
+               </children>
+            </GridPane>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

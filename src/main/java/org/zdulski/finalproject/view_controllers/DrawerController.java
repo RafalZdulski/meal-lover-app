@@ -50,32 +50,38 @@ public class DrawerController implements Initializable {
         }).thenApply(loader -> {
             Platform.runLater(() ->{
                 MealController controller = loader.getController();
-                System.out.println(controller);
                 controller.getRandomMeal();
             });
             return loader;
         });
-
-//        try {
-//            //TODO RETHINK if Im handling communication by mediator then shouldn't this be also moved to mediator
-//            //or maybe it should be realized by listener/observer
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/zdulski/finalproject/views/meal-view.fxml"));
-//            Pane mealViewPane = loader.load();
-//            ViewMediator.getInstance().setCenter(mealViewPane);
-//            MealController mealController = loader.getController();
-//            mealController.getRandomMeal();
-//            mealController = loader.getController();
-//            System.out.println("3");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
     }
 
 
     @FXML
     public void onBrowseClick(){
         System.out.println("browse clicked");
+        CompletableFuture<FXMLLoader> futurePane = CompletableFuture.supplyAsync(new Supplier<FXMLLoader>() {
+            @Override
+            public FXMLLoader get() {
+                return new FXMLLoader(getClass().getResource("/org/zdulski/finalproject/views/browse-view.fxml"));
+            }
+        }).thenApply(loader -> {
+            Platform.runLater( () -> {
+                try {
+                    Pane mealPane = loader.load();
+                    ViewMediator.getInstance().setCenter(mealPane);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            return loader;
+        }).thenApply(loader -> {
+            Platform.runLater(() ->{
+                BrowseController controller = loader.getController();
+                controller.getAllMeals();
+            });
+            return loader;
+        });
     }
 
     @FXML
