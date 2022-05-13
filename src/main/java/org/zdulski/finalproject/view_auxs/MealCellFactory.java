@@ -7,8 +7,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
-import org.zdulski.finalproject.mealdb.dto.Meal;
-import org.zdulski.finalproject.mediator_controllers.ViewMediator;
+import org.zdulski.finalproject.dto.Meal;
+import org.zdulski.finalproject.mediators.MainMediator;
 import org.zdulski.finalproject.view_controllers.MealBrowseViewController;
 import org.zdulski.finalproject.view_controllers.MealController;
 
@@ -57,7 +57,7 @@ public class MealCellFactory implements Callback<ListView<Meal>, ListCell<Meal>>
             Platform.runLater( () -> {
                 try {
                     Pane mealPane = loader.load();
-                    ViewMediator.getInstance().setCenter(mealPane);
+                    MainMediator.getInstance().setCenter(mealPane);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

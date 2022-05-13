@@ -7,7 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import org.zdulski.finalproject.mediator_controllers.ViewMediator;
+import org.zdulski.finalproject.mediators.MainMediator;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -41,7 +41,7 @@ public class DrawerController implements Initializable {
             Platform.runLater( () -> {
                 try {
                     Pane mealPane = loader.load();
-                    ViewMediator.getInstance().setCenter(mealPane);
+                    MainMediator.getInstance().setCenter(mealPane);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -69,7 +69,7 @@ public class DrawerController implements Initializable {
             Platform.runLater( () -> {
                 try {
                     Pane mealPane = loader.load();
-                    ViewMediator.getInstance().setCenter(mealPane);
+                    MainMediator.getInstance().setCenter(mealPane);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

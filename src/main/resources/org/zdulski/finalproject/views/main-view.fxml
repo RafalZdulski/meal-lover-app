@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXDrawer?>
-<?import com.jfoenix.controls.JFXHamburger?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -15,34 +14,31 @@
    <children>
       <BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="640.0" minWidth="360.0" prefHeight="640.0" prefWidth="360.0">
          <top>
-            <AnchorPane BorderPane.alignment="CENTER_LEFT">
+            <AnchorPane prefHeight="54.0" style="-fx-background-color: #FEDCDA;" BorderPane.alignment="CENTER_LEFT">
                <children>
-                  <HBox alignment="CENTER_LEFT" layoutX="22.0" prefHeight="54.0" prefWidth="264.0">
-                     <children>
-                        <ImageView fx:id="navbarLogo" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Food Lover" wrappingWidth="139.13671875">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Text>
-                     </children>
-                  </HBox>
+                  <ImageView fx:id="navbarLogo" fitHeight="48.0" fitWidth="48.0" layoutX="10.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
+                  <Text layoutX="64.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Lover" wrappingWidth="125.13671875">
+                     <font>
+                        <Font name="System Bold Italic" size="24.0" />
+                     </font>
+                  </Text>
                </children>
             </AnchorPane>
          </top>
       </BorderPane>
       <JFXDrawer fx:id="drawer" prefHeight="640.0" prefWidth="360.0" translateZ="2.0" />
-      <ButtonBar layoutX="270.0" prefHeight="48.0" prefWidth="90.0">
-         <buttons>
-            <JFXHamburger fx:id="menuBtn" onMouseClicked="#onMainMenuBtnClicked" />
-         </buttons>
-      </ButtonBar>
+      <GridPane alignment="CENTER" layoutX="240.0" prefHeight="54.0" prefWidth="120.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <ImageView fx:id="searchBtnIcon" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#search" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="menuBtnIcon" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#openDrawer" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>

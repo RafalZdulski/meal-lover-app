@@ -10,9 +10,12 @@ import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import org.zdulski.finalproject.mealdb.ApiController;
-import org.zdulski.finalproject.mealdb.dto.Meal;
+import org.zdulski.finalproject.mealdb.MealdbApiAccess;
+import org.zdulski.finalproject.dto.Meal;
+import org.zdulski.finalproject.mediators.MainMediator;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -55,6 +58,16 @@ public class MealController implements Initializable {
     @FXML
     private TextArea executionText;
 
+
+    @FXML
+    private ImageView favouriteIcon;
+
+    @FXML
+    private ImageView nextArrowIcon;
+
+    @FXML
+    private ImageView returnIcon;
+
     @FXML
     public void addToFavourite(){
         //TODO implement adding to favourites
@@ -63,6 +76,13 @@ public class MealController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            favouriteIcon.setImage(new Image(new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/icons/heart-empty.png")));
+            nextArrowIcon.setImage(new Image(new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/icons/arrow-right.png")));
+            returnIcon.setImage(new Image(new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/icons/arrow-return.png")));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -73,7 +93,7 @@ public class MealController implements Initializable {
             @Override
             public Meal get() {
                 //TODO add loading animation - custom component?
-                return new ApiController().getRandomMeal();
+                return new MealdbApiAccess().getRandomMeal();
             }
         }).thenApply(result -> {
             meal = result;
@@ -86,6 +106,12 @@ public class MealController implements Initializable {
     public void onYtLinkClick(){
         //TODO implement onYyLinkClick()
         System.out.println("link clicked");
+    }
+
+    @FXML
+    public void returnClicked(){
+        System.out.println("return clicked");
+        MainMediator.getInstance().returnToLatestPane();
     }
 
     private void showMeal() {

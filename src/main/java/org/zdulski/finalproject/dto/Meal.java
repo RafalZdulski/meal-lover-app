@@ -1,4 +1,4 @@
-package org.zdulski.finalproject.mealdb.dto;
+package org.zdulski.finalproject.dto;
 
 import lombok.Getter;
 import org.json.simple.JSONObject;

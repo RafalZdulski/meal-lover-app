@@ -4,7 +4,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.zdulski.finalproject.mealdb.dto.Meal;
+import org.zdulski.finalproject.dto.Meal;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,13 +15,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ApiController {
+public class MealdbApiAccess {
     //TODO RETHINK shouldn't this stored differently, more safely?
     private final String rapidApiHost = "themealdb.p.rapidapi.com";
     private final String rapidApiKey = "826b487458msh6a6a565581ebf5bp1334dajsn530065f6de6d";
 
     private final String randomURL = "https://themealdb.p.rapidapi.com/random.php";
     private final String searchURL = "https://themealdb.p.rapidapi.com/search.php?";
+    private final String listURL = "https://themealdb.p.rapidapi.com/list.php?";
 
     public Meal getRandomMeal(){
         Meal ret = null;
@@ -57,6 +58,44 @@ public class ApiController {
         } catch (ParseException e) {
             e.printStackTrace();
         } finally {
+            return ret;
+        }
+    }
+
+    public List<String> getCategories(){
+        List<String> ret = new ArrayList<>();
+        try {
+            InputStream is = newConnection(listURL+"c=list").getInputStream();
+            JSONParser jsonParser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(is, StandardCharsets.UTF_8));
+            System.out.println("search:\n"+jsonObject);
+            JSONArray jsonArray = (JSONArray) jsonObject.get("meals");
+            for (var category : jsonArray) {
+                JSONObject temp = (JSONObject) category;
+                ret.add((String) temp.get("strCategory"));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            return ret;
+        }
+    }
+
+    public List<String> getAreas(){
+        List<String> ret = new ArrayList<>();
+        try {
+            InputStream is = newConnection(listURL+"a=list").getInputStream();
+            JSONParser jsonParser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(is, StandardCharsets.UTF_8));
+            System.out.println("search:\n"+jsonObject);
+            JSONArray jsonArray = (JSONArray) jsonObject.get("meals");
+            for (var category : jsonArray) {
+                JSONObject temp = (JSONObject) category;
+                ret.add((String) temp.get("strArea"));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
             return ret;
         }
     }

@@ -5,8 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
-import org.zdulski.finalproject.mealdb.ApiController;
-import org.zdulski.finalproject.mealdb.dto.Meal;
+import org.zdulski.finalproject.mealdb.MealdbApiAccess;
+import org.zdulski.finalproject.dto.Meal;
 import org.zdulski.finalproject.view_auxs.MealCellFactory;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class BrowseController {
         for (char letter = 'a'; letter <= 'z'; letter++){
             char finalLetter = letter;
             new Thread(() ->{
-                meals.addAll(new ApiController().getMealsByFirstLetter(finalLetter));
+                meals.addAll(new MealdbApiAccess().getMealsByFirstLetter(finalLetter));
                 latch.countDown();
             }).start();
         }
@@ -74,20 +74,25 @@ public class BrowseController {
         mealsListView.setCellFactory(new MealCellFactory());
     }
 
+
+    //TODO after changing the page it should scroll to first element on page
     @FXML
     public void nextPage(){
         page = Math.min(page+1,meals.size()/numberOfMealsDisplayed);
+        mealsListView.scrollTo(0);
         update();
     }
 
     @FXML
     public void previousPage(){
         page = Math.max(page-1,0);
+        mealsListView.scrollTo(0);
         update();
     }
 
     public void goToPage(int page){
         this.page = page;
+        mealsListView.scrollTo(0);
         update();
     }
 }

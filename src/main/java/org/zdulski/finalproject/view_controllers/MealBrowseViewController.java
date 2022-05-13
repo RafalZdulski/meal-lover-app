@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import org.zdulski.finalproject.mealdb.dto.Meal;
+import org.zdulski.finalproject.dto.Meal;
 
 public class MealBrowseViewController {
     private Meal meal;
