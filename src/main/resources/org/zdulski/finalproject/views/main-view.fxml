@@ -14,7 +14,7 @@
    <children>
       <BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="640.0" minWidth="360.0" prefHeight="640.0" prefWidth="360.0">
          <top>
-            <AnchorPane prefHeight="54.0" style="-fx-background-color: #FEDCDA;" BorderPane.alignment="CENTER_LEFT">
+            <AnchorPane prefHeight="54.0" style="-fx-background-color: #F67494;" BorderPane.alignment="CENTER_LEFT">
                <children>
                   <ImageView fx:id="navbarLogo" fitHeight="48.0" fitWidth="48.0" layoutX="10.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
                   <Text layoutX="64.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Lover" wrappingWidth="125.13671875">
@@ -26,7 +26,8 @@
             </AnchorPane>
          </top>
       </BorderPane>
-      <JFXDrawer fx:id="drawer" prefHeight="640.0" prefWidth="360.0" translateZ="2.0" />
+      <JFXDrawer fx:id="searchDrawer" direction="RIGHT" layoutY="54.0" prefHeight="586.0" prefWidth="360.0" />
+      <JFXDrawer fx:id="menuDrawer" prefHeight="640.0" prefWidth="360.0" translateZ="2.0" />
       <GridPane alignment="CENTER" layoutX="240.0" prefHeight="54.0" prefWidth="120.0">
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />

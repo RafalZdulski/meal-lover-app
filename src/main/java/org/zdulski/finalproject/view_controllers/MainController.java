@@ -1,7 +1,6 @@
 package org.zdulski.finalproject.view_controllers;
 
 import com.jfoenix.controls.JFXDrawer;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,8 +16,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Supplier;
 
 public class MainController implements Initializable {
     //TODO add magnifying glass icon next to burger and add search by area, category, (name?) functionality
@@ -29,7 +26,10 @@ public class MainController implements Initializable {
     private Node latestPane;
 
     @FXML
-    protected JFXDrawer drawer;
+    protected JFXDrawer menuDrawer;
+
+    @FXML
+    protected JFXDrawer searchDrawer;
 
     @FXML
     protected ImageView navbarLogo;
@@ -42,10 +42,10 @@ public class MainController implements Initializable {
 
     @FXML
     protected void openDrawer() {
-        if (drawer.isClosed()){
-            drawer.open();
+        if (menuDrawer.isClosed()){
+            menuDrawer.open();
         }else
-            drawer.close();
+            menuDrawer.close();
     }
 
     @Override
@@ -60,15 +60,28 @@ public class MainController implements Initializable {
             e.printStackTrace();
         }
         try {
-            Pane drawerContent = FXMLLoader.load(getClass()
+            Pane menuDrawerContent = FXMLLoader.load(getClass()
                     .getResource("/org/zdulski/finalproject/views/side-menu-view.fxml"));
-            drawer.setSidePane(drawerContent);
-            drawer.setDefaultDrawerSize(200);
+            menuDrawer.setSidePane(menuDrawerContent);
+            menuDrawer.setDefaultDrawerSize(200);
 
             //closed drawer was overlaying views underneath making impossible to click things, this the solution that seems to work
-            drawer.setVisible(false);
-            drawer.setOnDrawerOpening(event -> drawer.setVisible(true));
-            drawer.setOnDrawerClosed(event -> drawer.setVisible(false));
+            menuDrawer.setVisible(false);
+            menuDrawer.setOnDrawerOpening(event -> menuDrawer.setVisible(true));
+            menuDrawer.setOnDrawerClosed(event -> menuDrawer.setVisible(false));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            Pane searchDrawerContent = FXMLLoader.load(getClass()
+                    .getResource("/org/zdulski/finalproject/views/search-view.fxml"));
+            searchDrawer.setSidePane(searchDrawerContent);
+            searchDrawer.setDefaultDrawerSize(240);
+
+            //closed drawer was overlaying views underneath making impossible to click things, this the solution that seems to work
+            searchDrawer.setVisible(false);
+            searchDrawer.setOnDrawerOpening(event -> searchDrawer.setVisible(true));
+            searchDrawer.setOnDrawerClosed(event -> searchDrawer.setVisible(false));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -77,22 +90,27 @@ public class MainController implements Initializable {
     @FXML
     public void search(){
         System.out.println("search clicked");
-        CompletableFuture<FXMLLoader> futurePane = CompletableFuture.supplyAsync(new Supplier<FXMLLoader>() {
-            @Override
-            public FXMLLoader get() {
-                return new FXMLLoader(getClass().getResource("/org/zdulski/finalproject/views/search-view.fxml"));
-            }
-        }).thenApply(loader -> {
-            Platform.runLater(() -> {
-                try {
-                    Pane searchPane = loader.load();
-                    setCenterView(searchPane);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-            return loader;
-        });
+        if (searchDrawer.isClosed()){
+            searchDrawer.open();
+        }else
+            searchDrawer.close();
+
+//        CompletableFuture<FXMLLoader> futurePane = CompletableFuture.supplyAsync(new Supplier<FXMLLoader>() {
+//            @Override
+//            public FXMLLoader get() {
+//                return new FXMLLoader(getClass().getResource("/org/zdulski/finalproject/views/search-view.fxml"));
+//            }
+//        }).thenApply(loader -> {
+//            Platform.runLater(() -> {
+//                try {
+//                    Pane searchPane = loader.load();
+//                    setCenterView(searchPane);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            });
+//            return loader;
+//        });
 
         }
 

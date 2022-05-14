@@ -1,15 +1,11 @@
 package org.zdulski.finalproject.view_controllers;
 
-import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.input.MouseEvent;
 import org.zdulski.finalproject.mealdb.MealdbApiAccess;
-import org.zdulski.finalproject.view_auxs.SearchComboBoxCellFactory;
-import org.zdulski.finalproject.view_auxs.SearchComboBoxItemWrap;
+import org.zdulski.finalproject.view_auxs.customcomponents.filters.CustomDialogWindow;
+import org.zdulski.finalproject.view_auxs.customcomponents.filters.ItemWrap;
 
 import java.net.URL;
 import java.util.List;
@@ -17,54 +13,54 @@ import java.util.ResourceBundle;
 
 public class SearchController implements Initializable {
 
-    @FXML
-    private ComboBox<SearchComboBoxItemWrap<String>> areaComboBox;
+    private List<ItemWrap<String>> areas;
+    private List<ItemWrap<String>> categories;
+
 
     @FXML
-    private ComboBox<SearchComboBoxItemWrap<String>> categoryComboBox;
+    void addArea(ActionEvent event) {
+        final CustomDialogWindow dialog = new CustomDialogWindow(areas);
+        dialog.show();
+    }
 
     @FXML
-    void searchBtnClicked() {
-        System.out.println("search button clicked");
+    void addCategory(ActionEvent event) {
+
+    }
+
+    @FXML
+    void clearAll() {
+        clearName();
+        clearAreas();
+        clearCategories();
+    }
+
+    @FXML
+    void clearAreas() {
+
+    }
+
+    @FXML
+    void clearCategories() {
+
+    }
+
+    @FXML
+    void clearName() {
+
+    }
+
+    @FXML
+    void searchBtnClicked(ActionEvent event) {
+        areas.stream().filter(ItemWrap::getCheck).forEach(System.out::println);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         MealdbApiAccess dbAccess = new MealdbApiAccess();
-        List<SearchComboBoxItemWrap<String>> areas
-                = dbAccess.getAreas().stream().map(SearchComboBoxItemWrap::new).toList();
-        List<SearchComboBoxItemWrap<String>> categories
-                = dbAccess.getCategories().stream().map(SearchComboBoxItemWrap::new).toList();
 
-        areaComboBox.setItems(FXCollections.observableList(areas));
-        areaComboBox.setCellFactory(new SearchComboBoxCellFactory(areaComboBox));
-
-        categoryComboBox.setItems(FXCollections.observableList(categories));
-        categoryComboBox.setCellFactory(c -> {
-            ListCell<SearchComboBoxItemWrap<String>> cell = new ListCell<>(){
-                @Override
-                protected void updateItem(SearchComboBoxItemWrap<String> item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (!empty) {
-                        final CheckBox cb = new CheckBox(item.toString());
-                        cb.selectedProperty().bind(item.checkProperty());
-                        setGraphic(cb);
-                    }
-                }
-            };
-
-            cell.addEventFilter(MouseEvent.MOUSE_RELEASED, event -> {
-                cell.getItem().checkProperty().set(!cell.getItem().checkProperty().get());
-                StringBuilder sb = new StringBuilder();
-                categoryComboBox.getItems().filtered(SearchComboBoxItemWrap::getCheck)
-                        .forEach(p -> sb.append("; ").append(p.getItem()));
-                final String string = sb.toString();
-                System.out.println(string);
-                categoryComboBox.setPromptText(string);
-            });
-
-            return cell;
-        });
+        areas = dbAccess.getAreas().stream().map(ItemWrap::new).toList();
+        categories = dbAccess.getCategories().stream().map(ItemWrap::new).toList();
 
 
     }

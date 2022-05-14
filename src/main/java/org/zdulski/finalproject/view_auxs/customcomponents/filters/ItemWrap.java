@@ -1,23 +1,20 @@
-package org.zdulski.finalproject.view_auxs;
+package org.zdulski.finalproject.view_auxs.customcomponents.filters;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
-public class SearchComboBoxItemWrap<T> {
+public class ItemWrap<T> {
 
     private BooleanProperty check = new SimpleBooleanProperty(false);
     private ObjectProperty<T> item = new SimpleObjectProperty<>();
 
-    public SearchComboBoxItemWrap() {
-    }
-
-    public SearchComboBoxItemWrap(T item) {
+    public ItemWrap(T item) {
         this.item.set(item);
     }
 
-    public SearchComboBoxItemWrap(T item, Boolean check) {
+    public ItemWrap(T item, Boolean check) {
         this.item.set(item);
         this.check.set(check);
     }
@@ -40,10 +37,6 @@ public class SearchComboBoxItemWrap<T> {
 
     public T getItem() {
         return item.getValue();
-    }
-
-    public void setItem(T value) {
-        item.setValue(value);
     }
 
     @Override
