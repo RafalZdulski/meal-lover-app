@@ -26,15 +26,9 @@ public class DrawerController implements Initializable {
 
     @FXML
     public void onRandomClick(){
-        System.out.println("random clicked");
         CompletableFuture<FXMLLoader> futurePane = CompletableFuture.supplyAsync(new Supplier<FXMLLoader>() {
             @Override
             public FXMLLoader get() {
-//                try {
-//                    TimeUnit.SECONDS.sleep(5);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
                 return new FXMLLoader(getClass().getResource("/org/zdulski/finalproject/views/meal-view.fxml"));
             }
         }).thenApply(loader -> {
@@ -59,7 +53,6 @@ public class DrawerController implements Initializable {
 
     @FXML
     public void onBrowseClick(){
-        System.out.println("browse clicked");
         CompletableFuture<FXMLLoader> futurePane = CompletableFuture.supplyAsync(new Supplier<FXMLLoader>() {
             @Override
             public FXMLLoader get() {
@@ -91,12 +84,12 @@ public class DrawerController implements Initializable {
 
     @FXML
     public void onLastViewedClick(){
-        System.out.println("favourites clicked");
+        System.out.println("last viewed clicked");
     }
 
     @FXML
     public void onInspirationClick(){
-        System.out.println("favourites clicked");
+        System.out.println("inspiration clicked");
     }
 
     @FXML

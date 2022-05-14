@@ -76,7 +76,7 @@ public class MainController implements Initializable {
             Pane searchDrawerContent = FXMLLoader.load(getClass()
                     .getResource("/org/zdulski/finalproject/views/search-view.fxml"));
             searchDrawer.setSidePane(searchDrawerContent);
-            searchDrawer.setDefaultDrawerSize(240);
+            searchDrawer.setDefaultDrawerSize(270);
 
             //closed drawer was overlaying views underneath making impossible to click things, this the solution that seems to work
             searchDrawer.setVisible(false);
@@ -89,30 +89,11 @@ public class MainController implements Initializable {
 
     @FXML
     public void search(){
-        System.out.println("search clicked");
         if (searchDrawer.isClosed()){
             searchDrawer.open();
         }else
             searchDrawer.close();
-
-//        CompletableFuture<FXMLLoader> futurePane = CompletableFuture.supplyAsync(new Supplier<FXMLLoader>() {
-//            @Override
-//            public FXMLLoader get() {
-//                return new FXMLLoader(getClass().getResource("/org/zdulski/finalproject/views/search-view.fxml"));
-//            }
-//        }).thenApply(loader -> {
-//            Platform.runLater(() -> {
-//                try {
-//                    Pane searchPane = loader.load();
-//                    setCenterView(searchPane);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            });
-//            return loader;
-//        });
-
-        }
+    }
 
     public void setCenterView(Pane pane) {
         latestPane = mainPane.getCenter();
