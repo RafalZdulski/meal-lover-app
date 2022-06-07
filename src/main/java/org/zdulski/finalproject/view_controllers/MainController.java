@@ -1,6 +1,9 @@
 package org.zdulski.finalproject.view_controllers;
 
+import com.google.common.eventbus.DeadEvent;
+import com.google.common.eventbus.Subscribe;
 import com.jfoenix.controls.JFXDrawer;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,13 +12,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import org.zdulski.finalproject.mediators.MainMediator;
+import org.zdulski.finalproject.eventbus.EventBusFactory;
+import org.zdulski.finalproject.eventbus.ShowMealEvent;
+import org.zdulski.finalproject.eventbus.ShowMealsEvent;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
 
 public class MainController implements Initializable {
     //TODO add magnifying glass icon next to burger and add search by area, category, (name?) functionality
@@ -48,9 +54,12 @@ public class MainController implements Initializable {
             menuDrawer.close();
     }
 
+    public MainController(){
+        EventBusFactory.getEventBus().register(this);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        MainMediator.getInstance().setController(this);
         try {
             //relative path does not work - I do not know exactly why
             navbarLogo.setImage(new Image(new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/images/food-lover-logo.png")));
@@ -103,4 +112,51 @@ public class MainController implements Initializable {
     public void setLatestPaneAsMain(){
         mainPane.setCenter(latestPane);
     }
+
+    @Subscribe
+    public void deadEventHandler(DeadEvent event){
+        System.out.println("dead event:");
+        System.out.println(event.getEvent().toString());
+    }
+
+    @Subscribe
+    public void showMeal(ShowMealEvent event){
+        CompletableFuture<FXMLLoader> future = CompletableFuture.supplyAsync(
+                () -> new FXMLLoader(getClass().getResource(View.MEAL.getUrl()))
+        ).thenApply(loader -> {
+            try {
+                Pane pane = loader.load();
+                Platform.runLater(() -> {
+                    this.setCenterView(pane);
+                });
+                menuDrawer.close();
+                MealController controller = loader.getController();
+                controller.setMeal(event.getMeal());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return loader;
+        });
+    }
+
+    @Subscribe
+    public void showMeals(ShowMealsEvent event){
+        CompletableFuture<FXMLLoader> future = CompletableFuture.supplyAsync(
+                () -> new FXMLLoader(getClass().getResource(View.BROWSE.getUrl()))
+        ).thenApply(loader -> {
+            try {
+                Pane pane = loader.load();
+                Platform.runLater(() -> {
+                    this.setCenterView(pane);
+                });
+                menuDrawer.close();
+                BrowseController controller = loader.getController();
+                controller.setMeals(event.getMeals());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return loader;
+        });
+    }
+
 }

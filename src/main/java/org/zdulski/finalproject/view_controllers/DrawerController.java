@@ -1,21 +1,18 @@
 package org.zdulski.finalproject.view_controllers;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import org.zdulski.finalproject.mediators.MainMediator;
+import org.zdulski.finalproject.eventbus.EventBusFactory;
+import org.zdulski.finalproject.eventbus.ShowMealEvent;
+import org.zdulski.finalproject.eventbus.ShowMealsEvent;
+import org.zdulski.finalproject.mealdbAPI.MealGetterImpl;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Supplier;
 
 public class DrawerController implements Initializable {
     @FXML
@@ -26,55 +23,17 @@ public class DrawerController implements Initializable {
 
     @FXML
     public void onRandomClick(){
-        CompletableFuture<FXMLLoader> futurePane = CompletableFuture.supplyAsync(new Supplier<FXMLLoader>() {
-            @Override
-            public FXMLLoader get() {
-                return new FXMLLoader(getClass().getResource("/org/zdulski/finalproject/views/meal-view.fxml"));
-            }
-        }).thenApply(loader -> {
-            Platform.runLater( () -> {
-                try {
-                    Pane mealPane = loader.load();
-                    MainMediator.getInstance().setCenter(mealPane);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-            return loader;
-        }).thenApply(loader -> {
-            Platform.runLater(() ->{
-                MealController controller = loader.getController();
-                controller.getRandomMeal();
-            });
-            return loader;
-        });
+        EventBusFactory.getEventBus().post(
+                new ShowMealEvent(new MealGetterImpl().getRandomMeal())
+        );
     }
 
 
     @FXML
     public void onBrowseClick(){
-        CompletableFuture<FXMLLoader> futurePane = CompletableFuture.supplyAsync(new Supplier<FXMLLoader>() {
-            @Override
-            public FXMLLoader get() {
-                return new FXMLLoader(getClass().getResource("/org/zdulski/finalproject/views/browse-view.fxml"));
-            }
-        }).thenApply(loader -> {
-            Platform.runLater( () -> {
-                try {
-                    Pane mealPane = loader.load();
-                    MainMediator.getInstance().setCenter(mealPane);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-            return loader;
-        }).thenApply(loader -> {
-            Platform.runLater(() ->{
-                BrowseController controller = loader.getController();
-                controller.getAllMeals();
-            });
-            return loader;
-        });
+        //EventBusFactory.getEventBus().post(ChangeViewEvent.BROWSE);
+        EventBusFactory.getEventBus().post(new ShowMealsEvent(new MealGetterImpl().getAllMeals()));
+        System.out.println("browse clicked");
     }
 
     @FXML

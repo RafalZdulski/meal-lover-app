@@ -1,6 +1,5 @@
 package org.zdulski.finalproject.view_controllers;
 
-import com.google.common.eventbus.Subscribe;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Hyperlink;
@@ -12,7 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import org.zdulski.finalproject.dto.Meal;
-import org.zdulski.finalproject.eventbus.EventBusFactory;
 import org.zdulski.finalproject.mealdbAPI.MealGetterImpl;
 
 import java.io.FileInputStream;
@@ -22,7 +20,7 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
-public class MealController implements Initializable {
+public class RandomMealController implements Initializable {
     //TODO differ between random meal and searched meal
     //TODO add go back button for searched meal
 
@@ -74,8 +72,8 @@ public class MealController implements Initializable {
         System.out.println("add to favourite clicked");
     }
 
-    public MealController(){
-        EventBusFactory.getEventBus().register(this);
+    public RandomMealController(){
+
     }
 
     @Override
@@ -87,7 +85,10 @@ public class MealController implements Initializable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
+        meal = new MealGetterImpl().getRandomMeal();
+        System.out.println("RANDOM MEAL");
+        System.out.println(meal);
+        showMeal();
     }
 
     @FXML
@@ -143,10 +144,8 @@ public class MealController implements Initializable {
         ingredientsTable.getItems().addAll(list);
     }
 
-    @Subscribe
     public void setMeal(Meal meal) {
         this.meal = meal;
-        System.out.println(meal);
         showMeal();
     }
 }
