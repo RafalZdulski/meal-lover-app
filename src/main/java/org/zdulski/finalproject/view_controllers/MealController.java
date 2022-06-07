@@ -20,7 +20,6 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Supplier;
 
 public class MealController implements Initializable {
     //TODO differ between random meal and searched meal
@@ -92,13 +91,9 @@ public class MealController implements Initializable {
 
     @FXML
     public void getRandomMeal() {
-        //TODO QUESTION why does this work, if future is never used?
-        CompletableFuture<Meal> future = CompletableFuture.supplyAsync(new Supplier<Meal>() {
-            @Override
-            public Meal get() {
-                //TODO add loading animation - custom component?
-                return new MealGetterImpl().getRandomMeal();
-            }
+        CompletableFuture<Meal> future = CompletableFuture.supplyAsync(() -> {
+            //TODO add loading animation - custom component?
+            return new MealGetterImpl().getRandomMeal();
         }).thenApply(result -> {
             meal = result;
             showMeal();
