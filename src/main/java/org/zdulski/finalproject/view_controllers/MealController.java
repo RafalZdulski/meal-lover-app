@@ -10,13 +10,14 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import org.zdulski.finalproject.dto.Meal;
 import org.zdulski.finalproject.eventbus.EventBusFactory;
+import org.zdulski.finalproject.eventbus.ReturnEvent;
 import org.zdulski.finalproject.mealdbAPI.MealGetterImpl;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -40,7 +41,7 @@ public class MealController implements Initializable {
     private Text tags;
 
     @FXML
-    private ImageView thumbnail;
+    private Rectangle thumbnailRect;
 
     @FXML
     private Hyperlink ytLink;
@@ -79,14 +80,9 @@ public class MealController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            favouriteIcon.setImage(new Image(new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/icons/heart-empty.png")));
-            nextArrowIcon.setImage(new Image(new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/icons/arrow-right.png")));
-            returnIcon.setImage(new Image(new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/icons/arrow-return.png")));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
+        favouriteIcon.setImage(new Image(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/icons/favorite-outline.png"));
+        nextArrowIcon.setImage(new Image(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/icons/arrow-right.png"));
+        returnIcon.setImage(new Image(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/icons/arrow-return.png"));
     }
 
     @FXML
@@ -109,7 +105,7 @@ public class MealController implements Initializable {
 
     @FXML
     public void returnClicked(){
-        System.out.println("return clicked");
+        EventBusFactory.getEventBus().post(new ReturnEvent());
     }
 
     private void showMeal() {
@@ -118,7 +114,7 @@ public class MealController implements Initializable {
         category.setText(meal.getCategory());
         area.setText(meal.getArea());
         tags.setText(meal.getTags());
-        thumbnail.setImage(new Image(meal.getThumbnail()));
+        thumbnailRect.setFill(new ImagePattern(new Image(meal.getThumbnail())));
         setIngredientsTableView(meal.getIngredients());
         executionText.setText(meal.getInstructions());
     }

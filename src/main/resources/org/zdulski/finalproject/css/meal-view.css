@@ -1,0 +1,116 @@
+.button{
+    -fx-background-radius: 10 10 0 0;
+    -fx-background-color: #D0B2A6;
+    -fx-border-width: 2 1 0 1;
+    -fx-border-radius: 10 10 0 0;
+    -fx-border-color: black;
+}
+
+.button:focused {
+    -fx-background-color: #e4dcd9;
+}
+
+#nameBox{
+    /*-fx-background-color: derive(#D0B2A6, 50%);*/
+}
+
+/*#buttonPane, #tab{*/
+/*    -fx-background-color: derive(#D0B2A6, 50%);*/
+/*}*/
+
+/* TABBED PANE */
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane
+{
+    -fx-tab-min-width:100;
+}
+
+.tab{
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+
+/* eliminating blue outline of selected tab*/
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-width: 0;
+}
+
+.tab-pane .tab {
+    -fx-background-color: derive(#D0B2A6, 50%);
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: black;
+    -fx-background-radius: 7 7 0 0;
+
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: derive(#e4dcd9, 50%);
+    -fx-background-radius: 7 7 0 0;
+    -fx-border-width: 1 1 0 1;
+    -fx-border-color: black;
+    -fx-border-radius: 7 7 0 0;
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-opacity: 30%;
+    /*-fx-text-fill: derive(black, 75%);*/
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label {
+    -fx-opacity: 100%;
+    -fx-alignment: CENTER;
+    /*-fx-text-fill: #e4dcd9;*/
+}
+
+
+
+/* END OF TABBED PANE */
+
+/* SCROLL BAR */
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color :transparent;
+    -fx-border-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-border-radius :2.0em;
+}
+
+/*BAR*/
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 10.0 0.0 0.0;
+
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.15em 0.0;
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.0 0.15em;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color : #a68e84;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color : #534742;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+
+/* END OF SCROLL BAR */

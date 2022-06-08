@@ -2,10 +2,14 @@ package org.zdulski.finalproject.view_controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import org.zdulski.finalproject.dto.Meal;
 import org.zdulski.finalproject.eventbus.EventBusFactory;
+import org.zdulski.finalproject.eventbus.ReturnEvent;
 import org.zdulski.finalproject.eventbus.ShowMealsEvent;
 import org.zdulski.finalproject.mealdbAPI.MealGetterImpl;
 import org.zdulski.finalproject.mealdbAPI.SearchEngineImpl;
@@ -28,6 +32,9 @@ public class SearchController implements Initializable {
 
     @FXML
     private VBox filterPillsVBox;
+
+    @FXML
+    private Button returnBtn;
 
     @FXML
     void addArea() {
@@ -84,6 +91,11 @@ public class SearchController implements Initializable {
         }
     }
 
+    @FXML
+    public void returnBtnClicked(){
+        EventBusFactory.getEventBus().post(new ReturnEvent());
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         MealGetterImpl dbAccess = new MealGetterImpl();
@@ -92,5 +104,9 @@ public class SearchController implements Initializable {
 
         filterPillsVBox.getChildren().add(new FilterPillsDisplay(areas));
         filterPillsVBox.getChildren().add(new FilterPillsDisplay(categories));
+
+        ImageView imageView = new ImageView(new Image(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/icons/arrow-return-right.png"));
+        imageView.setFitHeight(24); imageView.setFitWidth(24);
+        returnBtn.setGraphic(imageView);
     }
 }

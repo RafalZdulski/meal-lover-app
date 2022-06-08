@@ -8,30 +8,31 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="586.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zdulski.finalproject.view_controllers.BrowseController">
+<AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="586.0" prefWidth="360.0" stylesheets="@../css/browse-view.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zdulski.finalproject.view_controllers.BrowseController">
    <children>
       <ScrollPane hbarPolicy="NEVER" prefWidth="362.0" vvalue="0.03">
          <content>
             <ListView fx:id="mealsListView" prefHeight="536.0" prefWidth="360.0" />
          </content>
       </ScrollPane>
-      <AnchorPane layoutX="11.0" layoutY="543.0">
+      <Button fx:id="searchBtn" layoutX="275.0" layoutY="450.0" mnemonicParsing="false" onAction="#searchBtnClicked" prefHeight="64.0" prefWidth="64.0" />
+      <AnchorPane id="pageNavigation" layoutY="537.0" prefHeight="50.0" prefWidth="362.0" style="-fx-background-color: E8DAC2;">
          <children>
-            <Button layoutX="262.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="36.0" prefWidth="78.0" text="&gt;&gt;" />
-            <Button mnemonicParsing="false" onAction="#previousPage" prefHeight="36.0" prefWidth="78.0" text="&lt;&lt;" />
-            <HBox layoutX="123.0">
+            <Button fx:id="nextPageBtn" layoutX="262.0" layoutY="7.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="36.0" prefWidth="78.0" style="-fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 20; -fx-background-color: D0B2A6; -fx-background-radius: 20;" />
+            <Button fx:id="previousPageBtn" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#previousPage" prefHeight="36.0" prefWidth="78.0" style="-fx-border-width: 2; -fx-border-color: black;" />
+            <HBox layoutX="123.0" layoutY="10.0">
                <children>
-                  <Text fx:id="firstPage" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="32.78125">
+                  <Text fx:id="firstPage" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="32.78125">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Text fx:id="actualPage" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="32.78125">
+                  <Text fx:id="actualPage" strokeType="OUTSIDE" strokeWidth="0.0" text="1" textAlignment="CENTER" underline="true" wrappingWidth="32.78125">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Text fx:id="lastPage" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT" wrappingWidth="32.78125">
+                  <Text fx:id="lastPage" strokeType="OUTSIDE" strokeWidth="0.0" text="1" textAlignment="RIGHT" wrappingWidth="32.78125">
                      <font>
                         <Font size="20.0" />
                      </font>

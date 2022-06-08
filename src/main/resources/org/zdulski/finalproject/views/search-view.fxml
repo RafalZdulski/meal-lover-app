@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zdulski.finalproject.view_controllers.SearchController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="270.0" stylesheets="@../css/search-view.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zdulski.finalproject.view_controllers.SearchController">
    <children>
       <GridPane layoutX="5.0" layoutY="5.0" prefHeight="32.0" prefWidth="260.0">
         <columnConstraints>
@@ -54,8 +54,8 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <Button mnemonicParsing="false" onAction="#clearAreas" text="clear X" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-            <Button mnemonicParsing="false" onAction="#addArea" text="add +" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#clearAreas" text="clear" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#addArea" text="add" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="categories:" wrappingWidth="110.3515625" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" />
@@ -64,12 +64,13 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <Button mnemonicParsing="false" onAction="#clearCategories" text="clear X" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" onAction="#addCategory" text="add +" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" onAction="#clearCategories" text="clear" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" onAction="#addCategory" text="add" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <VBox fx:id="filterPillsVBox" layoutX="2.0" layoutY="129.0" prefHeight="360.0" prefWidth="270.0" spacing="5.0" />
-      <Button layoutX="142.0" layoutY="533.0" mnemonicParsing="false" onAction="#searchBtnClicked" prefHeight="32.0" prefWidth="80.0" text="Search" />
+      <Button layoutX="110.0" layoutY="533.0" mnemonicParsing="false" onAction="#searchBtnClicked" prefHeight="32.0" prefWidth="80.0" text="Search" />
       <Button layoutX="14.0" layoutY="533.0" mnemonicParsing="false" onAction="#clearAll" prefHeight="32.0" prefWidth="80.0" text="Clear All" />
+      <Button fx:id="returnBtn" cancelButton="true" layoutX="204.0" layoutY="533.0" mnemonicParsing="false" onAction="#returnBtnClicked" prefHeight="32.0" prefWidth="52.0" />
    </children>
 </AnchorPane>

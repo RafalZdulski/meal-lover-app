@@ -5,10 +5,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import org.zdulski.finalproject.dto.Meal;
 import org.zdulski.finalproject.eventbus.EventBusFactory;
+import org.zdulski.finalproject.eventbus.OpenSearchDrawerEvent;
 import org.zdulski.finalproject.mealdbAPI.MealGetterImpl;
 import org.zdulski.finalproject.view_auxs.MealCellFactory;
 
@@ -35,6 +38,15 @@ public class BrowseController implements Initializable {
 
     @FXML
     private Text lastPage;
+
+    @FXML
+    private Button searchBtn;
+
+    @FXML
+    private Button nextPageBtn;
+
+    @FXML
+    private Button previousPageBtn;
 
     public BrowseController(){
         EventBusFactory.getEventBus().register(this);
@@ -110,6 +122,26 @@ public class BrowseController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ImageView imageView;
 
+        imageView = new ImageView(System.getProperty("user.dir") +
+                "/src/main/resources/org/zdulski/finalproject/icons/magnifying-glass-icon.png");
+        imageView.setFitWidth(32); imageView.setFitHeight(32);
+        searchBtn.setGraphic(imageView);
+
+        imageView = new ImageView(System.getProperty("user.dir") +
+                "/src/main/resources/org/zdulski/finalproject/icons/next-page-icon.png");
+        imageView.setFitWidth(24); imageView.setFitHeight(24);
+        nextPageBtn.setGraphic(imageView);
+
+        imageView = new ImageView(System.getProperty("user.dir") +
+                "/src/main/resources/org/zdulski/finalproject/icons/previous-page-icon.png");
+        imageView.setFitWidth(24); imageView.setFitHeight(24);
+        previousPageBtn.setGraphic(imageView);
+    }
+
+    @FXML
+    public void searchBtnClicked(){
+        EventBusFactory.getEventBus().post(new OpenSearchDrawerEvent());
     }
 }

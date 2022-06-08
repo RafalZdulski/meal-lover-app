@@ -3,9 +3,10 @@ package org.zdulski.finalproject.view_auxs;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -29,7 +30,7 @@ public class MealCellFactory implements Callback<ListView<Meal>, ListCell<Meal>>
                     gridPane.setVgap(5);
                     //name
                     Text name = new Text(meal.getName());
-                    name.setWrappingWidth(205);
+                    name.setWrappingWidth(230);
                     name.setFont(Font.font("system", FontWeight.BOLD, 20));
                     gridPane.add(name,0,0);
                     GridPane.setColumnSpan(name,2);
@@ -52,12 +53,19 @@ public class MealCellFactory implements Callback<ListView<Meal>, ListCell<Meal>>
                     gridPane.add(tags,0,2);
                     GridPane.setColumnSpan(tags,2);
                     //Photo
-                    ImageView imageView = new ImageView();
-                    imageView.setFitWidth(120);
-                    imageView.setFitHeight(120);
-                    imageView.setImage(new Image(meal.getThumbnail()));
-                    gridPane.add(imageView,2, 0);
-                    GridPane.setRowSpan(imageView, 3);
+                    Rectangle photo = new Rectangle(96,96);
+                    photo.setArcHeight(40);
+                    photo.setArcWidth(40);
+                    photo.setFill(new ImagePattern(new Image(meal.getThumbnail())));
+                    gridPane.add(photo,2,0);
+                    GridPane.setRowSpan(photo, 3);
+
+//                    ImageView imageView = new ImageView();
+//                    imageView.setFitWidth(120);
+//                    imageView.setFitHeight(120);
+//                    imageView.setImage(new Image(meal.getThumbnail()));
+//                    gridPane.add(imageView,2, 0);
+//                    GridPane.setRowSpan(imageView, 3);
 
                     this.setGraphic(gridPane);
                 }

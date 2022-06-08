@@ -12,14 +12,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import org.zdulski.finalproject.eventbus.EventBusFactory;
-import org.zdulski.finalproject.eventbus.ShowMealEvent;
-import org.zdulski.finalproject.eventbus.ShowMealsEvent;
+import org.zdulski.finalproject.eventbus.*;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 
@@ -44,9 +41,6 @@ public class MainController implements Initializable {
     protected ImageView menuBtnIcon;
 
     @FXML
-    protected ImageView searchBtnIcon;
-
-    @FXML
     protected void openDrawer() {
         if (menuDrawer.isClosed()){
             menuDrawer.open();
@@ -60,17 +54,13 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        navbarLogo.setImage(new Image(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/images/food-lover-logo.png"));
+        menuBtnIcon.setImage(new Image(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/icons/burger-icon.png"));
+        menuBtnIcon.setFitHeight(42);
+        menuBtnIcon.setFitWidth(42);
         try {
-            //relative path does not work - I do not know exactly why
-            navbarLogo.setImage(new Image(new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/images/food-lover-logo.png")));
-            menuBtnIcon.setImage(new Image(new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/icons/menu-icon.png")));
-            searchBtnIcon.setImage(new Image(new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/icons/search-icon.png")));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            Pane menuDrawerContent = FXMLLoader.load(getClass()
-                    .getResource("/org/zdulski/finalproject/views/side-menu-view.fxml"));
+            Pane menuDrawerContent = FXMLLoader.load(Objects.requireNonNull(getClass()
+                    .getResource("/org/zdulski/finalproject/views/side-menu-view.fxml")));
             menuDrawer.setSidePane(menuDrawerContent);
             menuDrawer.setDefaultDrawerSize(200);
 
@@ -82,8 +72,8 @@ public class MainController implements Initializable {
             e.printStackTrace();
         }
         try {
-            Pane searchDrawerContent = FXMLLoader.load(getClass()
-                    .getResource("/org/zdulski/finalproject/views/search-view.fxml"));
+            Pane searchDrawerContent = FXMLLoader.load(Objects.requireNonNull(getClass()
+                    .getResource("/org/zdulski/finalproject/views/search-view.fxml")));
             searchDrawer.setSidePane(searchDrawerContent);
             searchDrawer.setDefaultDrawerSize(270);
 
@@ -159,4 +149,18 @@ public class MainController implements Initializable {
         });
     }
 
+    @Subscribe
+    public void openDrawer(OpenSearchDrawerEvent event){
+        search();
+    }
+
+    @Subscribe
+    public void goBackToLastView(ReturnEvent event){
+        if (searchDrawer.isOpened())
+            searchDrawer.close();
+        else if (menuDrawer.isOpened())
+            menuDrawer.close();
+        else
+            setLatestPaneAsMain();
+    }
 }

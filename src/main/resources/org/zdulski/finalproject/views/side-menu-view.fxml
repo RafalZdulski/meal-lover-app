@@ -7,35 +7,35 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="640.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zdulski.finalproject.view_controllers.DrawerController">
+<BorderPane id="main" prefHeight="640.0" prefWidth="200.0" stylesheets="@../css/menu-drawer.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zdulski.finalproject.view_controllers.DrawerController">
    <center>
       <VBox fx:id="sideMenu" alignment="TOP_CENTER" minWidth="220.0" prefHeight="438.0" prefWidth="220.0">
          <children>
             <ImageView fx:id="drawerLogo" fitHeight="124.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
-            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onRandomClick" prefHeight="35.0" prefWidth="259.0" text="Random Meal">
+            <Button fx:id="randomBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onRandomClick" prefHeight="35.0" prefWidth="259.0" text="Random Meal">
                <font>
                   <Font size="24.0" />
                </font></Button>
-            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onBrowseClick" prefHeight="35.0" prefWidth="298.0" text="Browse">
+            <Button fx:id="browseBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onBrowseClick" prefHeight="35.0" prefWidth="298.0" text="Browse">
                <font>
                   <Font size="24.0" />
                </font></Button>
-            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onFavouriteClick" prefHeight="35.0" prefWidth="298.0" text="Favourite">
+            <Button fx:id="favouriteBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onFavouriteClick" prefHeight="35.0" prefWidth="298.0" text="Favourite">
                <font>
                   <Font size="24.0" />
                </font></Button>
-            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onLastViewedClick" prefHeight="35.0" prefWidth="298.0" text="Latest Viewed">
+            <Button fx:id="latestBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onLastViewedClick" prefHeight="35.0" prefWidth="298.0" text="Latest Viewed">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onInspirationClick" prefHeight="35.0" prefWidth="298.0" text="Get Inspired">
+            <Button fx:id="getInspiredBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#onInspirationClick" prefHeight="35.0" prefWidth="298.0" text="Get Inspired">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <ImageView fx:id="drawerFiller" fitHeight="210.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="drawerFiller" fitHeight="200.0" fitWidth="220.0" pickOnBounds="true" />
          </children>
          <opaqueInsets>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -43,7 +43,7 @@
       </VBox>
    </center>
    <bottom>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#onExitClick" prefHeight="0.0" prefWidth="220.0" text="EXIT" textAlignment="CENTER" BorderPane.alignment="CENTER">
+      <Button fx:id="exitBtn" alignment="CENTER" mnemonicParsing="false" onAction="#onExitClick" prefHeight="0.0" prefWidth="220.0" text="EXIT" textAlignment="CENTER" BorderPane.alignment="CENTER">
          <font>
             <Font size="24.0" />
          </font></Button>

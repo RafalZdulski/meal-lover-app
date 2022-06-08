@@ -2,6 +2,7 @@ package org.zdulski.finalproject.view_controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.zdulski.finalproject.eventbus.EventBusFactory;
@@ -9,17 +10,33 @@ import org.zdulski.finalproject.eventbus.ShowMealEvent;
 import org.zdulski.finalproject.eventbus.ShowMealsEvent;
 import org.zdulski.finalproject.mealdbAPI.MealGetterImpl;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class DrawerController implements Initializable {
     @FXML
-    ImageView drawerLogo;
+    private ImageView drawerLogo;
 
     @FXML
-    ImageView drawerFiller;
+    private ImageView drawerFiller;
+
+    @FXML
+    private Button randomBtn;
+
+    @FXML
+    private Button browseBtn;
+
+    @FXML
+    private Button favouriteBtn;
+
+    @FXML
+    private Button latestBtn;
+
+    @FXML
+    private Button getInspiredBtn;
+
+    @FXML
+    private Button exitBtn;
 
     @FXML
     public void onRandomClick(){
@@ -59,13 +76,26 @@ public class DrawerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            //relative path does not work - I do not know exactly why
-            //TODO drawerFiller should be filling empty space between drawer options (now its dimensions are calculated by hand)
-            drawerFiller.setImage(new Image(new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/images/drawer-food-filler.jpg")));
-            drawerLogo.setImage(new Image(new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/images/food-lover-red-banner.png")));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        //relative path does not work - I do not know exactly why
+        //TODO drawerFiller should be filling empty space between drawer options (now its dimensions are calculated by hand)
+        drawerFiller.setImage(new Image(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/images/drawer-food-filler.jpg"));
+        drawerLogo.setImage(new Image(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/images/food-lover-red-banner.png"));
+        randomBtn.setGraphic(getMenuDrawerIcon("dice.png"));
+        browseBtn.setGraphic(getMenuDrawerIcon("listing-icon.png"));
+        favouriteBtn.setGraphic(getMenuDrawerIcon("favorite.png"));
+        latestBtn.setGraphic(getMenuDrawerIcon("clock-icon.png"));
+        getInspiredBtn.setGraphic(getMenuDrawerIcon("fork-and-knife-icon.png"));
+        exitBtn.setGraphic(getMenuDrawerIcon("exit.png"));
     }
+
+    private ImageView getMenuDrawerIcon(String name){
+        Image image = new Image(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/icons/" + name);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(28);
+        imageView.setFitHeight(28);
+        imageView.setSmooth(true);
+        imageView.setOpacity(0.80);
+        return imageView;
+    }
+
 }

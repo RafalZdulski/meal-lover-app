@@ -1,0 +1,70 @@
+.button{
+    -fx-background-radius: 20;
+    -fx-background-color: #D0B2A6;
+    -fx-border-width: 2;
+    -fx-border-radius: 20;
+    -fx-border-color: black;
+}
+
+.button:focused {
+    -fx-background-color: #e4dcd9;
+}
+
+#searchBtn{
+    -fx-background-radius: 40;
+    -fx-border-radius: 40;
+}
+
+#pageNavigation{
+    -fx-background-color: #ECE0DB;
+    -fx-border-width: 2 0 0 0;
+}
+
+.list-cell:odd{
+    -fx-background-color: #e2dbd7;
+}
+
+.list-cell:even{
+    -fx-background-color: #ede9e7;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color :transparent;
+    -fx-border-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-border-radius :2.0em;
+}
+
+/*BAR*/
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 10.0 0.0 0.0;
+
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.15em 0.0;
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.0 0.15em;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color : #a68e84;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color : #534742;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
