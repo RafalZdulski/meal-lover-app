@@ -18,7 +18,7 @@
       <Button fx:id="searchBtn" layoutX="275.0" layoutY="450.0" mnemonicParsing="false" onAction="#searchBtnClicked" prefHeight="64.0" prefWidth="64.0" />
       <AnchorPane id="pageNavigation" layoutY="537.0" prefHeight="50.0" prefWidth="362.0" style="-fx-background-color: E8DAC2;">
          <children>
-            <Button fx:id="nextPageBtn" layoutX="262.0" layoutY="7.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="36.0" prefWidth="78.0" style="-fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 20; -fx-background-color: D0B2A6; -fx-background-radius: 20;" />
+            <Button fx:id="nextPageBtn" layoutX="262.0" layoutY="7.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="36.0" prefWidth="78.0" />
             <Button fx:id="previousPageBtn" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#previousPage" prefHeight="36.0" prefWidth="78.0" style="-fx-border-width: 2; -fx-border-color: black;" />
             <HBox layoutX="123.0" layoutY="10.0">
                <children>

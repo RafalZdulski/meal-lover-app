@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import org.zdulski.finalproject.config.PropertyManager;
 import org.zdulski.finalproject.dto.Meal;
 import org.zdulski.finalproject.eventbus.EventBusFactory;
 import org.zdulski.finalproject.eventbus.ReturnEvent;
@@ -25,7 +26,29 @@ import java.util.Set;
 public class SearchController implements Initializable {
 
     private List<FilterWrap> areas;
+
     private List<FilterWrap> categories;
+
+    @FXML
+    private Button addAreaBtn;
+
+    @FXML
+    private Button addCategoryBtn;
+
+    @FXML
+    private Button clearAllBtn;
+
+    @FXML
+    private Button clearAreaBtn;
+
+    @FXML
+    private Button clearCategoryBtn;
+
+    @FXML
+    private Button clearNameBtn;
+
+    @FXML
+    private Button searchBtn;
 
     @FXML
     private TextField nameField;
@@ -108,8 +131,24 @@ public class SearchController implements Initializable {
         filterPillsVBox.getChildren().add(new FilterPillsDisplay(areas));
         filterPillsVBox.getChildren().add(new FilterPillsDisplay(categories));
 
-        ImageView imageView = new ImageView(new Image(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/icons/arrow-return-right.png"));
-        imageView.setFitHeight(24); imageView.setFitWidth(24);
-        returnBtn.setGraphic(imageView);
+        returnBtn.setGraphic(getButtonIcon("arrow-return-right.png"));
+        addAreaBtn.setGraphic(getButtonIcon("add-icon.png"));
+        addCategoryBtn.setGraphic(getButtonIcon("add-icon.png"));
+        clearAllBtn.setGraphic(getButtonIcon("backspace.png"));
+        clearAreaBtn.setGraphic(getButtonIcon("backspace.png"));
+        clearCategoryBtn.setGraphic(getButtonIcon("backspace.png"));
+        clearNameBtn.setGraphic(getButtonIcon("backspace.png"));
+        searchBtn.setGraphic(getButtonIcon("magnifying-glass-icon.png"));
+    }
+
+    private ImageView getButtonIcon(String name){
+        Image image = new Image(System.getProperty("user.dir") + "/"
+                + PropertyManager.getInstance().getProperty("iconsFolder") + "/" + name);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(20);
+        imageView.setFitHeight(20);
+        imageView.setSmooth(true);
+        imageView.setOpacity(0.80);
+        return imageView;
     }
 }

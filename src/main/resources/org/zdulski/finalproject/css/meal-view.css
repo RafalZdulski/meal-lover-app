@@ -6,7 +6,11 @@
     -fx-border-color: black;
 }
 
-.button:focused {
+.button:hover:pressed {
+    -fx-background-color: #80726b;
+}
+
+.button:hover {
     -fx-background-color: #e4dcd9;
 }
 

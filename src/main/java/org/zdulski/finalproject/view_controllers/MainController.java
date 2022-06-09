@@ -151,6 +151,7 @@ public class MainController implements Initializable {
         if (event.getMeals() == null && latestBrowseView != null) {
             this.setCenterView(latestBrowseView);
             menuDrawer.close();
+            setHeader(event.getViewType());
             return;
         }
 

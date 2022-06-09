@@ -11,13 +11,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="270.0" stylesheets="@../css/search-view.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zdulski.finalproject.view_controllers.SearchController">
+<AnchorPane id="main-pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="270.0" stylesheets="@../css/search-view.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zdulski.finalproject.view_controllers.SearchController">
    <children>
       <GridPane layoutX="5.0" layoutY="10.0" prefHeight="32.0" prefWidth="260.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.0" minWidth="10.0" prefWidth="42.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="10.0" prefWidth="158.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="101.0" minWidth="10.0" prefWidth="34.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.0" minWidth="10.0" prefWidth="52.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="10.0" prefWidth="139.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="101.0" minWidth="10.0" prefWidth="66.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -31,18 +31,18 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <TextField fx:id="nameField" prefHeight="38.0" prefWidth="158.0" GridPane.columnIndex="1">
+            <TextField fx:id="nameField" prefHeight="35.0" prefWidth="155.0" GridPane.columnIndex="1">
                <font>
                   <Font size="16.0" />
                </font></TextField>
-            <Button mnemonicParsing="false" onAction="#clearName" text="X" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+            <Button fx:id="clearNameBtn" mnemonicParsing="false" onAction="#clearName" prefWidth="48.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
          </children>
       </GridPane>
-      <GridPane layoutX="4.0" layoutY="49.0" prefWidth="260.0">
+      <GridPane layoutX="4.0" layoutY="49.0" prefHeight="70.0" prefWidth="260.0">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="10.0" prefWidth="60.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="101.0" minWidth="10.0" prefWidth="60.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="128.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="10.0" prefWidth="65.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="101.0" minWidth="10.0" prefWidth="66.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
@@ -57,8 +57,8 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <Button mnemonicParsing="false" onAction="#clearAreas" prefWidth="48.0" text="clear" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-            <Button mnemonicParsing="false" onAction="#addArea" text="add" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Button fx:id="clearAreaBtn" mnemonicParsing="false" onAction="#clearAreas" prefWidth="48.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+            <Button fx:id="addAreaBtn" mnemonicParsing="false" onAction="#addArea" prefWidth="48.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="categories:" wrappingWidth="110.3515625" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" />
@@ -67,13 +67,19 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <Button mnemonicParsing="false" onAction="#clearCategories" text="clear" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" onAction="#addCategory" text="add" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Button fx:id="clearCategoryBtn" mnemonicParsing="false" onAction="#clearCategories" prefWidth="48.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Button fx:id="addCategoryBtn" mnemonicParsing="false" onAction="#addCategory" prefWidth="48.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <VBox fx:id="filterPillsVBox" layoutX="2.0" layoutY="122.0" prefHeight="395.0" prefWidth="270.0" spacing="5.0" />
-      <Button layoutX="110.0" layoutY="533.0" mnemonicParsing="false" onAction="#searchBtnClicked" prefHeight="32.0" prefWidth="80.0" text="Search" />
-      <Button layoutX="14.0" layoutY="533.0" mnemonicParsing="false" onAction="#clearAll" prefHeight="32.0" prefWidth="80.0" text="Clear All" />
+      <Button fx:id="searchBtn" layoutX="101.0" layoutY="533.0" mnemonicParsing="false" onAction="#searchBtnClicked" prefHeight="32.0" prefWidth="94.0" text="Search">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button fx:id="clearAllBtn" layoutX="14.0" layoutY="533.0" mnemonicParsing="false" onAction="#clearAll" prefHeight="32.0" prefWidth="80.0" text="ALL">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
       <Button fx:id="returnBtn" cancelButton="true" layoutX="204.0" layoutY="533.0" mnemonicParsing="false" onAction="#returnBtnClicked" prefHeight="32.0" prefWidth="52.0" />
    </children>
 </AnchorPane>
