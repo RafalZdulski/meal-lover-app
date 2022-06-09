@@ -77,14 +77,16 @@ public class SearchController implements Initializable {
         String[] categoryFilters = categories.stream().filter(FilterWrap::getCheckValue).map(FilterWrap::toString).toArray(String[]::new);
 
         //get all meals when filtered by empty filters
-        if (wordsFilters.length + areasFilter.length + categoryFilters.length < 1)
-            EventBusFactory.getEventBus().post(new ShowMealsEvent(new MealGetterImpl().getAllMeals()));
+        if (wordsFilters.length + areasFilter.length + categoryFilters.length < 1) {
+            List<Meal> meals = new MealGetterImpl().getAllMeals();
+            EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.BROWSE));
+        }
 
         Set<String> ids = new SearchEngineImpl().getIDs(wordsFilters, areasFilter, categoryFilters);
         if (!ids.isEmpty()) {
             List<Meal> meals = new MealGetterImpl().getMealsByIds(ids);
             System.out.println(meals.size());
-            EventBusFactory.getEventBus().post(new ShowMealsEvent(meals));
+            EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.BROWSE));
         } else {
             //TODO ADD popup message saying there is nothing to show;
             System.err.println("nothing found");

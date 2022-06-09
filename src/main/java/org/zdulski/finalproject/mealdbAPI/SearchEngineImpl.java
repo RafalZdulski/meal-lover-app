@@ -4,6 +4,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.zdulski.finalproject.config.PropertyManager;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,19 +19,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class SearchEngineImpl implements SearchEngine{
-    //TODO RETHINK shouldn't this stored differently, more safely?
-    private final String rapidApiHost = "themealdb.p.rapidapi.com";
-    private final String rapidApiKey = "826b487458msh6a6a565581ebf5bp1334dajsn530065f6de6d";
-
-    private final String randomURL = "https://themealdb.p.rapidapi.com/random.php";
-    private final String searchURL = "https://themealdb.p.rapidapi.com/search.php";
-    private final String listURL = "https://themealdb.p.rapidapi.com/list.php";
-    private String filterURL = "https://themealdb.p.rapidapi.com/filter.php";
 
     private URLConnection newConnection(String url) throws IOException {
         URLConnection connection = new URL(url).openConnection();
-        connection.setRequestProperty("X-RapidAPI-Host", rapidApiHost);
-        connection.setRequestProperty("X-RapidAPI-Key", rapidApiKey);
+        connection.setRequestProperty("X-RapidAPI-Host", PropertyManager.getInstance().getProperty("RapidApiHost"));
+        connection.setRequestProperty("X-RapidAPI-Key", PropertyManager.getInstance().getProperty("RapidApiKey"));
         return connection;
     }
 
@@ -71,7 +64,8 @@ public class SearchEngineImpl implements SearchEngine{
     public Set<String> getIDsByCategory(String... categories){
         Set<String> ids = new HashSet<>();
         for (var category : categories){
-            ids.addAll(getIds(filterURL+"?c="+category));
+            String url = PropertyManager.getInstance().getProperty("filterURL")+"?c="+category;
+            ids.addAll(getIds(url));
         }
         return ids;
     }
@@ -79,7 +73,8 @@ public class SearchEngineImpl implements SearchEngine{
     public Set<String> getIDsByArea(String... areas){
         Set<String> ids = new HashSet<>();
         for (var area : areas){
-            ids.addAll(getIds(filterURL+"?a="+area));
+            String url = PropertyManager.getInstance().getProperty("filterURL")+"?a="+area;
+            ids.addAll(getIds(url));
         }
         return ids;
     }
@@ -87,7 +82,8 @@ public class SearchEngineImpl implements SearchEngine{
     public Set<String> getIDsByName(String... words){
         Set<String> ids = new HashSet<>();
         for (var name : words){
-            ids.addAll(getIds(searchURL+"?s="+name));
+            String url = PropertyManager.getInstance().getProperty("searchURL")+"?s="+name;
+            ids.addAll(getIds(url));
         }
         return ids;
     }

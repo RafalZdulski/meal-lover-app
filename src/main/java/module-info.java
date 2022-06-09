@@ -5,6 +5,7 @@ module org.zdulski.finalproject {
     requires json.simple;
     requires lombok;
     requires com.google.common;
+    requires java.desktop;
 
 
     opens org.zdulski.finalproject to javafx.fxml;

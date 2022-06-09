@@ -1,14 +1,13 @@
 package org.zdulski.finalproject.view_controllers;
 
-import com.google.common.eventbus.Subscribe;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import org.zdulski.finalproject.config.PropertyManager;
 import org.zdulski.finalproject.dto.Meal;
 import org.zdulski.finalproject.eventbus.EventBusFactory;
 import org.zdulski.finalproject.eventbus.OpenSearchDrawerEvent;
@@ -22,7 +21,7 @@ import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 
 //TODO IMPORTANT make i parallel, cuz now it operates on main thread
-public class BrowseController implements Initializable {
+public class BrowseController implements MealsController {
     private List<Meal> meals = new ArrayList<>();
     private final int numberOfMealsDisplayed = 16;
     private int page = 0;
@@ -49,9 +48,9 @@ public class BrowseController implements Initializable {
     private Button previousPageBtn;
 
     public BrowseController(){
-        EventBusFactory.getEventBus().register(this);
     }
 
+    @Deprecated
     public void setAllMeals() {
         //TODO there is 282 dishes in database, shouldn't it be fetched in parts? I do not need to fetch all 282 dishes at once
         //maybe it would be better to fetch only ids and fully fetch only those meals that are displayed on current page
@@ -69,7 +68,6 @@ public class BrowseController implements Initializable {
         });
     }
 
-    @Subscribe
     public void setMeals(List<Meal> meals){
         new Thread(() -> {
             this.meals = meals;
@@ -79,9 +77,20 @@ public class BrowseController implements Initializable {
         }).start();
     }
 
-    private void update(){
+    @Override
+    public void onEntering() {
+
+    }
+
+    @Override
+    public void update(){
         showMeals();
         showPages();
+    }
+
+    @Override
+    public void onLeaving() {
+
     }
 
     private void showPages() {
@@ -102,14 +111,20 @@ public class BrowseController implements Initializable {
 
     @FXML
     public void nextPage(){
+        int previousPage = page;
         page = Math.min(page+1,meals.size()/numberOfMealsDisplayed);
+        if (previousPage == page)
+            return;
         mealsListView.scrollTo(0);
         update();
     }
 
     @FXML
     public void previousPage(){
+        int previousPage = page;
         page = Math.max(page-1,0);
+        if (previousPage == page)
+            return;
         mealsListView.scrollTo(0);
         update();
     }
@@ -122,20 +137,19 @@ public class BrowseController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        String iconsFolder = System.getProperty("user.dir") + "/" +
+                PropertyManager.getInstance().getProperty("iconsFolder") + "/" ;
         ImageView imageView;
 
-        imageView = new ImageView(System.getProperty("user.dir") +
-                "/src/main/resources/org/zdulski/finalproject/icons/magnifying-glass-icon.png");
+        imageView = new ImageView(iconsFolder + "magnifying-glass-icon.png");
         imageView.setFitWidth(32); imageView.setFitHeight(32);
         searchBtn.setGraphic(imageView);
 
-        imageView = new ImageView(System.getProperty("user.dir") +
-                "/src/main/resources/org/zdulski/finalproject/icons/next-page-icon.png");
+        imageView = new ImageView(iconsFolder + "next-page-icon.png");
         imageView.setFitWidth(24); imageView.setFitHeight(24);
         nextPageBtn.setGraphic(imageView);
 
-        imageView = new ImageView(System.getProperty("user.dir") +
-                "/src/main/resources/org/zdulski/finalproject/icons/previous-page-icon.png");
+        imageView = new ImageView(iconsFolder + "previous-page-icon.png");
         imageView.setFitWidth(24); imageView.setFitHeight(24);
         previousPageBtn.setGraphic(imageView);
     }

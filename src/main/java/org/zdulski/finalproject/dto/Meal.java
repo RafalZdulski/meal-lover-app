@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Meal {
+    @Getter
     private String id;
     @Getter
     private String name;

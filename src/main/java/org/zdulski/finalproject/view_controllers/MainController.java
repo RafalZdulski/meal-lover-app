@@ -21,7 +21,6 @@ import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 
 public class MainController implements Initializable {
-    //TODO add magnifying glass icon next to burger and add search by area, category, (name?) functionality
 
     @FXML
     protected BorderPane mainPane;
@@ -111,6 +110,7 @@ public class MainController implements Initializable {
 
     @Subscribe
     public void showMeal(ShowMealEvent event){
+        System.out.println("showing meal: " + event.getMeal().getName());
         CompletableFuture<FXMLLoader> future = CompletableFuture.supplyAsync(
                 () -> new FXMLLoader(getClass().getResource(View.MEAL.getUrl()))
         ).thenApply(loader -> {
@@ -131,8 +131,10 @@ public class MainController implements Initializable {
 
     @Subscribe
     public void showMeals(ShowMealsEvent event){
+        String url = event.getViewType().getUrl();
+        System.out.println(url);
         CompletableFuture<FXMLLoader> future = CompletableFuture.supplyAsync(
-                () -> new FXMLLoader(getClass().getResource(View.BROWSE.getUrl()))
+                () -> new FXMLLoader(getClass().getResource(url))
         ).thenApply(loader -> {
             try {
                 Pane pane = loader.load();
@@ -140,7 +142,7 @@ public class MainController implements Initializable {
                     this.setCenterView(pane);
                 });
                 menuDrawer.close();
-                BrowseController controller = loader.getController();
+                MealsController controller = loader.getController();
                 controller.setMeals(event.getMeals());
             } catch (IOException e) {
                 e.printStackTrace();

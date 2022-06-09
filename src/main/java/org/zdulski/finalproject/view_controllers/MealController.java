@@ -2,7 +2,6 @@ package org.zdulski.finalproject.view_controllers;
 
 import com.google.common.eventbus.Subscribe;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -13,18 +12,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import org.zdulski.finalproject.config.PropertyManager;
 import org.zdulski.finalproject.dto.Meal;
+import org.zdulski.finalproject.dto.UserProxy;
+import org.zdulski.finalproject.eventbus.AddToFavouriteEvent;
 import org.zdulski.finalproject.eventbus.EventBusFactory;
 import org.zdulski.finalproject.eventbus.ReturnEvent;
+import org.zdulski.finalproject.eventbus.ShowMealEvent;
 import org.zdulski.finalproject.mealdbAPI.MealGetterImpl;
 
 import java.net.URL;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 
-public class MealController implements Initializable {
+public class MealController implements ViewController {
     //TODO differ between random meal and searched meal
-    //TODO add go back button for searched meal
 
     protected Meal meal;
 
@@ -68,10 +69,16 @@ public class MealController implements Initializable {
     @FXML
     private ImageView returnIcon;
 
+    private String iconsFolder = System.getProperty("user.dir") + "/" +
+            PropertyManager.getInstance().getProperty("iconsFolder") + "/" ;
+
     @FXML
     public void addToFavourite(){
-        //TODO implement adding to favourites
-        System.out.println("add to favourite clicked");
+        EventBusFactory.getEventBus().post(new AddToFavouriteEvent(meal));
+        if (UserProxy.getInstance().isFavourite(meal.getId()))
+            favouriteIcon.setImage(new Image( iconsFolder + "favorite.png"));
+        else
+            favouriteIcon.setImage(new Image( iconsFolder + "favorite-outline.png"));
     }
 
     public MealController(){
@@ -80,21 +87,15 @@ public class MealController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        favouriteIcon.setImage(new Image(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/icons/favorite-outline.png"));
-        nextArrowIcon.setImage(new Image(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/icons/arrow-right.png"));
-        returnIcon.setImage(new Image(System.getProperty("user.dir") + "/src/main/resources/org/zdulski/finalproject/icons/arrow-return.png"));
+        favouriteIcon.setImage(new Image( iconsFolder + "favorite-outline.png"));
+        nextArrowIcon.setImage(new Image(iconsFolder + "arrow-right.png"));
+        returnIcon.setImage(new Image(iconsFolder + "arrow-return.png"));
     }
 
     @FXML
     public void getRandomMeal() {
-        CompletableFuture<Meal> future = CompletableFuture.supplyAsync(() -> {
-            //TODO add loading animation - custom component?
-            return new MealGetterImpl().getRandomMeal();
-        }).thenApply(result -> {
-            meal = result;
-            showMeal();
-            return result;
-        });
+        Meal meal = new MealGetterImpl().getRandomMeal();
+        EventBusFactory.getEventBus().post(new ShowMealEvent(meal));
     }
 
     @FXML
@@ -117,6 +118,10 @@ public class MealController implements Initializable {
         thumbnailRect.setFill(new ImagePattern(new Image(meal.getThumbnail())));
         setIngredientsTableView(meal.getIngredients());
         executionText.setText(meal.getInstructions());
+
+        if (UserProxy.getInstance().isFavourite(meal.getId())){
+            favouriteIcon.setImage(new Image( iconsFolder + "favorite.png"));
+        }
     }
 
     private void setIngredientsTableView(Map<String, String> ingredients){
@@ -137,7 +142,21 @@ public class MealController implements Initializable {
     @Subscribe
     public void setMeal(Meal meal) {
         this.meal = meal;
-        System.out.println(meal);
         showMeal();
+    }
+
+    @Override
+    public void onEntering() {
+
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void onLeaving() {
+
     }
 }

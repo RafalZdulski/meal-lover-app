@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="586.0" prefWidth="360.0" stylesheets="@../css/browse-view.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zdulski.finalproject.view_controllers.LatestController">
+   <children>
+      <ScrollPane hbarPolicy="NEVER" prefWidth="362.0" vvalue="0.03">
+         <content>
+            <ListView fx:id="mealsListView" prefHeight="585.0" prefWidth="360.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

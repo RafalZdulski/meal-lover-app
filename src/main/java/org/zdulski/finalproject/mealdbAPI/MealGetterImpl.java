@@ -4,6 +4,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.zdulski.finalproject.config.PropertyManager;
 import org.zdulski.finalproject.dto.Meal;
 
 import java.io.IOException;
@@ -18,20 +19,11 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 public class MealGetterImpl implements MealGetter{
-    //TODO RETHINK shouldn't this stored differently, more safely?
-    private final String rapidApiHost = "themealdb.p.rapidapi.com";
-    private final String rapidApiKey = "826b487458msh6a6a565581ebf5bp1334dajsn530065f6de6d";
-
-    private final String randomURL = "https://themealdb.p.rapidapi.com/random.php";
-    private final String searchURL = "https://themealdb.p.rapidapi.com/search.php";
-    private final String listURL = "https://themealdb.p.rapidapi.com/list.php";
-    private final String filterURL = "https://themealdb.p.rapidapi.com/filter.php";
-    private final String lookupURL = "https://themealdb.p.rapidapi.com/lookup.php";
 
     private URLConnection newConnection(String url) throws IOException {
         URLConnection connection = new URL(url).openConnection();
-        connection.setRequestProperty("X-RapidAPI-Host", rapidApiHost);
-        connection.setRequestProperty("X-RapidAPI-Key", rapidApiKey);
+        connection.setRequestProperty("X-RapidAPI-Host", PropertyManager.getInstance().getProperty("RapidApiHost"));
+        connection.setRequestProperty("X-RapidAPI-Key", PropertyManager.getInstance().getProperty("RapidApiKey"));
         return connection;
     }
 
@@ -43,12 +35,13 @@ public class MealGetterImpl implements MealGetter{
     }
 
     public Meal getMealById(String id){
-        String url = lookupURL+"?i="+id;
+        String url = PropertyManager.getInstance().getProperty("lookupURL")+"?i="+id;
         return getMeals(url).get(0);
     }
 
     public Meal getRandomMeal(){
-        return getMeals(randomURL).get(0);
+        String url = PropertyManager.getInstance().getProperty("randomURL");
+        return getMeals(url).get(0);
     }
 
     public List<Meal> getAllMeals(){
@@ -70,14 +63,15 @@ public class MealGetterImpl implements MealGetter{
     }
 
     public List<Meal> getMealsByFirstLetter(char letter){
-        String url = searchURL+"?f="+letter;
+        String url = PropertyManager.getInstance().getProperty("searchURL")+"?f="+letter;
         return getMeals(url);
     }
 
     public List<String> getCategories(){
         List<String> ret = new ArrayList<>();
         try {
-            InputStream is = newConnection(listURL+"?c=list").getInputStream();
+            String url = PropertyManager.getInstance().getProperty("listURL")+"?c=list";
+            InputStream is = newConnection(url).getInputStream();
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(is, StandardCharsets.UTF_8));
             JSONArray jsonArray = (JSONArray) jsonObject.get("meals");
@@ -97,7 +91,8 @@ public class MealGetterImpl implements MealGetter{
     public List<String> getAreas(){
         List<String> ret = new ArrayList<>();
         try {
-            InputStream is = newConnection(listURL+"?a=list").getInputStream();
+            String url = PropertyManager.getInstance().getProperty("listURL")+"?a=list";
+            InputStream is = newConnection(url).getInputStream();
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(is, StandardCharsets.UTF_8));
             JSONArray jsonArray = (JSONArray) jsonObject.get("meals");
