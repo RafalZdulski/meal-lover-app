@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.VBox;
 import org.zdulski.finalproject.dto.Meal;
 import org.zdulski.finalproject.view_auxs.MealCellFactory;
 
@@ -18,13 +19,21 @@ public class FavouriteController implements MealsController {
     @FXML
     private ListView<Meal> mealsListView;
 
+    @FXML
+    private VBox emptyInfoBox;
+
     public FavouriteController(){
     }
 
     public void setMeals(List<Meal> meals){
+        if (meals.isEmpty()){
+            emptyInfoBox.setVisible(true);
+        }else {
+            emptyInfoBox.setVisible(false);
             this.meals = meals;
-            this.meals.sort((a,b) -> a.getName().compareToIgnoreCase(b.getName()));
+            this.meals.sort((a, b) -> a.getName().compareToIgnoreCase(b.getName()));
             update();
+        }
     }
 
     @Override

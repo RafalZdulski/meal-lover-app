@@ -23,7 +23,7 @@
    <children>
       <HBox id="nameBox" alignment="CENTER" maxHeight="80.0" minHeight="40.0">
          <children>
-            <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" text="#NAME#" textAlignment="CENTER" wrappingWidth="274.0">
+            <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" text="#NAME#" textAlignment="CENTER" wrappingWidth="357.0">
                <font>
                   <Font name="Arial Narrow Bold" size="20.0" />
                </font>

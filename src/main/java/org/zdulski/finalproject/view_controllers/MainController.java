@@ -12,10 +12,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import org.zdulski.finalproject.eventbus.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
@@ -25,7 +30,9 @@ public class MainController implements Initializable {
     @FXML
     protected BorderPane mainPane;
 
-    private Node latestPane;
+    private List<Node> recentlyViewedPanes;
+
+    private Pane latestBrowseView;
 
     @FXML
     protected JFXDrawer menuDrawer;
@@ -40,6 +47,9 @@ public class MainController implements Initializable {
     protected ImageView menuBtnIcon;
 
     @FXML
+    protected Text header;
+
+    @FXML
     protected void openDrawer() {
         if (menuDrawer.isClosed()){
             menuDrawer.open();
@@ -48,6 +58,7 @@ public class MainController implements Initializable {
     }
 
     public MainController(){
+        this.recentlyViewedPanes = new LinkedList<>();
         EventBusFactory.getEventBus().register(this);
     }
 
@@ -94,12 +105,15 @@ public class MainController implements Initializable {
     }
 
     public void setCenterView(Pane pane) {
-        latestPane = mainPane.getCenter();
+        recentlyViewedPanes.add(mainPane.getCenter());
         mainPane.setCenter(pane);
     }
 
-    public void setLatestPaneAsMain(){
-        mainPane.setCenter(latestPane);
+    public void goToPreviousView(){
+        if (recentlyViewedPanes.size() < 2)
+            return;
+        mainPane.setCenter(recentlyViewedPanes.get(recentlyViewedPanes.size()-1));
+        recentlyViewedPanes.remove(recentlyViewedPanes.size()-1);
     }
 
     @Subscribe
@@ -126,18 +140,28 @@ public class MainController implements Initializable {
                 e.printStackTrace();
             }
             return loader;
+        }).thenApply(loader -> {
+            setHeader(View.MEAL);
+            return loader;
         });
     }
 
     @Subscribe
     public void showMeals(ShowMealsEvent event){
+        if (event.getMeals() == null && latestBrowseView != null) {
+            this.setCenterView(latestBrowseView);
+            menuDrawer.close();
+            return;
+        }
+
         String url = event.getViewType().getUrl();
-        System.out.println(url);
         CompletableFuture<FXMLLoader> future = CompletableFuture.supplyAsync(
                 () -> new FXMLLoader(getClass().getResource(url))
         ).thenApply(loader -> {
             try {
                 Pane pane = loader.load();
+                if (event.getViewType() == View.BROWSE)
+                    latestBrowseView = pane;
                 Platform.runLater(() -> {
                     this.setCenterView(pane);
                 });
@@ -147,6 +171,9 @@ public class MainController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return loader;
+        }).thenApply(loader -> {
+            setHeader(event.getViewType());
             return loader;
         });
     }
@@ -163,6 +190,27 @@ public class MainController implements Initializable {
         else if (menuDrawer.isOpened())
             menuDrawer.close();
         else
-            setLatestPaneAsMain();
+            goToPreviousView();
+    }
+
+    private void setHeader(View view){
+        String str;
+        int size = 30;
+        switch (view){
+            case BROWSE:
+                str = "Today's Craving For?";
+                break;
+            case LATEST:
+                str = "Recently Viewed";
+                break;
+            case FAVOURITE:
+                str = "Your Favourites";
+                break;
+            default:
+                str = "Food Lover";
+                size = 36;
+        }
+        header.setText(str);
+        header.setFont(Font.font("Pristina", FontWeight.BOLD, size));
     }
 }

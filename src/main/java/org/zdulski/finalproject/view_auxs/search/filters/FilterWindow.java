@@ -31,6 +31,8 @@ public class FilterWindow extends Stage {
         borderPane.setCenter(getList());
         borderPane.setBottom(getButtons());
         Scene dialogScene = new Scene(borderPane, WIDTH, HEIGHT);
+        String css = this.getClass().getResource("/org/zdulski/finalproject/css/filter-window.css").toExternalForm();
+        dialogScene.getStylesheets().add(css);
 
         this.setScene(dialogScene);
         this.setAlwaysOnTop(true);

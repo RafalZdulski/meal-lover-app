@@ -14,9 +14,9 @@
             <AnchorPane id="navigationBar" prefHeight="54.0" stylesheets="@../css/main-view.css" BorderPane.alignment="CENTER_LEFT">
                <children>
                   <ImageView fx:id="navbarLogo" fitHeight="48.0" fitWidth="48.0" layoutX="10.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
-                  <Text layoutX="65.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Lover" wrappingWidth="125.13671875">
+                  <Text fx:id="header" layoutX="65.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Lover" wrappingWidth="230.0">
                      <font>
-                        <Font name="System Bold Italic" size="24.0" />
+                        <Font name="Pristina" size="36.0" />
                      </font>
                   </Text>
                </children>

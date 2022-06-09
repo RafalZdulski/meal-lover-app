@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.VBox;
 import org.zdulski.finalproject.dto.Meal;
 import org.zdulski.finalproject.view_auxs.MealCellFactory;
 
@@ -18,14 +19,20 @@ public class LatestController implements MealsController {
     @FXML
     private ListView<Meal> mealsListView;
 
+    @FXML
+    private VBox emptyInfoBox;
+
     public LatestController(){
     }
 
     public void setMeals(List<Meal> meals){
-        new Thread(() -> {
+        if (meals.isEmpty()){
+            emptyInfoBox.setVisible(true);
+        }else {
+            emptyInfoBox.setVisible(false);
             this.meals = meals;
             update();
-        }).start();
+        }
     }
 
     @Override

@@ -32,7 +32,6 @@ public class FilterPillsDisplay extends FlowPane {
         pill.getChildren().add(text);
 
         Button btn = new Button("X");
-        btn.setStyle("-fx-background-radius: 30px");
         btn.setMaxSize(24,24);
         btn.setOnAction(e -> filter.setCheck(false));
         pill.getChildren().add(btn);

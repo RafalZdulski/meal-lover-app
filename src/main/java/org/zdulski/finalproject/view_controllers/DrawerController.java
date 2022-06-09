@@ -49,11 +49,10 @@ public class DrawerController implements Initializable {
         EventBusFactory.getEventBus().post(new ShowMealEvent(meal));
     }
 
-
     @FXML
     public void onBrowseClick(){
-        List<Meal> meals = new MealGetterImpl().getAllMeals();
-        EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.BROWSE));
+        //List<Meal> meals = new MealGetterImpl().getAllMeals();
+        EventBusFactory.getEventBus().post(new ShowMealsEvent(null, View.BROWSE));
     }
 
     @FXML
@@ -65,7 +64,7 @@ public class DrawerController implements Initializable {
 
     @FXML
     public void onLastViewedClick(){
-        Set<String> ids = UserProxy.getInstance().getLatest();
+        List<String> ids = UserProxy.getInstance().getLatest();
         List<Meal> meals = new MealGetterImpl().getMealsByIds(ids);
         EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.LATEST));
     }
@@ -79,7 +78,6 @@ public class DrawerController implements Initializable {
     public void onExitClick(){
        System.exit(0);
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

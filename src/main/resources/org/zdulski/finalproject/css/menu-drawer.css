@@ -4,7 +4,7 @@
 }
 
 .button{
-    -fx-background-radius: 10;
+    -fx-background-radius: 10 10 10 10;
     -fx-background-color: #D0B2A6;
     -fx-border-width: 2 1 0 1;
     -fx-border-radius: 10 10 0 0;

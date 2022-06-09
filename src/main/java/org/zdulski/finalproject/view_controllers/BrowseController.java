@@ -48,9 +48,9 @@ public class BrowseController implements MealsController {
     private Button previousPageBtn;
 
     public BrowseController(){
+
     }
 
-    @Deprecated
     public void setAllMeals() {
         //TODO there is 282 dishes in database, shouldn't it be fetched in parts? I do not need to fetch all 282 dishes at once
         //maybe it would be better to fetch only ids and fully fetch only those meals that are displayed on current page
@@ -69,12 +69,21 @@ public class BrowseController implements MealsController {
     }
 
     public void setMeals(List<Meal> meals){
-        new Thread(() -> {
-            this.meals = meals;
-            int pages = (int) Math.ceil(this.meals.size() / (double) numberOfMealsDisplayed);
-            lastPage.setText(String.valueOf(pages));
-            update();
-        }).start();
+        if (meals != null) {
+            //new Thread(() -> {
+                this.meals = meals;
+                int pages = (int) Math.ceil(this.meals.size() / (double) numberOfMealsDisplayed);
+                lastPage.setText(String.valueOf(pages));
+                update();
+           // }).start();
+        }else if (this.meals.isEmpty()){
+            //new Thread(() ->{
+                setAllMeals();
+                int pages = (int) Math.ceil(this.meals.size() / (double) numberOfMealsDisplayed);
+                lastPage.setText(String.valueOf(pages));
+                update();
+           // }).start();
+        }
     }
 
     @Override

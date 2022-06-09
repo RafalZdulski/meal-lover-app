@@ -87,6 +87,7 @@ public class SearchController implements Initializable {
             List<Meal> meals = new MealGetterImpl().getMealsByIds(ids);
             System.out.println(meals.size());
             EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.BROWSE));
+            EventBusFactory.getEventBus().post(new ReturnEvent()); //hiding
         } else {
             //TODO ADD popup message saying there is nothing to show;
             System.err.println("nothing found");

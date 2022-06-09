@@ -1,31 +1,35 @@
 .button{
-    -fx-background-radius: 20;
+    -fx-background-radius: 10 10 0 0;
     -fx-background-color: #D0B2A6;
-    -fx-border-width: 2;
-    -fx-border-radius: 20;
+    -fx-border-width: 2 1 0 1;
+    -fx-border-radius: 10 10 0 0;
     -fx-border-color: black;
+    -fx-font-size: 18;
 }
 
 .button:focused {
     -fx-background-color: #e4dcd9;
 }
 
-#searchBtn{
-    -fx-background-radius: 40;
-    -fx-border-radius: 40;
+/* CHECKBOX */
+
+.check-box {
+    -fx-font-size: 20;
 }
 
-#pageNavigation{
-    -fx-background-color: #ECE0DB;
-    -fx-border-width: 2 0 0 0;
+.check-box .box {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: black;
+    -fx-border-radius: 10;
 }
 
-.list-cell:odd{
-    -fx-background-color: #e2dbd7;
+.check-box:selected .mark {
+    -fx-background-color: black;
 }
 
-.list-cell:even{
-    -fx-background-color: #ede9e7;
+.check-box:selected .box {
+    -fx-background-color: #D0B2A6;
 }
 
 /* SCROLL BAR */
@@ -68,7 +72,29 @@
     -fx-background-radius : 2.0em;
 }
 
+/* LISTVIEW */
+.list-cell:odd{
+    -fx-background-color: #e2dbd7;
+}
+
+.list-cell:even {
+    -fx-background-color: #ede9e7;
+}
+
+.list-cell:selected {
+    -fx-background-color: #534742;
+}
+
 /* eliminating blue outline of selected list view */
 .list-view:focused{
     -fx-background-color: #ede9e7;
 }
+
+/* eliminating blue outline of selected button */
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-width: 0;
+}
+
+
+
+

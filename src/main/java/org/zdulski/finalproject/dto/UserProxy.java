@@ -5,7 +5,8 @@ import org.zdulski.finalproject.eventbus.AddToFavouriteEvent;
 import org.zdulski.finalproject.eventbus.EventBusFactory;
 import org.zdulski.finalproject.eventbus.ShowMealEvent;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class UserProxy {
@@ -14,11 +15,11 @@ public class UserProxy {
 
     private User user;
 
-    private Set<String> latestMeals;
+    private List<String> latestMeals;
 
     private UserProxy(){
         EventBusFactory.getEventBus().register(this);
-        latestMeals = new HashSet<>();
+        latestMeals = new ArrayList<>();
     }
 
     public boolean isFavourite(Meal meal){
@@ -31,7 +32,7 @@ public class UserProxy {
 
     public void setUser(User user) {
         this.user = user;
-        latestMeals = new HashSet<>();
+        latestMeals = new ArrayList<>();
     }
 
     @Subscribe
@@ -48,19 +49,19 @@ public class UserProxy {
     @Subscribe
     public void addToLatest(ShowMealEvent event){
         System.out.println("meal: " + event.getMeal().getName() + " added to latest of user: " + user.getUsername());
-        addToLatest(event.getMeal().getId());
+        this.addToLatest(event.getMeal().getId());
     }
 
-    //TODO beautify it
     private void addToLatest(String id){
-        latestMeals.add(id);
+        latestMeals.remove(id);
+        latestMeals.add(0, id);
     }
 
     public Set<String> getFavourites() {
         return user.getFavouriteMeals();
     }
 
-    public Set<String> getLatest() {
+    public List<String> getLatest() {
         return latestMeals;
     }
 }
