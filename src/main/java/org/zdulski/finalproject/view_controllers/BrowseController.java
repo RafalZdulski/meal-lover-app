@@ -54,36 +54,32 @@ public class BrowseController implements MealsController {
     public void setAllMeals() {
         //TODO there is 282 dishes in database, shouldn't it be fetched in parts? I do not need to fetch all 282 dishes at once
         //maybe it would be better to fetch only ids and fully fetch only those meals that are displayed on current page
-        CompletableFuture<List<Meal>> allMeals = CompletableFuture.supplyAsync(() -> {
+        CompletableFuture<Void> allMeals = CompletableFuture.runAsync(() -> {
             meals = new MealGetterImpl().getAllMeals();
-            return meals;
-        }).thenApply( meals1 -> {
-            firstPage.setText("1");
+        }).thenRun( () -> {
             int pages = (int) Math.ceil(meals.size()/ (double) numberOfMealsDisplayed);
             lastPage.setText(String.valueOf(pages));
-            return meals1;
-        }).thenApply(meals1 -> {
+        }).thenRun(() -> {
             update();
-            return meals1;
         });
     }
 
     public void setMeals(List<Meal> meals){
-        if (meals != null) {
-            //new Thread(() -> {
+        CompletableFuture<Void> allMeals = CompletableFuture.runAsync(() -> {
+            if (meals != null) {
                 this.meals = meals;
                 int pages = (int) Math.ceil(this.meals.size() / (double) numberOfMealsDisplayed);
                 lastPage.setText(String.valueOf(pages));
                 update();
-           // }).start();
-        }else if (this.meals.isEmpty()){
-            //new Thread(() ->{
+            }
+        }).thenRun(() -> {
+            if (this.meals.isEmpty()){
                 setAllMeals();
                 int pages = (int) Math.ceil(this.meals.size() / (double) numberOfMealsDisplayed);
                 lastPage.setText(String.valueOf(pages));
                 update();
-           // }).start();
-        }
+            }
+        });
     }
 
     @Override
@@ -103,27 +99,27 @@ public class BrowseController implements MealsController {
     }
 
     private void showPages() {
-        //TODO beautify it, and make it that you can go to specified page by clicking on it
-        //int pages = (int) Math.ceil(meals.size()/ (double) numberOfMealsDisplayed);
         actualPage.setText(String.valueOf(page+1));
     }
 
     public void showMeals(){
-        //TODO IMPORTANT OPTIMIZATION refactor it so it would only load dishes only from actual page not all
-        int from = page * numberOfMealsDisplayed;
-        int to = Math.min(from + numberOfMealsDisplayed, meals.size());
-        ObservableList<Meal> mealDisplayed = FXCollections.observableList(meals.subList(from,to));
-        mealsListView.setItems(FXCollections.observableList(mealDisplayed));
-        mealsListView.setCellFactory(new MealCellFactory());
+        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+            int from = page * numberOfMealsDisplayed;
+            int to = Math.min(from + numberOfMealsDisplayed, meals.size());
+            ObservableList<Meal> mealDisplayed = FXCollections.observableList(meals.subList(from, to));
+            mealsListView.setItems(FXCollections.observableList(mealDisplayed));
+            //mealsListView.setCellFactory(new MealCellFactory());
+        });
     }
 
 
     @FXML
     public void nextPage(){
-        int previousPage = page;
-        page = Math.min(page+1,meals.size()/numberOfMealsDisplayed);
-        if (previousPage == page)
+        page = Math.min(page+1, meals.size()/numberOfMealsDisplayed);
+        if (page*numberOfMealsDisplayed >= meals.size()){
+            page--;
             return;
+        }
         mealsListView.scrollTo(0);
         update();
     }
@@ -146,6 +142,8 @@ public class BrowseController implements MealsController {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        mealsListView.setCellFactory(new MealCellFactory());
+
         String iconsFolder = System.getProperty("user.dir") + "/" +
                 PropertyManager.getInstance().getProperty("iconsFolder") + "/" ;
         ImageView imageView;

@@ -25,6 +25,6 @@
       </BorderPane>
       <JFXDrawer fx:id="searchDrawer" direction="RIGHT" layoutY="54.0" prefHeight="586.0" prefWidth="360.0" />
       <JFXDrawer fx:id="menuDrawer" prefHeight="640.0" prefWidth="360.0" translateZ="2.0" />
-      <ImageView fx:id="menuBtnIcon" fitHeight="48.0" fitWidth="48.0" layoutX="305.0" layoutY="5.0" onMouseClicked="#openDrawer" pickOnBounds="true" preserveRatio="true" />
+      <ImageView id="menuBtnIcon" fx:id="menuBtnIcon" fitHeight="48.0" fitWidth="48.0" layoutX="305.0" layoutY="5.0" onMouseClicked="#openDrawer" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

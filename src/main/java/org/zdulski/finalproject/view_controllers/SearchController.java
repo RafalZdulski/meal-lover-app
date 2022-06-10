@@ -22,6 +22,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 public class SearchController implements Initializable {
 
@@ -93,28 +94,34 @@ public class SearchController implements Initializable {
 
     @FXML
     void searchBtnClicked() {
-        String[] wordsFilters = new String[0];
-        if (!nameField.getText().isBlank())
-            wordsFilters = nameField.getText().split("\s+");
-        String[] areasFilter = areas.stream().filter(FilterWrap::getCheckValue).map(FilterWrap::toString).toArray(String[]::new);
-        String[] categoryFilters = categories.stream().filter(FilterWrap::getCheckValue).map(FilterWrap::toString).toArray(String[]::new);
+        final String[] wordsFilters = nameField.getText().isBlank()? new String[0] : nameField.getText().split("\s+");
+        final String[] areasFilter = areas.stream().filter(FilterWrap::getCheckValue).map(FilterWrap::toString).toArray(String[]::new);
+        final String[] categoryFilters = categories.stream().filter(FilterWrap::getCheckValue).map(FilterWrap::toString).toArray(String[]::new);
 
         //get all meals when filtered by empty filters
         if (wordsFilters.length + areasFilter.length + categoryFilters.length < 1) {
-            List<Meal> meals = new MealGetterImpl().getAllMeals();
-            EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.BROWSE));
+            CompletableFuture.runAsync(()-> {
+                List<Meal> meals = new MealGetterImpl().getAllMeals();
+                EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.BROWSE));
+            });
+            return;
         }
 
-        Set<String> ids = new SearchEngineImpl().getIDs(wordsFilters, areasFilter, categoryFilters);
-        if (!ids.isEmpty()) {
-            List<Meal> meals = new MealGetterImpl().getMealsByIds(ids);
-            System.out.println(meals.size());
-            EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.BROWSE));
-            EventBusFactory.getEventBus().post(new ReturnEvent()); //hiding
-        } else {
-            //TODO ADD popup message saying there is nothing to show;
-            System.err.println("nothing found");
-        }
+        CompletableFuture.supplyAsync(() -> {
+            Set<String> ids = new SearchEngineImpl().getIDs(wordsFilters, areasFilter, categoryFilters);
+            return ids;
+        }).thenApply(ids -> {
+            if (!ids.isEmpty()) {
+                List<Meal> meals = new MealGetterImpl().getMealsByIds(ids);
+                System.out.println(meals.size());
+                EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.BROWSE));
+                EventBusFactory.getEventBus().post(new ReturnEvent()); //hiding
+            } else {
+                //TODO ADD popup message saying there is nothing to show;
+                System.err.println("nothing found");
+            }
+            return ids;
+        });
     }
 
     @FXML
