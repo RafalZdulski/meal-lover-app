@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
-import org.zdulski.finalproject.dto.Meal;
+import org.zdulski.finalproject.data.dto.Meal;
 import org.zdulski.finalproject.view_auxs.MealCellFactory;
 
 import java.net.URL;

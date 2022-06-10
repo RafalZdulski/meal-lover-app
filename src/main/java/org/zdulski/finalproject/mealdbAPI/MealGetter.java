@@ -1,6 +1,6 @@
 package org.zdulski.finalproject.mealdbAPI;
 
-import org.zdulski.finalproject.dto.Meal;
+import org.zdulski.finalproject.data.dto.Meal;
 
 import java.util.Collection;
 import java.util.List;

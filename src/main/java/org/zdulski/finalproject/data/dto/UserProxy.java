@@ -1,4 +1,4 @@
-package org.zdulski.finalproject.dto;
+package org.zdulski.finalproject.data.dto;
 
 import com.google.common.eventbus.Subscribe;
 import org.zdulski.finalproject.eventbus.AddToFavouriteEvent;

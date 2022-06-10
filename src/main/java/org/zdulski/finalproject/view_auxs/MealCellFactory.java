@@ -13,7 +13,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
-import org.zdulski.finalproject.dto.Meal;
+import org.zdulski.finalproject.data.dto.Meal;
 import org.zdulski.finalproject.eventbus.EventBusFactory;
 import org.zdulski.finalproject.eventbus.ShowMealEvent;
 
@@ -25,8 +25,7 @@ public class MealCellFactory implements Callback<ListView<Meal>, ListCell<Meal>>
     @Override
     public ListCell<Meal> call(ListView<Meal> mealListView) {
         CompletableFuture<ListCell<Meal>> future = CompletableFuture.supplyAsync(()-> {
-                    ListCell<Meal> cell = new ListCell<>() {
-                        @Override
+                    ListCell<Meal> cell = new ListCell() {
                         public void updateItem(Meal meal, boolean empty) {
                             super.updateItem(meal, empty);
                             if (!empty) {

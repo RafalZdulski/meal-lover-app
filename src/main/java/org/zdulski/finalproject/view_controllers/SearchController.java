@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import org.zdulski.finalproject.config.PropertyManager;
-import org.zdulski.finalproject.dto.Meal;
+import org.zdulski.finalproject.data.dto.Meal;
 import org.zdulski.finalproject.eventbus.EventBusFactory;
 import org.zdulski.finalproject.eventbus.ReturnEvent;
 import org.zdulski.finalproject.eventbus.ShowMealsEvent;
@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 public class SearchController implements Initializable {
 
@@ -94,7 +95,7 @@ public class SearchController implements Initializable {
 
     @FXML
     void searchBtnClicked() {
-        final String[] wordsFilters = nameField.getText().isBlank()? new String[0] : nameField.getText().split("\s+");
+        final String[] wordsFilters = nameField.getText().length()==0? new String[0] : nameField.getText().split("\\s+");
         final String[] areasFilter = areas.stream().filter(FilterWrap::getCheckValue).map(FilterWrap::toString).toArray(String[]::new);
         final String[] categoryFilters = categories.stream().filter(FilterWrap::getCheckValue).map(FilterWrap::toString).toArray(String[]::new);
 
@@ -132,8 +133,8 @@ public class SearchController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         MealGetterImpl dbAccess = new MealGetterImpl();
-        areas = dbAccess.getAreas().stream().map(FilterWrap::new).toList();
-        categories = dbAccess.getCategories().stream().map(FilterWrap::new).toList();
+        areas = dbAccess.getAreas().stream().map(FilterWrap::new).collect(Collectors.toList());
+        categories = dbAccess.getCategories().stream().map(FilterWrap::new).collect(Collectors.toList());
 
         filterPillsVBox.getChildren().add(new FilterPillsDisplay(areas));
         filterPillsVBox.getChildren().add(new FilterPillsDisplay(categories));

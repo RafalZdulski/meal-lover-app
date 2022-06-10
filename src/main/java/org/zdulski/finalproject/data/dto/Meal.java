@@ -1,4 +1,4 @@
-package org.zdulski.finalproject.dto;
+package org.zdulski.finalproject.data.dto;
 
 import lombok.Getter;
 import org.json.simple.JSONObject;

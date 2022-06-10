@@ -5,7 +5,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.zdulski.finalproject.config.PropertyManager;
-import org.zdulski.finalproject.dto.Meal;
+import org.zdulski.finalproject.data.dto.Meal;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +29,7 @@ public class MealGetterImpl implements MealGetter{
 
     public List<Meal> getMealsByIds(Collection<String> ids){
         List<Meal> meals = new ArrayList<>();
-        for (var id : ids)
+        for (String id : ids)
             meals.add(getMealById(id));
         return meals;
     }
@@ -75,7 +75,7 @@ public class MealGetterImpl implements MealGetter{
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(is, StandardCharsets.UTF_8));
             JSONArray jsonArray = (JSONArray) jsonObject.get("meals");
-            for (var category : jsonArray) {
+            for (Object category : jsonArray) {
                 JSONObject temp = (JSONObject) category;
                 ret.add((String) temp.get("strCategory"));
             }
@@ -96,7 +96,7 @@ public class MealGetterImpl implements MealGetter{
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(is, StandardCharsets.UTF_8));
             JSONArray jsonArray = (JSONArray) jsonObject.get("meals");
-            for (var category : jsonArray) {
+            for (Object category : jsonArray) {
                 JSONObject temp = (JSONObject) category;
                 ret.add((String) temp.get("strArea"));
             }
@@ -117,7 +117,7 @@ public class MealGetterImpl implements MealGetter{
             JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(is, StandardCharsets.UTF_8));
             JSONArray jsonArray = (JSONArray) jsonObject.get("meals");
             if (jsonArray != null)
-                for (var meal : jsonArray)
+                for (Object meal : jsonArray)
                     ret.add(new Meal((JSONObject) meal));
         } catch (IOException e) {
             e.printStackTrace();

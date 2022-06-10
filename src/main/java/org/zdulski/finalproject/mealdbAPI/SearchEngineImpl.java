@@ -49,21 +49,21 @@ public class SearchEngineImpl implements SearchEngine{
             val += 0b100;
         }
 
-        return switch (val) {
-            case 0b001 -> byName;
-            case 0b010 -> byAreas;
-            case 0b011 -> byName.stream().distinct().filter(byAreas::contains).collect(Collectors.toSet());
-            case 0b100 -> byCategories;
-            case 0b101 -> byName.stream().distinct().filter(byCategories::contains).collect(Collectors.toSet());
-            case 0b110 -> byAreas.stream().distinct().filter(byCategories::contains).collect(Collectors.toSet());
-            case 0b111 -> byName.stream().distinct().filter(byAreas::contains).filter(byCategories::contains).collect(Collectors.toSet());
-            default -> new HashSet<>();
-        };
+        switch (val) {
+            case 0b001 : return byName;
+            case 0b010 : return byAreas;
+            case 0b011 : return byName.stream().distinct().filter(byAreas::contains).collect(Collectors.toSet());
+            case 0b100 : return byCategories;
+            case 0b101 : return byName.stream().distinct().filter(byCategories::contains).collect(Collectors.toSet());
+            case 0b110 : return byAreas.stream().distinct().filter(byCategories::contains).collect(Collectors.toSet());
+            case 0b111 : return byName.stream().distinct().filter(byAreas::contains).filter(byCategories::contains).collect(Collectors.toSet());
+            default : return new HashSet<>();
+        }
     }
 
     public Set<String> getIDsByCategory(String... categories){
         Set<String> ids = new HashSet<>();
-        for (var category : categories){
+        for (String category : categories){
             String url = PropertyManager.getInstance().getProperty("filterURL")+"?c="+category;
             ids.addAll(getIds(url));
         }
@@ -72,7 +72,7 @@ public class SearchEngineImpl implements SearchEngine{
 
     public Set<String> getIDsByArea(String... areas){
         Set<String> ids = new HashSet<>();
-        for (var area : areas){
+        for (String area : areas){
             String url = PropertyManager.getInstance().getProperty("filterURL")+"?a="+area;
             ids.addAll(getIds(url));
         }
@@ -81,7 +81,7 @@ public class SearchEngineImpl implements SearchEngine{
 
     public Set<String> getIDsByName(String... words){
         Set<String> ids = new HashSet<>();
-        for (var name : words){
+        for (String name : words){
             String url = PropertyManager.getInstance().getProperty("searchURL")+"?s="+name;
             ids.addAll(getIds(url));
         }
@@ -94,7 +94,7 @@ public class SearchEngineImpl implements SearchEngine{
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(is, StandardCharsets.UTF_8));
             JSONArray jsonArray = (JSONArray) jsonObject.get("meals");
-            return  jsonArray.stream().map(a -> String.valueOf(JSONObject.class.cast(a).get("idMeal"))).toList();
+            return (List<String>) jsonArray.stream().map(a -> String.valueOf(JSONObject.class.cast(a).get("idMeal"))).collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {

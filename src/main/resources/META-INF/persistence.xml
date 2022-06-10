@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+                                 http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+
+    <persistence-unit name="pu" transaction-type="RESOURCE_LOCAL">
+        <description>Jpa</description>
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <properties>
+            <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver" /> <!-- DB Driver -->
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:default" /> <!-- BD Mane -->
+            <property name="jakarta.persistence.jdbc.user" value="admin" /> <!-- DB User -->
+            <property name="jakarta.persistence.jdbc.password" value="admin" /> <!-- DB Password -->
+
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/> <!-- DB Dialect -->
+<!--            <property name="hibernate.hbm2ddl.auto" value="update" /> &lt;!&ndash; create / create-drop / update &ndash;&gt;-->
+
+<!--            <property name="hibernate.show_sql" value="true" /> &lt;!&ndash; Show SQL in console &ndash;&gt;-->
+<!--            <property name="hibernate.format_sql" value="true" /> &lt;!&ndash; Show SQL formatted &ndash;&gt;-->
+        </properties>
+
+    </persistence-unit>
+
+</persistence>

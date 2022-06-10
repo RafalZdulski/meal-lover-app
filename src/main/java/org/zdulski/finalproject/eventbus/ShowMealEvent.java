@@ -1,6 +1,6 @@
 package org.zdulski.finalproject.eventbus;
 
-import org.zdulski.finalproject.dto.Meal;
+import org.zdulski.finalproject.data.dto.Meal;
 
 public class ShowMealEvent {
 

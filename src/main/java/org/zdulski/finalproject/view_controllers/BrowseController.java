@@ -8,7 +8,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import org.zdulski.finalproject.config.PropertyManager;
-import org.zdulski.finalproject.dto.Meal;
+import org.zdulski.finalproject.data.dto.Meal;
 import org.zdulski.finalproject.eventbus.EventBusFactory;
 import org.zdulski.finalproject.eventbus.OpenSearchDrawerEvent;
 import org.zdulski.finalproject.mealdbAPI.MealGetterImpl;

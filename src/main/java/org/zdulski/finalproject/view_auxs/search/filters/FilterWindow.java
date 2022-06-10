@@ -13,6 +13,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 //TODO does this count as a custom graphic component?
 public class FilterWindow extends Stage {
@@ -24,7 +25,7 @@ public class FilterWindow extends Stage {
 
     public FilterWindow(List<FilterWrap> items){
         this.oldFilterList = items;
-        this.newFilterList = items.stream().map(FilterWrap::copyOf).toList();
+        this.newFilterList = items.stream().map(FilterWrap::copyOf).collect(Collectors.toList());
         this.initModality(Modality.APPLICATION_MODAL);
 
         BorderPane borderPane = new BorderPane();
@@ -70,8 +71,7 @@ public class FilterWindow extends Stage {
         listView.setItems(FXCollections.observableList(newFilterList));
 
         listView.setCellFactory(c -> {
-            ListCell<FilterWrap> cell = new ListCell<>(){
-                @Override
+            ListCell<FilterWrap> cell = new ListCell(){
                 protected void updateItem(FilterWrap item, boolean empty) {
                     super.updateItem(item, empty);
                     if (!empty) {

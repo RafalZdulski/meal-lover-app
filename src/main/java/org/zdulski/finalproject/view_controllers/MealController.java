@@ -13,8 +13,8 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import org.zdulski.finalproject.config.PropertyManager;
-import org.zdulski.finalproject.dto.Meal;
-import org.zdulski.finalproject.dto.UserProxy;
+import org.zdulski.finalproject.data.dto.Meal;
+import org.zdulski.finalproject.data.dto.UserProxy;
 import org.zdulski.finalproject.eventbus.AddToFavouriteEvent;
 import org.zdulski.finalproject.eventbus.EventBusFactory;
 import org.zdulski.finalproject.eventbus.ReturnEvent;
@@ -126,7 +126,7 @@ public class MealController implements ViewController {
 
     private void setIngredientsTableView(Map<String, String> ingredients){
         List<Map<String, String>> list = new ArrayList<>();
-        for (var ingredient : ingredients.keySet()){
+        for (String ingredient : ingredients.keySet()){
             Map<String,String> temp = new HashMap<>();
             temp.put("Ingredient", ingredient);
             temp.put("Measure", ingredients.get(ingredient));

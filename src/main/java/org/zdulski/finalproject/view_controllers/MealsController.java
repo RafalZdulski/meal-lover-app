@@ -1,6 +1,6 @@
 package org.zdulski.finalproject.view_controllers;
 
-import org.zdulski.finalproject.dto.Meal;
+import org.zdulski.finalproject.data.dto.Meal;
 
 import java.util.List;
 
