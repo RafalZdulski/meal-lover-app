@@ -1,10 +1,11 @@
 package org.zdulski.finalproject.data.pojo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 //@Table(name = "Favourite_Meals")
 @Entity
@@ -13,16 +14,20 @@ import lombok.NonNull;
 public class FavouriteMealPojo {
 
     @Id
-    public String meal_id;
+    @Column(name = "meal_id")
+    @Getter
+    public String mealId;
 
-    @NonNull
-    public long user_id;
+    @Column(name = "user_id", nullable = false)
+    @Getter
+    public long userId;
 
-    public String getMealId() {
-        return meal_id;
+    @Override
+    public String toString(){
+        StringBuilder builder = new StringBuilder();
+        builder.append("user: ").append(userId).append("\n")
+                .append("meal: ").append(mealId).append("\n");
+        return builder.toString();
     }
 
-    public long getUserId() {
-        return user_id;
-    }
 }

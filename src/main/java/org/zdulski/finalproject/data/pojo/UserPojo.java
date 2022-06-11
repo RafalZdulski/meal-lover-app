@@ -1,6 +1,7 @@
 package org.zdulski.finalproject.data.pojo;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -10,11 +11,15 @@ import lombok.NonNull;
 public class UserPojo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long user_id;
+    @Column(name = "user_id")
+    @Getter
+    private long id;
 
-    @NonNull
+    @Getter
+    @Column(nullable = false, unique = true)
     private String username;
 
+    @Getter
     private String mail;
 
     public UserPojo(String username, String mail) {
@@ -26,15 +31,12 @@ public class UserPojo {
         this.username = username;
     }
 
-    public long getUserId() {
-        return user_id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getMail() {
-        return mail;
+    @Override
+    public String toString(){
+        StringBuilder builder = new StringBuilder();
+        builder.append("id: ").append(id).append("\n")
+                .append("name: ").append(username).append("\n")
+                .append("mail: ").append(mail).append("\n");
+        return builder.toString();
     }
 }
