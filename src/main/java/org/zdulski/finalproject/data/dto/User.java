@@ -12,8 +12,7 @@ import java.util.stream.Collectors;
 public class User {
 
     @Getter
-    @Setter
-    private String username;
+    private final String username;
 
     @Getter
     @Setter

@@ -114,6 +114,7 @@ public class MainController implements Initializable {
             return;
         mainPane.setCenter(recentlyViewedPanes.get(recentlyViewedPanes.size()-1));
         recentlyViewedPanes.remove(recentlyViewedPanes.size()-1);
+        //TODO ADD refreshing pane after switching to it
     }
 
     @Subscribe

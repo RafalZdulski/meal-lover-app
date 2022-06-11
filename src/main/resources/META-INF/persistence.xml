@@ -15,7 +15,7 @@
             <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:./default" /> <!-- BD Mane -->
             <property name="jakarta.persistence.jdbc.user" value="admin" /> <!-- DB User -->
             <property name="jakarta.persistence.jdbc.password" value="admin" /> <!-- DB Password -->
-            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
 
 <!--            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/> &lt;!&ndash; DB Dialect &ndash;&gt;-->
 <!--            <property name="hibernate.hbm2ddl.auto" value="update" /> &lt;!&ndash; create / create-drop / update &ndash;&gt;-->

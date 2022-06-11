@@ -1,11 +1,12 @@
 package org.zdulski.finalproject.data.dto;
 
 import com.google.common.eventbus.Subscribe;
+import org.zdulski.finalproject.data.repository.FavMealRepository;
+import org.zdulski.finalproject.data.repository.NoSuchUserException;
+import org.zdulski.finalproject.data.repository.UserRepositoryImpl;
 import org.zdulski.finalproject.eventbus.AddToFavouriteEvent;
 import org.zdulski.finalproject.eventbus.EventBusFactory;
 import org.zdulski.finalproject.eventbus.ShowMealEvent;
-import org.zdulski.finalproject.data.repository.UserRepository;
-import org.zdulski.finalproject.data.repository.UserRepositoryImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +20,12 @@ public class UserProxy {
 
     private List<String> latestMeals;
 
-    private UserRepository repo;
+    private FavMealRepository mealRepo;
 
     private UserProxy(){
         EventBusFactory.getEventBus().register(this);
         latestMeals = new ArrayList<>();
-        this.repo = new UserRepositoryImpl();
+        this.mealRepo = new UserRepositoryImpl();
     }
 
     public boolean isFavourite(Meal meal){
@@ -33,15 +34,6 @@ public class UserProxy {
 
     public boolean isFavourite(String id){
         return user.getFavouriteMeals().contains(id);
-    }
-
-    public void newUser(String name){
-        User user = new User(name);
-
-    }
-
-    public void setUser(String name){
-
     }
 
     public void setUser(User user){
@@ -54,9 +46,16 @@ public class UserProxy {
         if (!isFavourite(event.getMeal().getId())) {
             user.getFavouriteMeals().add(event.getMeal().getId());
             System.out.println("meal: " + event.getMeal().getName() + " added to favourite of user: " + user.getUsername());
+            try {
+                mealRepo.add(user.getUsername(), event.getMeal().getId());
+            } catch (NoSuchUserException e) {
+                //TODO secure in case of exception that should not occur
+                e.printStackTrace();
+            }
         }else {
             user.getFavouriteMeals().remove(event.getMeal().getId());
             System.out.println("meal: " + event.getMeal().getName() + " removed from favourite of user: " + user.getUsername());
+            mealRepo.delete(user.getUsername(), event.getMeal().getId());
         }
     }
 
