@@ -1,5 +1,6 @@
 package org.zdulski.finalproject.view_controllers;
 
+import com.google.common.eventbus.Subscribe;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,7 +11,9 @@ import javafx.scene.text.Text;
 import org.zdulski.finalproject.config.PropertyManager;
 import org.zdulski.finalproject.data.dto.Meal;
 import org.zdulski.finalproject.eventbus.EventBusFactory;
+import org.zdulski.finalproject.eventbus.NextMealEvent;
 import org.zdulski.finalproject.eventbus.OpenSearchDrawerEvent;
+import org.zdulski.finalproject.eventbus.ShowMealEvent;
 import org.zdulski.finalproject.mealdbAPI.MealGetterImpl;
 import org.zdulski.finalproject.view_auxs.MealCellFactory;
 
@@ -48,7 +51,7 @@ public class BrowseController implements MealsController {
     private Button previousPageBtn;
 
     public BrowseController(){
-
+        EventBusFactory.getEventBus().register(this);
     }
 
     public void setAllMeals() {
@@ -142,7 +145,7 @@ public class BrowseController implements MealsController {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        mealsListView.setCellFactory(new MealCellFactory());
+        mealsListView.setCellFactory(new MealCellFactory(View.BROWSE));
 
         String iconsFolder = System.getProperty("user.dir") + "/" +
                 PropertyManager.getInstance().getProperty("iconsFolder") + "/" ;
@@ -164,5 +167,16 @@ public class BrowseController implements MealsController {
     @FXML
     public void searchBtnClicked(){
         EventBusFactory.getEventBus().post(new OpenSearchDrawerEvent());
+    }
+
+    @Subscribe
+    public void goToNextMeal(NextMealEvent event){
+        if (event.getSourceView() != View.BROWSE)
+            return;
+        int i = meals.indexOf(event.getMeal());
+        if (++i >= meals.size())
+            return; //TODO should also disable right action button in meal view
+        Meal meal = meals.get(i);
+        EventBusFactory.getEventBus().post(new ShowMealEvent(meal, MealController.Action.NEXT_MEAL, View.BROWSE));
     }
 }

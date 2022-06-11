@@ -16,16 +16,24 @@ import javafx.util.Callback;
 import org.zdulski.finalproject.data.dto.Meal;
 import org.zdulski.finalproject.eventbus.EventBusFactory;
 import org.zdulski.finalproject.eventbus.ShowMealEvent;
+import org.zdulski.finalproject.view_controllers.MealController;
+import org.zdulski.finalproject.view_controllers.View;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class MealCellFactory implements Callback<ListView<Meal>, ListCell<Meal>> {
 
+    private final View sourceView;
+
+    public MealCellFactory(View sourceView){
+        this.sourceView = sourceView;
+    }
+
     @Override
     public ListCell<Meal> call(ListView<Meal> mealListView) {
         CompletableFuture<ListCell<Meal>> future = CompletableFuture.supplyAsync(()-> {
-                    ListCell<Meal> cell = new ListCell() {
+                    ListCell<Meal> cell = new ListCell<>() {
                         public void updateItem(Meal meal, boolean empty) {
                             super.updateItem(meal, empty);
                             if (!empty) {
@@ -52,7 +60,7 @@ public class MealCellFactory implements Callback<ListView<Meal>, ListCell<Meal>>
                                 category.setWrappingWidth(100);
                                 category.setFont(Font.font(16));
                                 gridPane.add(category, 1, 1);
-                                //Tags //TODO MAKE TAGS USEFUL
+                                //Tags //TODO ADD make tags useful
 //                    Text tags = new Text(meal.getTags());
 //                    tags.setFont(Font.font(12));
 //                    tags.setTextAlignment(TextAlignment.CENTER);
@@ -75,18 +83,20 @@ public class MealCellFactory implements Callback<ListView<Meal>, ListCell<Meal>>
 //                    GridPane.setRowSpan(imageView, 3);
 
                                 Platform.runLater(() -> this.setGraphic(gridPane));
+
                             }
                         }
                     };
                     return cell;
                 }).thenApply(cell -> {
-            cell.setPrefHeight(100);
-            cell.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> {
-                System.out.println("clicked on: " + cell.getItem().getName());
-                EventBusFactory.getEventBus().post(new ShowMealEvent(cell.getItem()));
-            });
-         return cell;
-        });
+                    cell.setPrefHeight(100);
+                    cell.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> {
+                        System.out.println("clicked on: " + cell.getItem().getName());
+                        EventBusFactory.getEventBus().post(new ShowMealEvent(cell.getItem(), MealController.Action.NEXT_MEAL, sourceView));
+                    });
+                    return cell;
+                });
+
         try {
             return future.get();
         } catch (InterruptedException e) {
@@ -94,6 +104,7 @@ public class MealCellFactory implements Callback<ListView<Meal>, ListCell<Meal>>
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 }

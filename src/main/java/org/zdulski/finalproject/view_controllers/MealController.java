@@ -2,10 +2,7 @@ package org.zdulski.finalproject.view_controllers;
 
 import com.google.common.eventbus.Subscribe;
 import javafx.fxml.FXML;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,10 +12,7 @@ import javafx.scene.text.Text;
 import org.zdulski.finalproject.config.PropertyManager;
 import org.zdulski.finalproject.data.dto.Meal;
 import org.zdulski.finalproject.data.dto.UserProxy;
-import org.zdulski.finalproject.eventbus.AddToFavouriteEvent;
-import org.zdulski.finalproject.eventbus.EventBusFactory;
-import org.zdulski.finalproject.eventbus.ReturnEvent;
-import org.zdulski.finalproject.eventbus.ShowMealEvent;
+import org.zdulski.finalproject.eventbus.*;
 import org.zdulski.finalproject.mealdbAPI.MealGetterImpl;
 
 import java.net.URL;
@@ -28,6 +22,8 @@ public class MealController implements ViewController {
     //TODO differ between random meal and searched meal
 
     protected Meal meal;
+
+    private View sourceView;
 
     @FXML
     private Text area;
@@ -40,6 +36,9 @@ public class MealController implements ViewController {
 
     @FXML
     private Text tags;
+
+    @FXML
+    private Button rightBtn;
 
     @FXML
     private Rectangle thumbnailRect;
@@ -59,27 +58,17 @@ public class MealController implements ViewController {
     @FXML
     private TextArea executionText;
 
-
     @FXML
     private ImageView favouriteIcon;
 
     @FXML
-    private ImageView nextArrowIcon;
+    private ImageView rightBtnIcon;
 
     @FXML
     private ImageView returnIcon;
 
     private String iconsFolder = System.getProperty("user.dir") + "/" +
             PropertyManager.getInstance().getProperty("iconsFolder") + "/" ;
-
-    @FXML
-    public void addToFavourite(){
-        EventBusFactory.getEventBus().post(new AddToFavouriteEvent(meal));
-        if (UserProxy.getInstance().isFavourite(meal.getId()))
-            favouriteIcon.setImage(new Image( iconsFolder + "favorite.png"));
-        else
-            favouriteIcon.setImage(new Image( iconsFolder + "favorite-outline.png"));
-    }
 
     public MealController(){
         EventBusFactory.getEventBus().register(this);
@@ -88,14 +77,17 @@ public class MealController implements ViewController {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         favouriteIcon.setImage(new Image( iconsFolder + "favorite-outline.png"));
-        nextArrowIcon.setImage(new Image(iconsFolder + "arrow-right.png"));
         returnIcon.setImage(new Image(iconsFolder + "arrow-return.png"));
+        //setRightActionBtn(Action.DISABLE);
     }
 
     @FXML
-    public void getRandomMeal() {
-        Meal meal = new MealGetterImpl().getRandomMeal();
-        EventBusFactory.getEventBus().post(new ShowMealEvent(meal));
+    public void addToFavourite(){
+        EventBusFactory.getEventBus().post(new AddToFavouriteEvent(meal));
+        if (UserProxy.getInstance().isFavourite(meal.getId()))
+            favouriteIcon.setImage(new Image( iconsFolder + "favorite.png"));
+        else
+            favouriteIcon.setImage(new Image( iconsFolder + "favorite-outline.png"));
     }
 
     @FXML
@@ -158,5 +150,45 @@ public class MealController implements ViewController {
     @Override
     public void onLeaving() {
 
+    }
+
+    public void setRightActionBtn(Action action){
+        switch (action){
+            case NEXT_MEAL -> {
+                rightBtnIcon.setImage(new Image(iconsFolder + "arrow-right.png"));
+                rightBtn.setOnAction(e -> {
+                    EventBusFactory.getEventBus().post(new NextMealEvent(meal, sourceView));
+                });
+            }
+            case RANDOM_MEAL -> {
+                rightBtnIcon.setImage(new Image(iconsFolder + "dice.png"));
+                rightBtn.setOnAction(e -> {
+                    Meal meal = new MealGetterImpl().getRandomMeal();
+                    EventBusFactory.getEventBus().post(new ShowMealEvent(meal, Action.RANDOM_MEAL, View.MEAL));
+                });
+            }
+
+            case YOUTUBE -> {
+                rightBtnIcon.setImage(new Image(iconsFolder + "youtube.png"));
+                rightBtn.setOnAction(e -> {
+                    onYtLinkClick();
+                });
+            }
+            case DISABLE -> {
+                rightBtnIcon.setImage(new Image(iconsFolder + "arrow-right.png"));
+                rightBtn.setDisable(true);
+            }
+        }
+    }
+
+    public void setSourceView(View sourceView) {
+        this.sourceView = sourceView;
+    }
+
+    public enum Action{
+        NEXT_MEAL,
+        RANDOM_MEAL,
+        DISABLE,
+        YOUTUBE
     }
 }

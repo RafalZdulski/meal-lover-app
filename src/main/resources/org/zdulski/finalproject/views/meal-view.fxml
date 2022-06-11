@@ -148,12 +148,12 @@
             <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#getRandomMeal" prefHeight="40.0" prefWidth="120.0" GridPane.columnIndex="2">
+            <Button fx:id="rightBtn" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" GridPane.columnIndex="2">
                <font>
                   <Font size="22.0" />
                </font>
                <graphic>
-                  <ImageView fx:id="nextArrowIcon" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="rightBtnIcon" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Button>
             <Button maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#returnClicked" prefHeight="40.0" prefWidth="120.0">

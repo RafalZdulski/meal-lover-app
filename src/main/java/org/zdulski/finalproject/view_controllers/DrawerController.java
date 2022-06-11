@@ -46,7 +46,7 @@ public class DrawerController implements Initializable {
     @FXML
     public void onRandomClick(){
         Meal meal = new MealGetterImpl().getRandomMeal();
-        EventBusFactory.getEventBus().post(new ShowMealEvent(meal));
+        EventBusFactory.getEventBus().post(new ShowMealEvent(meal, MealController.Action.RANDOM_MEAL, View.MEAL));
     }
 
     @FXML

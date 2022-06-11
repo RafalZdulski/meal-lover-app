@@ -1,11 +1,15 @@
 package org.zdulski.finalproject.view_controllers;
 
+import com.google.common.eventbus.Subscribe;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import org.zdulski.finalproject.data.dto.Meal;
+import org.zdulski.finalproject.eventbus.EventBusFactory;
+import org.zdulski.finalproject.eventbus.NextMealEvent;
+import org.zdulski.finalproject.eventbus.ShowMealEvent;
 import org.zdulski.finalproject.view_auxs.MealCellFactory;
 
 import java.net.URL;
@@ -23,6 +27,7 @@ public class LatestController implements MealsController {
     private VBox emptyInfoBox;
 
     public LatestController(){
+        EventBusFactory.getEventBus().register(this);
     }
 
     public void setMeals(List<Meal> meals){
@@ -53,11 +58,22 @@ public class LatestController implements MealsController {
     public void showMeals(){
         ObservableList<Meal> mealDisplayed = FXCollections.observableList(meals);
         mealsListView.setItems(FXCollections.observableList(mealDisplayed));
-        mealsListView.setCellFactory(new MealCellFactory());
+        mealsListView.setCellFactory(new MealCellFactory(View.LATEST));
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+
+    @Subscribe
+    public void goToNextMeal(NextMealEvent event){
+        if (event.getSourceView() != View.LATEST)
+            return;
+        int i = meals.indexOf(event.getMeal());
+        if (++i >= meals.size())
+            return; //TODO should also disable right action button in meal view
+        Meal meal = meals.get(i);
+        EventBusFactory.getEventBus().post(new ShowMealEvent(meal, MealController.Action.NEXT_MEAL, View.LATEST));
     }
 }

@@ -137,6 +137,8 @@ public class MainController implements Initializable {
                 menuDrawer.close();
                 MealController controller = loader.getController();
                 controller.setMeal(event.getMeal());
+                controller.setSourceView(event.getSourceView());
+                controller.setRightActionBtn(event.getAction());
             } catch (IOException e) {
                 e.printStackTrace();
             }
