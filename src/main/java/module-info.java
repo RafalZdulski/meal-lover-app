@@ -7,6 +7,7 @@ module org.zdulski.finalproject {
     requires com.google.common;
     requires java.desktop;
     requires jakarta.persistence;
+    requires org.hibernate.orm.core;
 
     opens org.zdulski.finalproject to javafx.fxml;
     exports org.zdulski.finalproject;
@@ -14,4 +15,7 @@ module org.zdulski.finalproject {
     opens org.zdulski.finalproject.view_controllers to javafx.fxml;
     exports org.zdulski.finalproject.eventbus;
     exports org.zdulski.finalproject.data.dto;
+    exports org.zdulski.finalproject.data.pojo;
+
+    opens org.zdulski.finalproject.data.pojo;
 }

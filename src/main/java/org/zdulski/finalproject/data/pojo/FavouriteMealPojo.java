@@ -1,32 +1,41 @@
 package org.zdulski.finalproject.data.pojo;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-//@Table(name = "Favourite_Meals")
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "favourite_meals")
 public class FavouriteMealPojo {
 
     @Id
-    @Column(name = "meal_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Getter
-    public String mealId;
+    @Setter
+    private Long id;
 
-    @Column(name = "user_id", nullable = false)
     @Getter
-    public long userId;
+    @Setter
+    private String mealId;
+
+    @Getter
+    @Setter
+    private String username;
+
+    public FavouriteMealPojo(String mealId, String username){
+        this.mealId = mealId;
+        this.username = username;
+    }
 
     @Override
     public String toString(){
         StringBuilder builder = new StringBuilder();
-        builder.append("user: ").append(userId).append("\n")
-                .append("meal: ").append(mealId).append("\n");
+        builder.append("user: ").append(username).append(", ")
+                .append("meal_id: ").append(mealId).append("\n");
         return builder.toString();
     }
 

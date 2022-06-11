@@ -5,17 +5,19 @@
                                  http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
 
-    <persistence-unit name="pu" transaction-type="RESOURCE_LOCAL">
-        <description>Jpa</description>
+    <persistence-unit name="default">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-
+        <class>org.zdulski.finalproject.data.pojo.UserPojo</class>
+        <class>org.zdulski.finalproject.data.pojo.FavouriteMealPojo</class>
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver" /> <!-- DB Driver -->
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:default" /> <!-- BD Mane -->
+<!--            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:default" /> &lt;!&ndash; BD Mane &ndash;&gt;-->
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:./default" /> <!-- BD Mane -->
             <property name="jakarta.persistence.jdbc.user" value="admin" /> <!-- DB User -->
             <property name="jakarta.persistence.jdbc.password" value="admin" /> <!-- DB Password -->
+            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
 
-            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/> <!-- DB Dialect -->
+<!--            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/> &lt;!&ndash; DB Dialect &ndash;&gt;-->
 <!--            <property name="hibernate.hbm2ddl.auto" value="update" /> &lt;!&ndash; create / create-drop / update &ndash;&gt;-->
 
 <!--            <property name="hibernate.show_sql" value="true" /> &lt;!&ndash; Show SQL in console &ndash;&gt;-->

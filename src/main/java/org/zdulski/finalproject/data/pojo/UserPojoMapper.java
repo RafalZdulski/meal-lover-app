@@ -15,15 +15,19 @@ public class UserPojoMapper {
 
     public static List<FavouriteMealPojo> getFavMealPojo(User user){
         List<FavouriteMealPojo> ret = new ArrayList<>();
+
         for (String id : user.getFavouriteMeals())
-            ret.add(new FavouriteMealPojo(id, user.getId()));
+            ret.add(new FavouriteMealPojo(id, user.getUsername()));
+
         return ret;
     }
 
     public static User toUser(UserPojo userPojo, List<FavouriteMealPojo> favouriteMealPojoList){
-        Set<String> mealsId = favouriteMealPojoList.stream()
-                .map(FavouriteMealPojo::getMealId).collect(Collectors.toSet());
-        return new User(userPojo.getId(), userPojo.getUsername(),
-                userPojo.getMail(), mealsId);
+        Set<String> mealsId = favouriteMealPojoList
+                .stream()
+                .map(FavouriteMealPojo::getMealId)
+                .collect(Collectors.toSet());
+
+        return new User(userPojo.getUsername(), userPojo.getMail(), mealsId);
     }
 }
