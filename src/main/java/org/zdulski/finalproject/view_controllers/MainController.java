@@ -94,6 +94,18 @@ public class MainController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        try {
+            Pane dashboardPane = FXMLLoader.load(Objects.requireNonNull(getClass()
+                    .getResource("/org/zdulski/finalproject/views/dashboard-view.fxml")));
+            setCenterView(dashboardPane);
+            dashboardPane.getChildren().get(0).setOnMouseClicked(e -> {
+                menuDrawer.open();
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @FXML
@@ -135,6 +147,7 @@ public class MainController implements Initializable {
                     this.setCenterView(pane);
                 });
                 menuDrawer.close();
+                searchDrawer.close();
                 MealController controller = loader.getController();
                 controller.setMeal(event.getMeal());
                 controller.setSourceView(event.getSourceView());
@@ -154,6 +167,7 @@ public class MainController implements Initializable {
         if (event.getMeals() == null && latestBrowseView != null) {
             this.setCenterView(latestBrowseView);
             menuDrawer.close();
+            searchDrawer.close();
             setHeader(event.getViewType());
             return;
         }
@@ -170,6 +184,7 @@ public class MainController implements Initializable {
                     this.setCenterView(pane);
                 });
                 menuDrawer.close();
+                searchDrawer.close();
                 MealsController controller = loader.getController();
                 controller.setMeals(event.getMeals());
             } catch (IOException e) {

@@ -71,10 +71,12 @@ public class UserProxy {
     }
 
     public Set<String> getFavourites() {
-        return user.getFavouriteMeals();
+        return this.user.getFavouriteMeals();
     }
 
     public List<String> getLatest() {
-        return latestMeals;
+        return this.latestMeals;
     }
+
+    public String getUsername(){return this.user.getUsername();}
 }

@@ -17,6 +17,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 public class DrawerController implements Initializable {
     @FXML
@@ -45,8 +46,10 @@ public class DrawerController implements Initializable {
 
     @FXML
     public void onRandomClick(){
-        Meal meal = new MealGetterImpl().getRandomMeal();
-        EventBusFactory.getEventBus().post(new ShowMealEvent(meal, MealController.Action.RANDOM_MEAL, View.MEAL));
+        CompletableFuture.runAsync(() -> {
+            Meal meal = new MealGetterImpl().getRandomMeal();
+            EventBusFactory.getEventBus().post(new ShowMealEvent(meal, MealController.Action.RANDOM_MEAL, View.MEAL));
+        });
     }
 
     @FXML
@@ -57,16 +60,20 @@ public class DrawerController implements Initializable {
 
     @FXML
     public void onFavouriteClick(){
-        Set<String> ids = UserProxy.getInstance().getFavourites();
-        List<Meal> meals = new MealGetterImpl().getMealsByIds(ids);
-        EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.FAVOURITE));
+        CompletableFuture.runAsync(()-> {
+            Set<String> ids = UserProxy.getInstance().getFavourites();
+            List<Meal> meals = new MealGetterImpl().getMealsByIds(ids);
+            EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.FAVOURITE));
+        });
     }
 
     @FXML
     public void onLastViewedClick(){
-        List<String> ids = UserProxy.getInstance().getLatest();
-        List<Meal> meals = new MealGetterImpl().getMealsByIds(ids);
-        EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.LATEST));
+        CompletableFuture.runAsync(() -> {
+            List<String> ids = UserProxy.getInstance().getLatest();
+            List<Meal> meals = new MealGetterImpl().getMealsByIds(ids);
+            EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.LATEST));
+        });
     }
 
     @FXML

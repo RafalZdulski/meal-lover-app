@@ -2389,3 +2389,717 @@ create table favourite_meals (id bigint not null, mealId varchar(255), username 
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "USERS" już istnieje
 Table "USERS" already exists; SQL statement:
 create table users (username varchar(255) not null, mail varchar(255), primary key (username)) [42101-212]
+2022-06-11 23:55:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Sekwencja "FAVOURITE_MEALS_SEQ" już istnieje
+Sequence "FAVOURITE_MEALS_SEQ" already exists; SQL statement:
+create sequence favourite_meals_SEQ start with 1 increment by 50 [90035-212]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:632)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateSequence.update(CreateSequence.java:53)
+	at org.h2.command.ddl.SchemaOwnerCommand.update(SchemaOwnerCommand.java:33)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:174)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlString(SchemaCreatorImpl.java:502)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlStrings(SchemaCreatorImpl.java:486)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:330)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:176)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:128)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:226)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:143)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:140)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:333)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:415)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1425)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:55)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:80)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at org.zdulski.finalproject/org.zdulski.finalproject.MainApplication.<clinit>(MainApplication.java:25)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1071)
+2022-06-11 23:55:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "FAVOURITE_MEALS" już istnieje
+Table "FAVOURITE_MEALS" already exists; SQL statement:
+create table favourite_meals (id bigint not null, mealId varchar(255), username varchar(255), primary key (id)) [42101-212]
+2022-06-11 23:55:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "USERS" już istnieje
+Table "USERS" already exists; SQL statement:
+create table users (username varchar(255) not null, mail varchar(255), primary key (username)) [42101-212]
+2022-06-12 00:04:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Sekwencja "FAVOURITE_MEALS_SEQ" już istnieje
+Sequence "FAVOURITE_MEALS_SEQ" already exists; SQL statement:
+create sequence favourite_meals_SEQ start with 1 increment by 50 [90035-212]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:632)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateSequence.update(CreateSequence.java:53)
+	at org.h2.command.ddl.SchemaOwnerCommand.update(SchemaOwnerCommand.java:33)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:174)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlString(SchemaCreatorImpl.java:502)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlStrings(SchemaCreatorImpl.java:486)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:330)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:176)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:128)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:226)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:143)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:140)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:333)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:415)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1425)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:55)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:80)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at org.zdulski.finalproject/org.zdulski.finalproject.MainApplication.<clinit>(MainApplication.java:25)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1071)
+2022-06-12 00:04:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "FAVOURITE_MEALS" już istnieje
+Table "FAVOURITE_MEALS" already exists; SQL statement:
+create table favourite_meals (id bigint not null, mealId varchar(255), username varchar(255), primary key (id)) [42101-212]
+2022-06-12 00:04:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "USERS" już istnieje
+Table "USERS" already exists; SQL statement:
+create table users (username varchar(255) not null, mail varchar(255), primary key (username)) [42101-212]
+2022-06-12 00:05:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Sekwencja "FAVOURITE_MEALS_SEQ" już istnieje
+Sequence "FAVOURITE_MEALS_SEQ" already exists; SQL statement:
+create sequence favourite_meals_SEQ start with 1 increment by 50 [90035-212]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:632)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateSequence.update(CreateSequence.java:53)
+	at org.h2.command.ddl.SchemaOwnerCommand.update(SchemaOwnerCommand.java:33)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:174)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlString(SchemaCreatorImpl.java:502)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlStrings(SchemaCreatorImpl.java:486)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:330)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:176)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:128)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:226)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:143)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:140)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:333)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:415)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1425)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:55)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:80)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at org.zdulski.finalproject/org.zdulski.finalproject.MainApplication.<clinit>(MainApplication.java:25)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1071)
+2022-06-12 00:05:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "FAVOURITE_MEALS" już istnieje
+Table "FAVOURITE_MEALS" already exists; SQL statement:
+create table favourite_meals (id bigint not null, mealId varchar(255), username varchar(255), primary key (id)) [42101-212]
+2022-06-12 00:05:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "USERS" już istnieje
+Table "USERS" already exists; SQL statement:
+create table users (username varchar(255) not null, mail varchar(255), primary key (username)) [42101-212]
+2022-06-12 00:12:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Sekwencja "FAVOURITE_MEALS_SEQ" już istnieje
+Sequence "FAVOURITE_MEALS_SEQ" already exists; SQL statement:
+create sequence favourite_meals_SEQ start with 1 increment by 50 [90035-212]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:632)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateSequence.update(CreateSequence.java:53)
+	at org.h2.command.ddl.SchemaOwnerCommand.update(SchemaOwnerCommand.java:33)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:174)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlString(SchemaCreatorImpl.java:502)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlStrings(SchemaCreatorImpl.java:486)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:330)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:176)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:128)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:226)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:143)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:140)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:333)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:415)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1425)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:55)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:80)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at org.zdulski.finalproject/org.zdulski.finalproject.MainApplication.<clinit>(MainApplication.java:25)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1071)
+2022-06-12 00:12:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "FAVOURITE_MEALS" już istnieje
+Table "FAVOURITE_MEALS" already exists; SQL statement:
+create table favourite_meals (id bigint not null, mealId varchar(255), username varchar(255), primary key (id)) [42101-212]
+2022-06-12 00:12:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "USERS" już istnieje
+Table "USERS" already exists; SQL statement:
+create table users (username varchar(255) not null, mail varchar(255), primary key (username)) [42101-212]
+2022-06-12 00:15:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Sekwencja "FAVOURITE_MEALS_SEQ" już istnieje
+Sequence "FAVOURITE_MEALS_SEQ" already exists; SQL statement:
+create sequence favourite_meals_SEQ start with 1 increment by 50 [90035-212]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:632)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateSequence.update(CreateSequence.java:53)
+	at org.h2.command.ddl.SchemaOwnerCommand.update(SchemaOwnerCommand.java:33)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:174)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlString(SchemaCreatorImpl.java:502)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlStrings(SchemaCreatorImpl.java:486)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:330)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:176)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:128)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:226)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:143)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:140)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:333)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:415)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1425)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:55)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:80)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at org.zdulski.finalproject/org.zdulski.finalproject.MainApplication.<clinit>(MainApplication.java:25)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1071)
+2022-06-12 00:15:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "FAVOURITE_MEALS" już istnieje
+Table "FAVOURITE_MEALS" already exists; SQL statement:
+create table favourite_meals (id bigint not null, mealId varchar(255), username varchar(255), primary key (id)) [42101-212]
+2022-06-12 00:15:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "USERS" już istnieje
+Table "USERS" already exists; SQL statement:
+create table users (username varchar(255) not null, mail varchar(255), primary key (username)) [42101-212]
+2022-06-12 00:18:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Sekwencja "FAVOURITE_MEALS_SEQ" już istnieje
+Sequence "FAVOURITE_MEALS_SEQ" already exists; SQL statement:
+create sequence favourite_meals_SEQ start with 1 increment by 50 [90035-212]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:632)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateSequence.update(CreateSequence.java:53)
+	at org.h2.command.ddl.SchemaOwnerCommand.update(SchemaOwnerCommand.java:33)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:174)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlString(SchemaCreatorImpl.java:502)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlStrings(SchemaCreatorImpl.java:486)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:330)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:176)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:128)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:226)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:143)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:140)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:333)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:415)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1425)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:55)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:80)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at org.zdulski.finalproject/org.zdulski.finalproject.MainApplication.<clinit>(MainApplication.java:25)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1071)
+2022-06-12 00:18:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "FAVOURITE_MEALS" już istnieje
+Table "FAVOURITE_MEALS" already exists; SQL statement:
+create table favourite_meals (id bigint not null, mealId varchar(255), username varchar(255), primary key (id)) [42101-212]
+2022-06-12 00:18:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "USERS" już istnieje
+Table "USERS" already exists; SQL statement:
+create table users (username varchar(255) not null, mail varchar(255), primary key (username)) [42101-212]
+2022-06-12 00:19:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Sekwencja "FAVOURITE_MEALS_SEQ" już istnieje
+Sequence "FAVOURITE_MEALS_SEQ" already exists; SQL statement:
+create sequence favourite_meals_SEQ start with 1 increment by 50 [90035-212]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:632)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateSequence.update(CreateSequence.java:53)
+	at org.h2.command.ddl.SchemaOwnerCommand.update(SchemaOwnerCommand.java:33)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:174)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlString(SchemaCreatorImpl.java:502)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlStrings(SchemaCreatorImpl.java:486)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:330)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:176)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:128)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:226)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:143)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:140)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:333)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:415)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1425)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:55)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:80)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at org.zdulski.finalproject/org.zdulski.finalproject.MainApplication.<clinit>(MainApplication.java:25)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1071)
+2022-06-12 00:19:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "FAVOURITE_MEALS" już istnieje
+Table "FAVOURITE_MEALS" already exists; SQL statement:
+create table favourite_meals (id bigint not null, mealId varchar(255), username varchar(255), primary key (id)) [42101-212]
+2022-06-12 00:19:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "USERS" już istnieje
+Table "USERS" already exists; SQL statement:
+create table users (username varchar(255) not null, mail varchar(255), primary key (username)) [42101-212]
+2022-06-13 12:52:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Sekwencja "FAVOURITE_MEALS_SEQ" już istnieje
+Sequence "FAVOURITE_MEALS_SEQ" already exists; SQL statement:
+create sequence favourite_meals_SEQ start with 1 increment by 50 [90035-212]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:632)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateSequence.update(CreateSequence.java:53)
+	at org.h2.command.ddl.SchemaOwnerCommand.update(SchemaOwnerCommand.java:33)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:174)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlString(SchemaCreatorImpl.java:502)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlStrings(SchemaCreatorImpl.java:486)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:330)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:176)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:128)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:226)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:143)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:140)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:333)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:415)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1425)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:55)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:80)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at org.zdulski.finalproject/org.zdulski.finalproject.MainApplication.<clinit>(MainApplication.java:25)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1071)
+2022-06-13 12:52:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "FAVOURITE_MEALS" już istnieje
+Table "FAVOURITE_MEALS" already exists; SQL statement:
+create table favourite_meals (id bigint not null, mealId varchar(255), username varchar(255), primary key (id)) [42101-212]
+2022-06-13 12:52:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "USERS" już istnieje
+Table "USERS" already exists; SQL statement:
+create table users (username varchar(255) not null, mail varchar(255), primary key (username)) [42101-212]
+2022-06-13 12:59:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Sekwencja "FAVOURITE_MEALS_SEQ" już istnieje
+Sequence "FAVOURITE_MEALS_SEQ" already exists; SQL statement:
+create sequence favourite_meals_SEQ start with 1 increment by 50 [90035-212]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:632)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateSequence.update(CreateSequence.java:53)
+	at org.h2.command.ddl.SchemaOwnerCommand.update(SchemaOwnerCommand.java:33)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:174)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlString(SchemaCreatorImpl.java:502)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlStrings(SchemaCreatorImpl.java:486)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:330)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:176)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:128)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:226)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:143)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:140)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:333)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:415)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1425)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:55)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:80)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at org.zdulski.finalproject/org.zdulski.finalproject.MainApplication.<clinit>(MainApplication.java:25)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1071)
+2022-06-13 12:59:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "FAVOURITE_MEALS" już istnieje
+Table "FAVOURITE_MEALS" already exists; SQL statement:
+create table favourite_meals (id bigint not null, mealId varchar(255), username varchar(255), primary key (id)) [42101-212]
+2022-06-13 12:59:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "USERS" już istnieje
+Table "USERS" already exists; SQL statement:
+create table users (username varchar(255) not null, mail varchar(255), primary key (username)) [42101-212]
+2022-06-13 13:00:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Sekwencja "FAVOURITE_MEALS_SEQ" już istnieje
+Sequence "FAVOURITE_MEALS_SEQ" already exists; SQL statement:
+create sequence favourite_meals_SEQ start with 1 increment by 50 [90035-212]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:632)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateSequence.update(CreateSequence.java:53)
+	at org.h2.command.ddl.SchemaOwnerCommand.update(SchemaOwnerCommand.java:33)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:174)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlString(SchemaCreatorImpl.java:502)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlStrings(SchemaCreatorImpl.java:486)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:330)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:176)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:128)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:226)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:143)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:140)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:333)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:415)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1425)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:55)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:80)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at org.zdulski.finalproject/org.zdulski.finalproject.MainApplication.<clinit>(MainApplication.java:25)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1071)
+2022-06-13 13:00:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "FAVOURITE_MEALS" już istnieje
+Table "FAVOURITE_MEALS" already exists; SQL statement:
+create table favourite_meals (id bigint not null, mealId varchar(255), username varchar(255), primary key (id)) [42101-212]
+2022-06-13 13:00:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "USERS" już istnieje
+Table "USERS" already exists; SQL statement:
+create table users (username varchar(255) not null, mail varchar(255), primary key (username)) [42101-212]
+2022-06-13 13:13:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Sekwencja "FAVOURITE_MEALS_SEQ" już istnieje
+Sequence "FAVOURITE_MEALS_SEQ" already exists; SQL statement:
+create sequence favourite_meals_SEQ start with 1 increment by 50 [90035-212]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:632)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateSequence.update(CreateSequence.java:53)
+	at org.h2.command.ddl.SchemaOwnerCommand.update(SchemaOwnerCommand.java:33)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:174)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlString(SchemaCreatorImpl.java:502)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlStrings(SchemaCreatorImpl.java:486)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:330)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:176)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:128)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:226)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:143)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:140)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:333)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:415)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1425)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:55)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:80)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at org.zdulski.finalproject/org.zdulski.finalproject.MainApplication.<clinit>(MainApplication.java:25)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1071)
+2022-06-13 13:13:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "FAVOURITE_MEALS" już istnieje
+Table "FAVOURITE_MEALS" already exists; SQL statement:
+create table favourite_meals (id bigint not null, mealId varchar(255), username varchar(255), primary key (id)) [42101-212]
+2022-06-13 13:13:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "USERS" już istnieje
+Table "USERS" already exists; SQL statement:
+create table users (username varchar(255) not null, mail varchar(255), primary key (username)) [42101-212]
+2022-06-13 13:23:16 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Sekwencja "FAVOURITE_MEALS_SEQ" już istnieje
+Sequence "FAVOURITE_MEALS_SEQ" already exists; SQL statement:
+create sequence favourite_meals_SEQ start with 1 increment by 50 [90035-212]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:632)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateSequence.update(CreateSequence.java:53)
+	at org.h2.command.ddl.SchemaOwnerCommand.update(SchemaOwnerCommand.java:33)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:174)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlString(SchemaCreatorImpl.java:502)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlStrings(SchemaCreatorImpl.java:486)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:330)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:176)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:128)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:226)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:143)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:140)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:333)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:415)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1425)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:55)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:80)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at org.zdulski.finalproject/org.zdulski.finalproject.MainApplication.<clinit>(MainApplication.java:25)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1071)
+2022-06-13 13:23:16 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "FAVOURITE_MEALS" już istnieje
+Table "FAVOURITE_MEALS" already exists; SQL statement:
+create table favourite_meals (id bigint not null, mealId varchar(255), username varchar(255), primary key (id)) [42101-212]
+2022-06-13 13:23:16 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "USERS" już istnieje
+Table "USERS" already exists; SQL statement:
+create table users (username varchar(255) not null, mail varchar(255), primary key (username)) [42101-212]
+2022-06-13 13:23:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Sekwencja "FAVOURITE_MEALS_SEQ" już istnieje
+Sequence "FAVOURITE_MEALS_SEQ" already exists; SQL statement:
+create sequence favourite_meals_SEQ start with 1 increment by 50 [90035-212]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:632)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateSequence.update(CreateSequence.java:53)
+	at org.h2.command.ddl.SchemaOwnerCommand.update(SchemaOwnerCommand.java:33)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:174)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlString(SchemaCreatorImpl.java:502)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlStrings(SchemaCreatorImpl.java:486)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:330)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:176)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:128)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:226)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:143)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:140)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:333)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:415)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1425)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:55)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:80)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at org.zdulski.finalproject/org.zdulski.finalproject.MainApplication.<clinit>(MainApplication.java:25)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1071)
+2022-06-13 13:23:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "FAVOURITE_MEALS" już istnieje
+Table "FAVOURITE_MEALS" already exists; SQL statement:
+create table favourite_meals (id bigint not null, mealId varchar(255), username varchar(255), primary key (id)) [42101-212]
+2022-06-13 13:23:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "USERS" już istnieje
+Table "USERS" already exists; SQL statement:
+create table users (username varchar(255) not null, mail varchar(255), primary key (username)) [42101-212]
+2022-06-13 15:52:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Sekwencja "FAVOURITE_MEALS_SEQ" już istnieje
+Sequence "FAVOURITE_MEALS_SEQ" already exists; SQL statement:
+create sequence favourite_meals_SEQ start with 1 increment by 50 [90035-212]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:632)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateSequence.update(CreateSequence.java:53)
+	at org.h2.command.ddl.SchemaOwnerCommand.update(SchemaOwnerCommand.java:33)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:174)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:252)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlString(SchemaCreatorImpl.java:502)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.applySqlStrings(SchemaCreatorImpl.java:486)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:330)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:176)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:128)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:226)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:143)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:140)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:333)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:415)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1425)
+	at org.hibernate.orm.core@6.0.1.Final/org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:55)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:80)
+	at jakarta.persistence@3.1.0/jakarta.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at org.zdulski.finalproject/org.zdulski.finalproject.MainApplication.<clinit>(MainApplication.java:25)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(LauncherImpl.java:465)
+	at javafx.graphics@18.0.1/com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:364)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/sun.launcher.LauncherHelper$FXHelper.main(LauncherHelper.java:1071)
+2022-06-13 15:52:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "FAVOURITE_MEALS" już istnieje
+Table "FAVOURITE_MEALS" already exists; SQL statement:
+create table favourite_meals (id bigint not null, mealId varchar(255), username varchar(255), primary key (id)) [42101-212]
+2022-06-13 15:52:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "USERS" już istnieje
+Table "USERS" already exists; SQL statement:
+create table users (username varchar(255) not null, mail varchar(255), primary key (username)) [42101-212]
