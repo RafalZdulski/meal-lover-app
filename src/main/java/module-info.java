@@ -8,6 +8,8 @@ module org.zdulski.finalproject {
     requires java.desktop;
     requires jakarta.persistence;
     requires org.hibernate.orm.core;
+    requires org.apache.logging.log4j;
+    requires org.apache.logging.log4j.core;
 
     opens org.zdulski.finalproject to javafx.fxml;
     exports org.zdulski.finalproject;
@@ -15,7 +17,7 @@ module org.zdulski.finalproject {
     opens org.zdulski.finalproject.view_controllers to javafx.fxml;
     exports org.zdulski.finalproject.eventbus;
     exports org.zdulski.finalproject.data.dto;
-    exports org.zdulski.finalproject.data.pojo;
+    exports org.zdulski.finalproject.data.pojos;
 
-    opens org.zdulski.finalproject.data.pojo;
+    opens org.zdulski.finalproject.data.pojos;
 }

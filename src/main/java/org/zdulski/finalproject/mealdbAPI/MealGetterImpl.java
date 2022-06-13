@@ -1,5 +1,7 @@
 package org.zdulski.finalproject.mealdbAPI;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -19,6 +21,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 public class MealGetterImpl implements MealGetter{
+    private static final Logger LOG = LogManager.getLogger(MealGetterImpl.class);
 
     private URLConnection newConnection(String url) throws IOException {
         URLConnection connection = new URL(url).openConnection();
@@ -57,6 +60,7 @@ public class MealGetterImpl implements MealGetter{
         try {
             latch.await();
         } catch (InterruptedException e) {
+            LOG.error("latch interrupted: " + e.getMessage());
             e.printStackTrace();
         }
         return allMeals;
@@ -80,8 +84,10 @@ public class MealGetterImpl implements MealGetter{
                 ret.add((String) temp.get("strCategory"));
             }
         } catch (IOException e) {
+            LOG.error("IOException in getCategories(): " + e.getMessage());
             e.printStackTrace();
         } catch (ParseException e) {
+            LOG.error("ParseException in getCategories(): " + e.getMessage());
             e.printStackTrace();
         }
         return ret;
@@ -101,8 +107,10 @@ public class MealGetterImpl implements MealGetter{
                 ret.add((String) temp.get("strArea"));
             }
         } catch (IOException e) {
+            LOG.error("IOException in getAreas(): " + e.getMessage());
             e.printStackTrace();
         } catch (ParseException e) {
+            LOG.error("ParseException in getAreas(): " + e.getMessage());
             e.printStackTrace();
         }
         return ret;
@@ -120,8 +128,10 @@ public class MealGetterImpl implements MealGetter{
                 for (Object meal : jsonArray)
                     ret.add(new Meal((JSONObject) meal));
         } catch (IOException e) {
+            LOG.error("IOException in getMeals(): " + e.getMessage());
             e.printStackTrace();
         } catch (ParseException e) {
+            LOG.error("ParseException in getMeals(): " + e.getMessage());
             e.printStackTrace();
         }
         return ret;

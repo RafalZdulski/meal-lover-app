@@ -15,6 +15,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.zdulski.finalproject.eventbus.*;
 
 import java.io.IOException;
@@ -26,6 +28,8 @@ import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 
 public class MainController implements Initializable {
+
+    private final static Logger LOG = LogManager.getLogger(MainController.class);
 
     @FXML
     protected BorderPane mainPane;
@@ -99,9 +103,7 @@ public class MainController implements Initializable {
             Pane dashboardPane = FXMLLoader.load(Objects.requireNonNull(getClass()
                     .getResource("/org/zdulski/finalproject/views/dashboard-view.fxml")));
             setCenterView(dashboardPane);
-            dashboardPane.getChildren().get(0).setOnMouseClicked(e -> {
-                menuDrawer.open();
-            });
+            dashboardPane.getChildren().forEach(el -> el.setOnMouseClicked(e -> menuDrawer.open()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -131,16 +133,14 @@ public class MainController implements Initializable {
 
     @Subscribe
     public void deadEventHandler(DeadEvent event){
-        System.out.println("dead event:");
-        System.out.println(event.getEvent().toString());
+        LOG.warn("dead event: " + event.getEvent().toString());
     }
 
     @Subscribe
     public void showMeal(ShowMealEvent event){
-        System.out.println("showing meal: " + event.getMeal().getName());
-        CompletableFuture<FXMLLoader> future = CompletableFuture.supplyAsync(
+        CompletableFuture.supplyAsync(
                 () -> new FXMLLoader(getClass().getResource(View.MEAL.getUrl()))
-        ).thenApply(loader -> {
+        ).thenApplyAsync(loader -> {
             try {
                 Pane pane = loader.load();
                 Platform.runLater(() -> {
@@ -153,10 +153,12 @@ public class MainController implements Initializable {
                 controller.setSourceView(event.getSourceView());
                 controller.setRightActionBtn(event.getAction());
             } catch (IOException e) {
+                LOG.error("couldn't show meal: " + event.getMeal().getName());
                 e.printStackTrace();
             }
+            LOG.info("showing meal: " + event.getMeal().getName());
             return loader;
-        }).thenApply(loader -> {
+        }).thenApplyAsync(loader -> {
             setHeader(View.MEAL);
             return loader;
         });
@@ -173,9 +175,9 @@ public class MainController implements Initializable {
         }
 
         String url = event.getViewType().getUrl();
-        CompletableFuture<FXMLLoader> future = CompletableFuture.supplyAsync(
+        CompletableFuture.supplyAsync(
                 () -> new FXMLLoader(getClass().getResource(url))
-        ).thenApply(loader -> {
+        ).thenApplyAsync(loader -> {
             try {
                 Pane pane = loader.load();
                 if (event.getViewType() == View.BROWSE)
@@ -188,10 +190,12 @@ public class MainController implements Initializable {
                 MealsController controller = loader.getController();
                 controller.setMeals(event.getMeals());
             } catch (IOException e) {
+                LOG.error("couldn't show meals, as" + event.getViewType());
                 e.printStackTrace();
             }
+            LOG.info("showing " + event.getMeals().size() + " meals, as: " + event.getViewType());
             return loader;
-        }).thenApply(loader -> {
+        }).thenApplyAsync(loader -> {
             setHeader(event.getViewType());
             return loader;
         });

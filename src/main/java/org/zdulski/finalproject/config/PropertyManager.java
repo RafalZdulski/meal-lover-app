@@ -1,13 +1,20 @@
 package org.zdulski.finalproject.config;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Properties;
 
 public class PropertyManager {
+    final static Logger LOG = LogManager.getLogger(PropertyManager.class);
+
     private final static String DEFAULT_PROPERTIES_FILE = "src/main/resources/default.properties";
     private final static String APP_PROPERTIES_FILE = "src/main/resources/app.properties";
 
@@ -45,7 +52,7 @@ public class PropertyManager {
             defaultProps.load(in);
             in.close();
         } catch (IOException e) {
-            System.err.println("could not load default properties");
+            LOG.error("could not load default properties");
             e.printStackTrace();
             System.exit(1);
         }

@@ -1,4 +1,4 @@
-package org.zdulski.finalproject.data.pojo;
+package org.zdulski.finalproject.data.pojos;
 
 import org.zdulski.finalproject.data.dto.User;
 

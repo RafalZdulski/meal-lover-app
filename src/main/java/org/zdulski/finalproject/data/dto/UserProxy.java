@@ -1,6 +1,8 @@
 package org.zdulski.finalproject.data.dto;
 
 import com.google.common.eventbus.Subscribe;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.zdulski.finalproject.data.repository.FavMealRepository;
 import org.zdulski.finalproject.data.repository.NoSuchUserException;
 import org.zdulski.finalproject.data.repository.UserRepositoryImpl;
@@ -13,6 +15,8 @@ import java.util.List;
 import java.util.Set;
 
 public class UserProxy {
+    private static final Logger LOG = LogManager.getLogger(UserProxy.class);
+
     private static UserProxy INSTANCE = new UserProxy();
     public static UserProxy getInstance(){return  INSTANCE;}
 
@@ -45,7 +49,7 @@ public class UserProxy {
     public void addToFavourite(AddToFavouriteEvent event){
         if (!isFavourite(event.getMeal().getId())) {
             user.getFavouriteMeals().add(event.getMeal().getId());
-            System.out.println("meal: " + event.getMeal().getName() + " added to favourite of user: " + user.getUsername());
+            LOG.info("meal: '" + event.getMeal().getName() + "' added to favourite of user: '" + user.getUsername() + "'");
             try {
                 mealRepo.add(user.getUsername(), event.getMeal().getId());
             } catch (NoSuchUserException e) {
@@ -54,14 +58,14 @@ public class UserProxy {
             }
         }else {
             user.getFavouriteMeals().remove(event.getMeal().getId());
-            System.out.println("meal: " + event.getMeal().getName() + " removed from favourite of user: " + user.getUsername());
+            LOG.info("meal: '" + event.getMeal().getName() + "' removed from favourite of user: '" + user.getUsername() + "'");
             mealRepo.delete(user.getUsername(), event.getMeal().getId());
         }
     }
 
     @Subscribe
     public void addToLatest(ShowMealEvent event){
-        System.out.println("meal: " + event.getMeal().getName() + " added to latest of user: " + user.getUsername());
+        LOG.info("meal: '" + event.getMeal().getName() + "' added to latest of user: '" + user.getUsername() + "'");
         this.addToLatest(event.getMeal().getId());
     }
 

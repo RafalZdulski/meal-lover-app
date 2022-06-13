@@ -1,18 +1,22 @@
 package org.zdulski.finalproject.data.repository;
 
 import jakarta.persistence.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.zdulski.finalproject.MainApplication;
 import org.zdulski.finalproject.data.dto.User;
-import org.zdulski.finalproject.data.pojo.FavouriteMealPojo;
-import org.zdulski.finalproject.data.pojo.UserPojo;
-import org.zdulski.finalproject.data.pojo.UserPojoMapper;
+import org.zdulski.finalproject.data.pojos.FavouriteMealPojo;
+import org.zdulski.finalproject.data.pojos.UserPojo;
+import org.zdulski.finalproject.data.pojos.UserPojoMapper;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class UserRepositoryImpl implements UserRepository, FavMealRepository{
-    EntityManagerFactory emf;
+    private static final Logger LOG = LogManager.getLogger(UserRepositoryImpl.class);
+
+    private EntityManagerFactory emf;
 
     public UserRepositoryImpl(EntityManagerFactory emf){
         this.emf = emf;
@@ -49,10 +53,12 @@ public class UserRepositoryImpl implements UserRepository, FavMealRepository{
 
         try {
             em.getTransaction().commit();
+            LOG.info("user: '" + user.getUsername() + "' saved into database");
         }catch (RollbackException e){
-            if (this.doesUserExist(user.getUsername()))
+            if (this.doesUserExist(user.getUsername())) {
+                LOG.error("user: '" + user.getUsername() + "' already exists in database");
                 throw new UserAlreadyExistsException();
-            else
+            }else
                 e.printStackTrace();
         }finally {
             em.close();
@@ -66,6 +72,7 @@ public class UserRepositoryImpl implements UserRepository, FavMealRepository{
         UserPojo userPojo = em.find(UserPojo.class, username);
         if (userPojo == null) {
             em.close();
+            LOG.error("user: '" + username + "' not found in database");
             throw new NoSuchUserException();
         }
 
@@ -73,6 +80,7 @@ public class UserRepositoryImpl implements UserRepository, FavMealRepository{
                 .setParameter("username", userPojo.getUsername()).getResultList();
 
         em.close();
+
         return UserPojoMapper.toUser(userPojo, mealPojoList);
     }
 
@@ -90,6 +98,7 @@ public class UserRepositoryImpl implements UserRepository, FavMealRepository{
                 .executeUpdate();
 
         em.getTransaction().commit();
+        LOG.info("user: '" + user.getUsername() + "' deleted from database");
         em.close();
     }
 
@@ -105,6 +114,7 @@ public class UserRepositoryImpl implements UserRepository, FavMealRepository{
                 .executeUpdate();
 
         em.getTransaction().commit();
+        LOG.info("user: '" + user.getUsername() + "' mail updated");
         em.close();
     }
 
@@ -135,6 +145,7 @@ public class UserRepositoryImpl implements UserRepository, FavMealRepository{
                 .executeUpdate();
 
         em.getTransaction().commit();
+        LOG.info("user's: '" + username + "' favourite meal: '" + mealId + "'  deleted from database");
         em.close();
     }
 
@@ -151,6 +162,7 @@ public class UserRepositoryImpl implements UserRepository, FavMealRepository{
         em.persist(new FavouriteMealPojo(mealId, username));
 
         em.getTransaction().commit();
+        LOG.info("user's: '" + username + "' favourite meal: '" + mealId + "'  added to database");
         em.close();
     }
 

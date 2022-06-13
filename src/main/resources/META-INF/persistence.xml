@@ -7,8 +7,8 @@
 
     <persistence-unit name="default">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>org.zdulski.finalproject.data.pojo.UserPojo</class>
-        <class>org.zdulski.finalproject.data.pojo.FavouriteMealPojo</class>
+        <class>org.zdulski.finalproject.data.pojos.UserPojo</class>
+        <class>org.zdulski.finalproject.data.pojos.FavouriteMealPojo</class>
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver" /> <!-- DB Driver -->
 <!--            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:default" /> &lt;!&ndash; BD Mane &ndash;&gt;-->

@@ -9,5 +9,4 @@ public class EventBusFactory {
         return eventBus;
     }
 
-    //TODO ADD dead event handler
 }

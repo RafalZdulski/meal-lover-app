@@ -1,5 +1,7 @@
 package org.zdulski.finalproject.mealdbAPI;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -12,13 +14,11 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class SearchEngineImpl implements SearchEngine{
+    private static final Logger LOG = LogManager.getLogger(SearchEngineImpl.class);
 
     private URLConnection newConnection(String url) throws IOException {
         URLConnection connection = new URL(url).openConnection();
@@ -65,7 +65,13 @@ public class SearchEngineImpl implements SearchEngine{
         Set<String> ids = new HashSet<>();
         for (String category : categories){
             String url = PropertyManager.getInstance().getProperty("filterURL")+"?c="+category;
-            ids.addAll(getIds(url));
+            try {
+                ids.addAll(getIds(url));
+            } catch (IOException e) {
+                LOG.error("IOException in getIDsByName(): " + e.getMessage() + "\n" +
+                        "failed at url: " + url);
+                e.printStackTrace();
+            }
         }
         return ids;
     }
@@ -74,7 +80,13 @@ public class SearchEngineImpl implements SearchEngine{
         Set<String> ids = new HashSet<>();
         for (String area : areas){
             String url = PropertyManager.getInstance().getProperty("filterURL")+"?a="+area;
-            ids.addAll(getIds(url));
+            try {
+                ids.addAll(getIds(url));
+            } catch (IOException e) {
+                LOG.error("IOException in getIDsByName(): " + e.getMessage() + "\n" +
+                        "failed at url: " + url);
+                e.printStackTrace();
+            }
         }
         return ids;
     }
@@ -83,21 +95,26 @@ public class SearchEngineImpl implements SearchEngine{
         Set<String> ids = new HashSet<>();
         for (String name : words){
             String url = PropertyManager.getInstance().getProperty("searchURL")+"?s="+name;
-            ids.addAll(getIds(url));
+            try {
+                ids.addAll(getIds(url));
+            } catch (IOException e) {
+                LOG.error("IOException in getIDsByName(): " + e.getMessage() + "\n" +
+                        "failed at url: " + url);
+                e.printStackTrace();
+            }
         }
         return ids;
     }
 
-    private List<String> getIds(String url){
+    private List<String> getIds(String url) throws IOException {
+        InputStream is = newConnection(url).getInputStream();
+        JSONParser jsonParser = new JSONParser();
         try {
-            InputStream is = newConnection(url).getInputStream();
-            JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(is, StandardCharsets.UTF_8));
             JSONArray jsonArray = (JSONArray) jsonObject.get("meals");
             return (List<String>) jsonArray.stream().map(a -> String.valueOf(JSONObject.class.cast(a).get("idMeal"))).collect(Collectors.toList());
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (ParseException e) {
+            LOG.error("could not parse data from: " + url + " reason: " + e.getMessage());
             e.printStackTrace();
         }
         return new ArrayList<>();

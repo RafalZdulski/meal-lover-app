@@ -37,8 +37,8 @@ public class User {
     public String toString(){
         String favMeals = favouriteMeals.stream().collect(Collectors.joining(", "));
         StringBuilder builder = new StringBuilder();
-        builder.append("name: ").append(username).append("\n")
-                .append("mail: ").append(mail).append("\n")
+        builder.append("name: ").append(username).append(", ")
+                .append("mail: ").append(mail).append(", ")
                 .append("fav meals: ").append(favMeals);
         return builder.toString();
     }

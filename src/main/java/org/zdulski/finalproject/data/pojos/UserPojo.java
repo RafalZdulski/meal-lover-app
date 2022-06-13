@@ -1,4 +1,4 @@
-package org.zdulski.finalproject.data.pojo;
+package org.zdulski.finalproject.data.pojos;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
