@@ -15,6 +15,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 import org.zdulski.finalproject.data.dto.Meal;
 import org.zdulski.finalproject.eventbus.EventBusFactory;
+import org.zdulski.finalproject.eventbus.LoadingFinishedEvent;
 import org.zdulski.finalproject.eventbus.ShowMealEvent;
 import org.zdulski.finalproject.view_controllers.MealController;
 import org.zdulski.finalproject.view_controllers.View;
@@ -29,6 +30,7 @@ public class MealCellFactory implements Callback<ListView<Meal>, ListCell<Meal>>
     public MealCellFactory(View sourceView){
         this.sourceView = sourceView;
     }
+
 
     @Override
     public ListCell<Meal> call(ListView<Meal> mealListView) {
@@ -69,12 +71,14 @@ public class MealCellFactory implements Callback<ListView<Meal>, ListCell<Meal>>
 //                    GridPane.setColumnSpan(tags,2);
                                 //Photo
                                 Rectangle photo = new Rectangle(96, 96);
-                                photo.setArcHeight(40);
-                                photo.setArcWidth(40);
-                                photo.setFill(new ImagePattern(new Image(meal.getThumbnail())));
-                                gridPane.add(photo, 2, 0);
-                                GridPane.setRowSpan(photo, 3);
-
+                                new Thread(() -> {
+                                    photo.setArcHeight(40);
+                                    photo.setArcWidth(40);
+                                    photo.setFill(new ImagePattern(new Image(meal.getThumbnail())));
+                                    //gridPane.add(photo, 2, 0);
+                                    Platform.runLater(() -> gridPane.add(photo, 2, 0));
+                                    GridPane.setRowSpan(photo, 3);
+                                }).start();
 //                    ImageView imageView = new ImageView();
 //                    imageView.setFitWidth(120);
 //                    imageView.setFitHeight(120);
@@ -88,7 +92,7 @@ public class MealCellFactory implements Callback<ListView<Meal>, ListCell<Meal>>
                         }
                     };
                     return cell;
-                }).thenApply(cell -> {
+                }).thenApplyAsync(cell -> {
                     cell.setPrefHeight(100);
                     cell.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> {
                         System.out.println("clicked on: " + cell.getItem().getName());
@@ -98,7 +102,9 @@ public class MealCellFactory implements Callback<ListView<Meal>, ListCell<Meal>>
                 });
 
         try {
-            return future.get();
+            ListCell<Meal> ret = future.get();
+            EventBusFactory.getEventBus().post(new LoadingFinishedEvent());
+            return ret;
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

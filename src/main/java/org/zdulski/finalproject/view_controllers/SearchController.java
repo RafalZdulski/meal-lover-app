@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.zdulski.finalproject.config.PropertyManager;
 import org.zdulski.finalproject.data.dto.Meal;
@@ -14,6 +15,7 @@ import org.zdulski.finalproject.eventbus.ReturnEvent;
 import org.zdulski.finalproject.eventbus.ShowMealsEvent;
 import org.zdulski.finalproject.mealdbAPI.MealGetterImpl;
 import org.zdulski.finalproject.mealdbAPI.SearchEngineImpl;
+import org.zdulski.finalproject.view_auxs.loading.LoadingCircles;
 import org.zdulski.finalproject.view_auxs.search.filters.FilterPillsDisplay;
 import org.zdulski.finalproject.view_auxs.search.filters.FilterWindow;
 import org.zdulski.finalproject.view_auxs.search.filters.FilterWrap;
@@ -30,6 +32,11 @@ public class SearchController implements Initializable {
     private List<FilterWrap> areas;
 
     private List<FilterWrap> categories;
+
+    private LoadingCircles loadingCircles;
+
+    @FXML
+    private AnchorPane mainPane;
 
     @FXML
     private Button addAreaBtn;
@@ -95,6 +102,7 @@ public class SearchController implements Initializable {
 
     @FXML
     void searchBtnClicked() {
+        loadingCircles.setVisible(true);
         final String[] wordsFilters = nameField.getText().length()==0? new String[0] : nameField.getText().split("\\s+");
         final String[] areasFilter = areas.stream().filter(FilterWrap::getCheckValue).map(FilterWrap::toString).toArray(String[]::new);
         final String[] categoryFilters = categories.stream().filter(FilterWrap::getCheckValue).map(FilterWrap::toString).toArray(String[]::new);
@@ -116,11 +124,11 @@ public class SearchController implements Initializable {
                 List<Meal> meals = new MealGetterImpl().getMealsByIds(ids);
                 System.out.println(meals.size());
                 EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.BROWSE));
-                EventBusFactory.getEventBus().post(new ReturnEvent()); //hiding
             } else {
                 //TODO ADD popup message saying there is nothing to show;
                 System.err.println("nothing found");
             }
+            loadingCircles.setVisible(false);
             return ids;
         });
     }
@@ -147,6 +155,13 @@ public class SearchController implements Initializable {
         clearCategoryBtn.setGraphic(getButtonIcon("backspace.png"));
         clearNameBtn.setGraphic(getButtonIcon("backspace.png"));
         searchBtn.setGraphic(getButtonIcon("magnifying-glass-icon.png"));
+
+        loadingCircles = initLoadingCircles();
+        loadingCircles.setVisible(false);
+    }
+
+    public SearchController(){
+
     }
 
     private ImageView getButtonIcon(String name){
@@ -158,5 +173,18 @@ public class SearchController implements Initializable {
         imageView.setSmooth(true);
         imageView.setOpacity(0.80);
         return imageView;
+    }
+
+    private LoadingCircles initLoadingCircles(){
+        double radius = 70;
+        int amountOfCircles = 8;
+        double circlesRadius = Math.PI*radius/amountOfCircles-6;
+        LoadingCircles circles = new LoadingCircles(radius, amountOfCircles, circlesRadius,
+                2000, 4000);
+        circles.setLayoutX(60);
+        circles.setLayoutY(200);
+        mainPane.getChildren().add(circles);
+        circles.play();
+        return circles;
     }
 }

@@ -3,6 +3,9 @@ package org.zdulski.finalproject.view_controllers;
 import com.google.common.eventbus.DeadEvent;
 import com.google.common.eventbus.Subscribe;
 import com.jfoenix.controls.JFXDrawer;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,14 +13,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.zdulski.finalproject.eventbus.*;
+import org.zdulski.finalproject.view_auxs.loading.LoadingSlider;
 
 import java.io.IOException;
 import java.net.URL;
@@ -37,6 +43,9 @@ public class MainController implements Initializable {
     private List<Node> recentlyViewedPanes;
 
     private Pane latestBrowseView;
+
+    @FXML
+    private AnchorPane loadingPane;
 
     @FXML
     protected JFXDrawer menuDrawer;
@@ -108,6 +117,10 @@ public class MainController implements Initializable {
             e.printStackTrace();
         }
 
+        LoadingSlider slider = new LoadingSlider(360,6, 120,2500,2000);
+        slider.play();
+        loadingPane.getChildren().add(slider);
+        closeLoadingSlider();
     }
 
     @FXML
@@ -166,11 +179,13 @@ public class MainController implements Initializable {
 
     @Subscribe
     public void showMeals(ShowMealsEvent event){
+        this.openLoadingSlider();
         if (event.getMeals() == null && latestBrowseView != null) {
             this.setCenterView(latestBrowseView);
             menuDrawer.close();
             searchDrawer.close();
-            setHeader(event.getViewType());
+            this.setHeader(event.getViewType());
+            this.closeLoadingSlider();
             return;
         }
 
@@ -208,12 +223,13 @@ public class MainController implements Initializable {
 
     @Subscribe
     public void goBackToLastView(ReturnEvent event){
+        //TODO FIX distinguish between closing drawers and going to previous view
         if (searchDrawer.isOpened())
             searchDrawer.close();
         else if (menuDrawer.isOpened())
             menuDrawer.close();
         else
-            goToPreviousView();
+            this.goToPreviousView();
     }
 
     private void setHeader(View view){
@@ -235,5 +251,36 @@ public class MainController implements Initializable {
         }
         header.setText(str);
         header.setFont(Font.font("Pristina", FontWeight.BOLD, size));
+    }
+
+
+    private void openLoadingSlider(){
+        CompletableFuture.runAsync(() -> {
+            KeyValue scaleY = new KeyValue(loadingPane.getChildren().get(0).scaleYProperty(), 1);
+            KeyValue layoutY = new KeyValue(loadingPane.getChildren().get(0).layoutYProperty(), 0);
+            KeyFrame keyFrame = new KeyFrame(Duration.millis(500), scaleY, layoutY);
+            Timeline open = new Timeline(keyFrame);
+            open.play();
+            //views load too fast for this to be noticeable, so I made it artificial
+//            try {
+//                TimeUnit.MILLISECONDS.sleep(1500);
+//                closeLoadingSlider();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+        });
+    }
+
+    private void closeLoadingSlider(){
+        KeyValue scaleY = new KeyValue(loadingPane.getChildren().get(0).scaleYProperty(), 0);
+        KeyValue layoutY = new KeyValue(loadingPane.getChildren().get(0).layoutYProperty(), -3);
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(500), scaleY, layoutY);
+        Timeline close = new Timeline(keyFrame);
+        close.play();
+    }
+
+    @Subscribe
+    public void finishedLoading(LoadingFinishedEvent event){
+        closeLoadingSlider();
     }
 }

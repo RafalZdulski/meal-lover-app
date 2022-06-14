@@ -7,11 +7,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zdulski.finalproject.view_controllers.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@../css/main-view.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zdulski.finalproject.view_controllers.MainController">
    <children>
       <BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="640.0" minWidth="360.0" prefHeight="640.0" prefWidth="360.0">
          <top>
-            <AnchorPane id="navigationBar" prefHeight="54.0" stylesheets="@../css/main-view.css" BorderPane.alignment="CENTER_LEFT">
+            <AnchorPane id="navigationBar" prefHeight="54.0" BorderPane.alignment="CENTER_LEFT">
                <children>
                   <ImageView fx:id="navbarLogo" fitHeight="48.0" fitWidth="48.0" layoutX="10.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
                   <Text fx:id="header" layoutX="65.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Lover" wrappingWidth="230.0">
@@ -23,6 +23,7 @@
             </AnchorPane>
          </top>
       </BorderPane>
+      <AnchorPane fx:id="loadingPane" layoutY="55.0" prefWidth="360.0" />
       <JFXDrawer fx:id="searchDrawer" direction="RIGHT" layoutY="54.0" prefHeight="586.0" prefWidth="360.0" />
       <JFXDrawer fx:id="menuDrawer" prefHeight="640.0" prefWidth="360.0" translateZ="2.0" />
       <ImageView id="menuBtnIcon" fx:id="menuBtnIcon" fitHeight="48.0" fitWidth="48.0" layoutX="305.0" layoutY="5.0" onMouseClicked="#openDrawer" pickOnBounds="true" preserveRatio="true" />

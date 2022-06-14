@@ -71,7 +71,7 @@ public class FilterWindow extends Stage {
         listView.setItems(FXCollections.observableList(newFilterList));
 
         listView.setCellFactory(c -> {
-            ListCell<FilterWrap> cell = new ListCell(){
+            ListCell<FilterWrap> cell = new ListCell<>(){
                 protected void updateItem(FilterWrap item, boolean empty) {
                     super.updateItem(item, empty);
                     if (!empty) {

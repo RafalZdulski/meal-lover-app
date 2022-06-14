@@ -57,25 +57,25 @@ public class BrowseController implements MealsController {
     public void setAllMeals() {
         //TODO there is 282 dishes in database, shouldn't it be fetched in parts? I do not need to fetch all 282 dishes at once
         //maybe it would be better to fetch only ids and fully fetch only those meals that are displayed on current page
-        CompletableFuture<Void> allMeals = CompletableFuture.runAsync(() -> {
+        CompletableFuture.runAsync(() -> {
             meals = new MealGetterImpl().getAllMeals();
-        }).thenRun( () -> {
+        }).thenRunAsync( () -> {
             int pages = (int) Math.ceil(meals.size()/ (double) numberOfMealsDisplayed);
             lastPage.setText(String.valueOf(pages));
-        }).thenRun(() -> {
+        }).thenRunAsync(() -> {
             update();
         });
     }
 
     public void setMeals(List<Meal> meals){
-        CompletableFuture<Void> allMeals = CompletableFuture.runAsync(() -> {
+        CompletableFuture.runAsync(() -> {
             if (meals != null) {
                 this.meals = meals;
                 int pages = (int) Math.ceil(this.meals.size() / (double) numberOfMealsDisplayed);
                 lastPage.setText(String.valueOf(pages));
                 update();
             }
-        }).thenRun(() -> {
+        }).thenRunAsync(() -> {
             if (this.meals.isEmpty()){
                 setAllMeals();
                 int pages = (int) Math.ceil(this.meals.size() / (double) numberOfMealsDisplayed);
@@ -106,7 +106,7 @@ public class BrowseController implements MealsController {
     }
 
     public void showMeals(){
-        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+        CompletableFuture.runAsync(() -> {
             int from = page * numberOfMealsDisplayed;
             int to = Math.min(from + numberOfMealsDisplayed, meals.size());
             ObservableList<Meal> mealDisplayed = FXCollections.observableList(meals.subList(from, to));

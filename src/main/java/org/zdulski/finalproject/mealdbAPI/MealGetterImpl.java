@@ -49,6 +49,7 @@ public class MealGetterImpl implements MealGetter{
 
     public List<Meal> getAllMeals(){
         List<Meal> allMeals = new ArrayList<>();
+
         CountDownLatch latch = new CountDownLatch('z'-'a'+1);
         for (char letter = 'a'; letter <= 'z'; letter++){
             char finalLetter = letter;

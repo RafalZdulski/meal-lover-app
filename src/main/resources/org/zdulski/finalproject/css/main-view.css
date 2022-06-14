@@ -3,3 +3,9 @@
     -fx-border-width: 0 0 2 0;
     -fx-border-color: black;
 }
+
+#slider {
+    -fx-fill: #80726b;
+    -fx-arc-width: 20;
+    -fx-arc-height: 20;
+}
