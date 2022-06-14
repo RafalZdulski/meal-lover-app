@@ -51,16 +51,15 @@ public class Meal {
     //only for test purpose
     @Override
     public String toString(){
-        StringBuilder builder = new StringBuilder();
-        builder.append("id: ").append(id).append("\n")
-                .append("name: ").append(name).append("\n")
-                .append("thumbnail: ").append(thumbnail).append("\n")
-                .append("youtubeUrl: ").append(youtubeUrl).append("\n")
-                .append("category: ").append(category).append("\n")
-                .append("area: ").append(area).append("\n")
-                .append("instructions:\n").append(instructions).append("\n")
-                .append("tags: ").append(tags).append("\n")
-                .append("ingredients: ").append(ingredients).append("\n");
-        return builder.toString();
+        String builder = "id: " + id + "\n" +
+                "name: " + name + "\n" +
+                "thumbnail: " + thumbnail + "\n" +
+                "youtubeUrl: " + youtubeUrl + "\n" +
+                "category: " + category + "\n" +
+                "area: " + area + "\n" +
+                "instructions:\n" + instructions + "\n" +
+                "tags: " + tags + "\n" +
+                "ingredients: " + ingredients + "\n";
+        return builder;
     }
 }

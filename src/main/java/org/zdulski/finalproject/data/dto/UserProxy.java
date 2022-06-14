@@ -17,7 +17,7 @@ import java.util.Set;
 public class UserProxy {
     private static final Logger LOG = LogManager.getLogger(UserProxy.class);
 
-    private static UserProxy INSTANCE = new UserProxy();
+    private static final UserProxy INSTANCE = new UserProxy();
     public static UserProxy getInstance(){return  INSTANCE;}
 
     private User user;
@@ -53,7 +53,8 @@ public class UserProxy {
             try {
                 mealRepo.add(user.getUsername(), event.getMeal().getId());
             } catch (NoSuchUserException e) {
-                //TODO secure in case of exception that should not occur
+                //can only occur if user was deleted while the program was running
+                LOG.fatal("could not find user: '" + user.getUsername() + "' in database - probably deleted during app runtime");
                 e.printStackTrace();
             }
         }else {

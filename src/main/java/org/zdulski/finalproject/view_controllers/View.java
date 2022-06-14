@@ -9,7 +9,7 @@ public enum View {
     FAVOURITE("/org/zdulski/finalproject/views/favourites-view.fxml");
 
 
-    String url;
+    private final String url;
     View(String url){
         this.url = url;
     }

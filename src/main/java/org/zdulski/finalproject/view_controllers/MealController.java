@@ -19,7 +19,6 @@ import java.net.URL;
 import java.util.*;
 
 public class MealController implements ViewController {
-    //TODO differ between random meal and searched meal
 
     protected Meal meal;
 
@@ -92,7 +91,7 @@ public class MealController implements ViewController {
 
     @FXML
     public void onYtLinkClick(){
-        //TODO implement onYyLinkClick()
+        //TODO ADD implement onYyLinkClick()
         System.out.println("link clicked");
     }
 
@@ -102,11 +101,10 @@ public class MealController implements ViewController {
     }
 
     private void showMeal() {
-        //TODO set condition to not display null or empty values
         name.setText(meal.getName());
         category.setText(meal.getCategory());
         area.setText(meal.getArea());
-        tags.setText(meal.getTags());
+        tags.setText(meal.getTags());//TODO FIX set condition to not display null or empty values
         thumbnailRect.setFill(new ImagePattern(new Image(meal.getThumbnail())));
         setIngredientsTableView(meal.getIngredients());
         executionText.setText(meal.getInstructions());
@@ -124,8 +122,8 @@ public class MealController implements ViewController {
             temp.put("Measure", ingredients.get(ingredient));
             list.add(temp);
         }
-        //TODO resize font - should be bigger
-        //TODO wrapping when ingredient or its measure value is to long to fit (now it get cut with '...')
+        //TODO BEAUTIFY resize font - should be bigger
+        //TODO FIX wrapping when ingredient or its measure value is to long to fit (now it get cut with '...')
         ingredientCol.setCellValueFactory(new MapValueFactory<>("Ingredient"));
         ingredientMeasureCol.setCellValueFactory(new MapValueFactory<>("Measure"));
         ingredientsTable.getItems().addAll(list);

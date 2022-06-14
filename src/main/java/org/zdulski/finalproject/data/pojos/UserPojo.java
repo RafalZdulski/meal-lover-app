@@ -23,9 +23,8 @@ public class UserPojo {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("name: ").append(username).append("\n")
-                .append("mail: ").append(mail).append("\n");
-        return builder.toString();
+        String builder = "name: " + username + "\n" +
+                "mail: " + mail + "\n";
+        return builder;
     }
 }

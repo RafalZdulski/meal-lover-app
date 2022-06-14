@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 
-//TODO IMPORTANT make i parallel, cuz now it operates on main thread
 public class BrowseController implements MealsController {
     private List<Meal> meals = new ArrayList<>();
     private final int numberOfMealsDisplayed = 16;
@@ -55,16 +54,14 @@ public class BrowseController implements MealsController {
     }
 
     public void setAllMeals() {
-        //TODO there is 282 dishes in database, shouldn't it be fetched in parts? I do not need to fetch all 282 dishes at once
+        //TODO IMPROVE there is 282 dishes in database, shouldn't it be fetched in parts? I do not need to fetch all 282 dishes at once
         //maybe it would be better to fetch only ids and fully fetch only those meals that are displayed on current page
         CompletableFuture.runAsync(() -> {
             meals = new MealGetterImpl().getAllMeals();
         }).thenRunAsync( () -> {
             int pages = (int) Math.ceil(meals.size()/ (double) numberOfMealsDisplayed);
             lastPage.setText(String.valueOf(pages));
-        }).thenRunAsync(() -> {
-            update();
-        });
+        }).thenRunAsync(this::update);
     }
 
     public void setMeals(List<Meal> meals){
@@ -175,7 +172,8 @@ public class BrowseController implements MealsController {
             return;
         int i = meals.indexOf(event.getMeal());
         if (++i >= meals.size())
-            return; //TODO should also disable right action button in meal view
+            //TODO ADD should also disable right action button in meal view
+            return;
         Meal meal = meals.get(i);
         EventBusFactory.getEventBus().post(new ShowMealEvent(meal, MealController.Action.NEXT_MEAL, View.BROWSE));
     }

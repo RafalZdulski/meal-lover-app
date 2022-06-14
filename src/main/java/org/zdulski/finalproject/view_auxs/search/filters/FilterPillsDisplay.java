@@ -12,7 +12,6 @@ import javafx.scene.text.Text;
 
 import java.util.List;
 
-//TODO is this a custom graphic component
 public class FilterPillsDisplay extends FlowPane {
 
     public FilterPillsDisplay(List<FilterWrap> filters){

@@ -66,7 +66,7 @@ public class PropertyManager {
             appProps.load(in);
             in.close();
         } catch (Throwable th) {
-            // TODO: log something
+            LOG.error("could not load user app properties");
         }
 
     }

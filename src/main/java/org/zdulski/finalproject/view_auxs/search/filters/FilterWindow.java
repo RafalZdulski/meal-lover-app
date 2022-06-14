@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//TODO does this count as a custom graphic component?
 public class FilterWindow extends Stage {
     private final int WIDTH = 270;
     private final int HEIGHT = 400;

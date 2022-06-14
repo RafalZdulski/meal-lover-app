@@ -73,7 +73,8 @@ public class FavouriteController implements MealsController {
             return;
         int i = meals.indexOf(event.getMeal());
         if (++i >= meals.size())
-            return; //TODO should also disable right action button in meal view
+            //TODO ADD should also disable right action button in meal view
+            return;
         Meal meal = meals.get(i);
         EventBusFactory.getEventBus().post(new ShowMealEvent(meal, MealController.Action.NEXT_MEAL, View.FAVOURITE));
     }

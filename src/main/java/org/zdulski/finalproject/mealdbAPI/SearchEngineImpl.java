@@ -49,16 +49,16 @@ public class SearchEngineImpl implements SearchEngine{
             val += 0b100;
         }
 
-        switch (val) {
-            case 0b001 : return byName;
-            case 0b010 : return byAreas;
-            case 0b011 : return byName.stream().distinct().filter(byAreas::contains).collect(Collectors.toSet());
-            case 0b100 : return byCategories;
-            case 0b101 : return byName.stream().distinct().filter(byCategories::contains).collect(Collectors.toSet());
-            case 0b110 : return byAreas.stream().distinct().filter(byCategories::contains).collect(Collectors.toSet());
-            case 0b111 : return byName.stream().distinct().filter(byAreas::contains).filter(byCategories::contains).collect(Collectors.toSet());
-            default : return new HashSet<>();
-        }
+        return switch (val) {
+            case 0b001 -> byName;
+            case 0b010 -> byAreas;
+            case 0b011 -> byName.stream().distinct().filter(byAreas::contains).collect(Collectors.toSet());
+            case 0b100 -> byCategories;
+            case 0b101 -> byName.stream().distinct().filter(byCategories::contains).collect(Collectors.toSet());
+            case 0b110 -> byAreas.stream().distinct().filter(byCategories::contains).collect(Collectors.toSet());
+            case 0b111 -> byName.stream().distinct().filter(byAreas::contains).filter(byCategories::contains).collect(Collectors.toSet());
+            default -> new HashSet<>();
+        };
     }
 
     public Set<String> getIDsByCategory(String... categories){

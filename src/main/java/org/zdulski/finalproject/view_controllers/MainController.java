@@ -123,7 +123,6 @@ public class MainController implements Initializable {
         closeLoadingSlider();
     }
 
-    @FXML
     public void search(){
         if (searchDrawer.isClosed()){
             searchDrawer.open();
@@ -235,19 +234,14 @@ public class MainController implements Initializable {
     private void setHeader(View view){
         String str;
         int size = 30;
-        switch (view){
-            case BROWSE:
-                str = "Today's Craving For?";
-                break;
-            case LATEST:
-                str = "Recently Viewed";
-                break;
-            case FAVOURITE:
-                str = "Your Favourites";
-                break;
-            default:
+        switch (view) {
+            case BROWSE -> str = "Today's Craving For?";
+            case LATEST -> str = "Recently Viewed";
+            case FAVOURITE -> str = "Your Favourites";
+            default -> {
                 str = "Food Lover";
                 size = 36;
+            }
         }
         header.setText(str);
         header.setFont(Font.font("Pristina", FontWeight.BOLD, size));

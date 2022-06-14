@@ -88,7 +88,7 @@ public class DrawerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //TODO drawerFiller should be filling empty space between drawer options (now its dimensions are calculated by hand)
+        //TODO IMPROVE drawerFiller should be filling empty space between drawer options (now its dimensions are calculated by hand)
         drawerFiller.setImage(new Image(System.getProperty("user.dir")
                 + "/src/main/resources/org/zdulski/finalproject/images/drawer-food-filler.jpg"));
         drawerLogo.setImage(new Image(System.getProperty("user.dir")

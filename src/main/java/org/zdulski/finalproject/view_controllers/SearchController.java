@@ -8,6 +8,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.zdulski.finalproject.MainApplication;
 import org.zdulski.finalproject.config.PropertyManager;
 import org.zdulski.finalproject.data.dto.Meal;
 import org.zdulski.finalproject.eventbus.EventBusFactory;
@@ -21,9 +24,9 @@ import org.zdulski.finalproject.view_auxs.search.filters.FilterWindow;
 import org.zdulski.finalproject.view_auxs.search.filters.FilterWrap;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -68,6 +71,8 @@ public class SearchController implements Initializable {
     @FXML
     private Button returnBtn;
 
+    private final static Logger LOG = LogManager.getLogger(MainApplication.class);
+
     @FXML
     void addArea() {
         new FilterWindow(areas);
@@ -106,6 +111,7 @@ public class SearchController implements Initializable {
         final String[] wordsFilters = nameField.getText().length()==0? new String[0] : nameField.getText().split("\\s+");
         final String[] areasFilter = areas.stream().filter(FilterWrap::getCheckValue).map(FilterWrap::toString).toArray(String[]::new);
         final String[] categoryFilters = categories.stream().filter(FilterWrap::getCheckValue).map(FilterWrap::toString).toArray(String[]::new);
+        LOG.info("search vector:\n\twords:\t" + Arrays.toString(wordsFilters) + "\n\tareas:\t" + Arrays.toString(areasFilter) + "\n\tcategories:\t" + Arrays.toString(categoryFilters));
 
         //get all meals when filtered by empty filters
         if (wordsFilters.length + areasFilter.length + categoryFilters.length < 1) {
@@ -116,17 +122,17 @@ public class SearchController implements Initializable {
             return;
         }
 
-        CompletableFuture.supplyAsync(() -> {
-            Set<String> ids = new SearchEngineImpl().getIDs(wordsFilters, areasFilter, categoryFilters);
-            return ids;
-        }).thenApply(ids -> {
+        CompletableFuture.supplyAsync(() ->
+                new SearchEngineImpl().getIDs(wordsFilters, areasFilter, categoryFilters)
+        ).thenApply(ids -> {
             if (!ids.isEmpty()) {
                 List<Meal> meals = new MealGetterImpl().getMealsByIds(ids);
-                System.out.println(meals.size());
+                LOG.info("search engine found " + meals.size() + " recipes");
                 EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.BROWSE));
             } else {
                 //TODO ADD popup message saying there is nothing to show;
                 System.err.println("nothing found");
+                LOG.debug("search engine found nothing");
             }
             loadingCircles.setVisible(false);
             return ids;

@@ -33,10 +33,9 @@ public class FavouriteMealPojo {
 
     @Override
     public String toString(){
-        StringBuilder builder = new StringBuilder();
-        builder.append("user: ").append(username).append(", ")
-                .append("meal_id: ").append(mealId).append("\n");
-        return builder.toString();
+        String builder = "user: " + username + ", " +
+                "meal_id: " + mealId + "\n";
+        return builder;
     }
 
 }

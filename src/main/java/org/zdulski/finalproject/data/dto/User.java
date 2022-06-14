@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class User {
@@ -35,11 +34,10 @@ public class User {
 
     @Override
     public String toString(){
-        String favMeals = favouriteMeals.stream().collect(Collectors.joining(", "));
-        StringBuilder builder = new StringBuilder();
-        builder.append("name: ").append(username).append(", ")
-                .append("mail: ").append(mail).append(", ")
-                .append("fav meals: ").append(favMeals);
-        return builder.toString();
+        String favMeals = String.join(", ", favouriteMeals);
+        String builder = "name: " + username + ", " +
+                "mail: " + mail + ", " +
+                "fav meals: " + favMeals;
+        return builder;
     }
 }
