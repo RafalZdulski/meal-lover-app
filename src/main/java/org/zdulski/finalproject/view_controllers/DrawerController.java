@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import org.zdulski.finalproject.config.PropertyManager;
 import org.zdulski.finalproject.data.dto.Meal;
 import org.zdulski.finalproject.data.dto.UserProxy;
+import org.zdulski.finalproject.eventbus.ChangeViewEvent;
 import org.zdulski.finalproject.eventbus.EventBusFactory;
 import org.zdulski.finalproject.eventbus.ShowMealEvent;
 import org.zdulski.finalproject.eventbus.ShowMealsEvent;
@@ -78,7 +79,7 @@ public class DrawerController implements Initializable {
 
     @FXML
     public void onInspirationClick(){
-        System.out.println("inspiration clicked");
+        EventBusFactory.getEventBus().post(new ChangeViewEvent(View.BY_INGREDIENTS));
     }
 
     @FXML

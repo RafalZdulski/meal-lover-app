@@ -106,17 +106,84 @@ public class SearchEngineImpl implements SearchEngine{
         return ids;
     }
 
+    @Override
+    public Set<String> getIDsByIngredients(String... ingredients) {
+        List<List<String>> subset = new ArrayList<>();
+        List<String> input = Arrays.asList(ingredients);
+        findSubsets(subset, input, new ArrayList<>(), 0);
+        Collections.sort(subset, (o1, o2) -> o2.size() - o1.size());
+
+        Set<String> ids = new HashSet<>();
+        for (var ingredientsSubset : subset){
+            ids.addAll(this.getIDsByAllIngredients(ingredientsSubset.toArray(String[]::new)));
+        }
+
+        return ids;
+    }
+
+    @Override
+    public Set<String> getIDsByAllIngredients(String... ingredients) {
+        Set<String> ids = new HashSet<>();
+        if (ingredients.length < 1)
+            return ids;
+        String ingredientJoin = Arrays.stream(ingredients).collect(Collectors.joining(","));
+        String url = PropertyManager.getInstance().getProperty("filterURL")+"?i="+ingredientJoin;
+        try {
+            LOG.info("getting IDs by ingredients: '" + ingredientJoin + "'");
+            ids.addAll(getIds(url));
+        } catch (IOException e) {
+            LOG.error("IOException in getIDsByName(): " + e.getMessage() + "\n" + "failed at url: " + url);
+            e.printStackTrace();
+        }
+        return ids;
+    }
+
+    @Override
+    public Set<String> getIDsByEachIngredient(String... ingredients) {
+        Set<String> ids = new HashSet<>();
+        for (String ingredient : ingredients){
+            String url = PropertyManager.getInstance().getProperty("filterURL")+"?i="+ingredient;
+            try {
+                LOG.info("getting IDs by ingredient: '" + ingredient + "'");
+                ids.addAll(getIds(url));
+            } catch (IOException e) {
+                LOG.error("IOException in getIDsByName(): " + e.getMessage() + "\n" + "failed at url: " + url);
+                e.printStackTrace();
+            }
+        }
+        return ids;
+    }
+
     private List<String> getIds(String url) throws IOException {
+        //TODO IMPROVE decoding to url standard shouldn't be done by hand, check: org.apache.commons.codec.net.URLCodec
+        url = url.replaceAll(",","%2C").replaceAll(" ","%20");
         InputStream is = newConnection(url).getInputStream();
         JSONParser jsonParser = new JSONParser();
         try {
             JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(is, StandardCharsets.UTF_8));
             JSONArray jsonArray = (JSONArray) jsonObject.get("meals");
+            if (jsonArray == null || jsonArray.isEmpty())
+                return new ArrayList<>();
             return (List<String>) jsonArray.stream().map(a -> String.valueOf(JSONObject.class.cast(a).get("idMeal"))).collect(Collectors.toList());
         } catch (ParseException e) {
             LOG.error("could not parse data from: " + url + " reason: " + e.getMessage());
             e.printStackTrace();
         }
         return new ArrayList<>();
+    }
+
+    private void findSubsets(List<List<String>> subset, List<String> nums, List<String> output, int index) {
+        // Base Condition
+        if (index == nums.size()) {
+            subset.add(output);
+            return;
+        }
+
+        // Not Including Value which is at Index
+        findSubsets(subset, nums, new ArrayList<>(output), index + 1);
+
+        // Including Value which is at Index
+        output.add(nums.get(index));
+        findSubsets(subset, nums, new ArrayList<>(output), index + 1);
     }
 }

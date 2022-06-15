@@ -1,0 +1,103 @@
+
+
+.button{
+    -fx-background-radius: 20;
+    -fx-background-color: #D0B2A6;
+    -fx-border-width: 2;
+    -fx-border-radius: 20;
+    -fx-border-color: black;
+}
+
+.button:hover:pressed {
+    -fx-background-color: #80726b;
+}
+
+.button:hover {
+    -fx-background-color: #e4dcd9;
+}
+
+#main-pane {
+    -fx-background-color: #F4F1EF;
+}
+
+.text-field:focused{
+    -fx-background-color: transparent;
+}
+
+/* SCROLL PANE */
+.scroll-pane{
+    -fx-arc-height: 10;
+    -fx-arc-width: 10;
+    -fx-background-color: transparent;
+    -fx-border-color: #D0B2A6;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+}
+
+.scroll-pane:focused{
+    -fx-background-color: transparent;
+    -fx-border-color: #D0B2A6;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+}
+
+/* TABLE VIEW */
+.table-view{
+    -fx-background-color: transparent;
+}
+
+.table-view:focused{
+    -fx-background-color: transparent;
+}
+
+.table-cell:odd{
+    -fx-background-color: #e2dbd7;
+}
+
+.table-cell:even{
+    -fx-background-color: #ede9e7;
+}
+
+.table-cell:focused{
+    -fx-background-color: transparent;
+}
+
+/* SCROLL BAR */
+.scroll-bar:vertical .track{
+    -fx-background-color :transparent;
+    -fx-border-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-border-radius :2.0em;
+}
+
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 10.0 0.0 0.0;
+
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.15em 0.0;
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.0 0.15em;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color : #a68e84;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color : #534742;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}

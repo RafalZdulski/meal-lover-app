@@ -20,6 +20,11 @@ public class FilterPillsDisplay extends FlowPane {
         filters.forEach(this::filterPill);
     }
 
+    public FilterPillsDisplay(){
+        this.setHgap(2);
+        this.setVgap(5);
+    }
+
     private HBox filterPill(FilterWrap filter){
         HBox pill = new HBox();
         pill.setAlignment(Pos.CENTER);
@@ -52,4 +57,44 @@ public class FilterPillsDisplay extends FlowPane {
 
         return pill;
     }
+
+    public void addPill(String filter){
+        HBox pill = new HBox();
+        pill.setAlignment(Pos.CENTER);
+        pill.setBackground(new Background(new BackgroundFill(
+                Color.LIGHTGREY,new CornerRadii(30),null)));;
+        pill.setSpacing(3);
+        pill.setPadding(new Insets(0, 0, 0, 7));
+
+        Text text = new Text(filter);
+        text.setFont(Font.font(16));
+        pill.getChildren().add(text);
+
+        Button btn = new Button();
+        ImageView imageView = new ImageView(new Image(System.getProperty("user.dir") + "/"
+                + "src/main/resources/org/zdulski/finalproject/icons/clear-button.png"));
+        imageView.setFitWidth(16);
+        imageView.setFitHeight(16);
+        btn.setGraphic(imageView);
+        btn.setMaxSize(32,32);
+        btn.setOnAction(e -> this.getChildren().remove(pill));
+        pill.getChildren().add(btn);
+
+        this.getChildren().add(pill);
+    }
+
+    public List<String> getPills(){
+        return this.getChildren().stream().map(node -> {
+            Text text = (Text) ((HBox) node).getChildren().get(0);
+            return text.getText();
+        }).toList();
+    }
+
+    public void removePill(String filterName){
+        this.getChildren().stream().filter(node -> {
+            Text text = (Text) ((HBox) node).getChildren().get(0);
+            return text.getText().equals(filterName);
+        }).findAny().ifPresent(this.getChildren()::remove);
+    }
+
 }

@@ -12,4 +12,9 @@ public interface SearchEngine {
 
     Set<String> getIDsByName(String... words);
 
+    Set<String> getIDsByIngredients(String... ingredients);
+
+    Set<String> getIDsByAllIngredients(String... ingredients);
+
+    Set<String> getIDsByEachIngredient(String... ingredients);
 }

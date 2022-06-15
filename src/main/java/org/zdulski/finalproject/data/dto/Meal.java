@@ -22,6 +22,7 @@ public class Meal {
     @Getter
     private String instructions;
     @Getter
+    //TODO IMPROVE switch from String to Ingredient class
     private Map<String, String> ingredients = new HashMap<>();
     @Getter
     private String tags;

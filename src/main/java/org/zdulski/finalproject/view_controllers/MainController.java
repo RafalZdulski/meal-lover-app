@@ -44,6 +44,8 @@ public class MainController implements Initializable {
 
     private Pane latestBrowseView;
 
+    private Pane getInspiredView;
+
     @FXML
     private AnchorPane loadingPane;
 
@@ -111,7 +113,7 @@ public class MainController implements Initializable {
         try {
             Pane dashboardPane = FXMLLoader.load(Objects.requireNonNull(getClass()
                     .getResource("/org/zdulski/finalproject/views/dashboard-view.fxml")));
-            setCenterView(dashboardPane);
+            this.setCenterView(dashboardPane);
             dashboardPane.getChildren().forEach(el -> el.setOnMouseClicked(e -> menuDrawer.open()));
         } catch (IOException e) {
             e.printStackTrace();
@@ -132,7 +134,7 @@ public class MainController implements Initializable {
 
     public void setCenterView(Pane pane) {
         recentlyViewedPanes.add(mainPane.getCenter());
-        mainPane.setCenter(pane);
+        Platform.runLater(()->mainPane.setCenter(pane));
     }
 
     public void goToPreviousView(){
@@ -155,9 +157,7 @@ public class MainController implements Initializable {
         ).thenApplyAsync(loader -> {
             try {
                 Pane pane = loader.load();
-                Platform.runLater(() -> {
-                    this.setCenterView(pane);
-                });
+                this.setCenterView(pane);
                 menuDrawer.close();
                 searchDrawer.close();
                 MealController controller = loader.getController();
@@ -196,9 +196,7 @@ public class MainController implements Initializable {
                 Pane pane = loader.load();
                 if (event.getViewType() == View.BROWSE)
                     latestBrowseView = pane;
-                Platform.runLater(() -> {
-                    this.setCenterView(pane);
-                });
+                this.setCenterView(pane);
                 menuDrawer.close();
                 searchDrawer.close();
                 MealsController controller = loader.getController();
@@ -231,6 +229,38 @@ public class MainController implements Initializable {
             this.goToPreviousView();
     }
 
+    @Subscribe
+    public void changeView(ChangeViewEvent event){
+        if (event.getView() == View.BY_INGREDIENTS && getInspiredView != null) {
+            setCenterView(getInspiredView);
+            setHeader(View.BY_INGREDIENTS);
+            menuDrawer.close();
+            return;
+        }
+
+        String url = event.getView().getUrl();
+        CompletableFuture.supplyAsync(
+                () -> new FXMLLoader(getClass().getResource(url))
+        ).thenApplyAsync(loader -> {
+            try {
+                Pane pane = loader.load();
+                this.setCenterView(pane);
+                if (event.getView() == View.BY_INGREDIENTS)
+                    getInspiredView = pane;
+                menuDrawer.close();
+                searchDrawer.close();
+            } catch (IOException e) {
+                LOG.error("couldn't load" + event.getView());
+                e.printStackTrace();
+            }
+            LOG.info("showing " + event.getView());
+            return loader;
+        }).thenApplyAsync(loader -> {
+            setHeader(event.getView());
+            return loader;
+        });
+    }
+
     private void setHeader(View view){
         String str;
         int size = 30;
@@ -238,6 +268,8 @@ public class MainController implements Initializable {
             case BROWSE -> str = "Today's Craving For?";
             case LATEST -> str = "Recently Viewed";
             case FAVOURITE -> str = "Your Favourites";
+            case BY_INGREDIENTS -> str = "What's in Your Fridge";
+            case RECOMMENDED -> str = "We Recommend You";
             default -> {
                 str = "Food Lover";
                 size = 36;

@@ -6,7 +6,9 @@ public enum View {
     MEAL("/org/zdulski/finalproject/views/meal-view.fxml"),
     LATEST("/org/zdulski/finalproject/views/latest-view.fxml"),
     DASHBOARD(""),
-    FAVOURITE("/org/zdulski/finalproject/views/favourites-view.fxml");
+    FAVOURITE("/org/zdulski/finalproject/views/favourites-view.fxml"),
+    BY_INGREDIENTS("/org/zdulski/finalproject/views/ingredients-view.fxml"),
+    RECOMMENDED("/org/zdulski/finalproject/views/favourites-view.fxml");
 
 
     private final String url;

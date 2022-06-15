@@ -115,7 +115,29 @@ public class MealGetterImpl implements MealGetter{
             e.printStackTrace();
         }
         return ret;
+    }
 
+    @Override
+    public List<String> getIngredients() {
+        List<String> ret = new ArrayList<>();
+        try {
+            String url = PropertyManager.getInstance().getProperty("listURL")+"?i=list";
+            InputStream is = newConnection(url).getInputStream();
+            JSONParser jsonParser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(is, StandardCharsets.UTF_8));
+            JSONArray jsonArray = (JSONArray) jsonObject.get("meals");
+            for (Object category : jsonArray) {
+                JSONObject temp = (JSONObject) category;
+                ret.add((String) temp.get("strIngredient"));
+            }
+        } catch (IOException e) {
+            LOG.error("IOException in getAreas(): " + e.getMessage());
+            e.printStackTrace();
+        } catch (ParseException e) {
+            LOG.error("ParseException in getAreas(): " + e.getMessage());
+            e.printStackTrace();
+        }
+        return ret;
     }
 
     private List<Meal> getMeals(String url){

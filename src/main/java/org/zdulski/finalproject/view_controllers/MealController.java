@@ -91,7 +91,7 @@ public class MealController implements ViewController {
 
     @FXML
     public void onYtLinkClick(){
-        //TODO ADD implement onYyLinkClick()
+        //TODO ADD implement onYtLinkClick()
         System.out.println("link clicked");
     }
 

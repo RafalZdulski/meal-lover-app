@@ -20,4 +20,6 @@ public interface MealGetter {
     List<String> getCategories();
 
     List<String> getAreas();
+
+    List<String> getIngredients();
 }
