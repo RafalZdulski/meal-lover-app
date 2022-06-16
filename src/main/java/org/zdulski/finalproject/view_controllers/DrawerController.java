@@ -8,19 +8,12 @@ import javafx.scene.image.ImageView;
 import org.zdulski.finalproject.config.PropertyManager;
 import org.zdulski.finalproject.data.dto.Meal;
 import org.zdulski.finalproject.data.dto.UserProxy;
-import org.zdulski.finalproject.eventbus.ChangeViewEvent;
-import org.zdulski.finalproject.eventbus.EventBusFactory;
-import org.zdulski.finalproject.eventbus.ShowMealEvent;
-import org.zdulski.finalproject.eventbus.ShowMealsEvent;
+import org.zdulski.finalproject.eventbus.*;
 import org.zdulski.finalproject.mealdbAPI.MealGetterImpl;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CountDownLatch;
 
 public class DrawerController implements Initializable {
     @FXML
@@ -69,20 +62,21 @@ public class DrawerController implements Initializable {
         List<Meal> meals = new ArrayList<>();
         CompletableFuture.runAsync(()-> {
             Set<String> ids = UserProxy.getInstance().getFavourites();
-            CountDownLatch latch = new CountDownLatch(ids.size());
-            ids.forEach(id -> {
-                new Thread(() -> {
-                    meals.add(new MealGetterImpl().getMealById(id));
-                    latch.countDown();
-                }).start();
-            });
-            try {
-                latch.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//            CountDownLatch latch = new CountDownLatch(ids.size());
+//            ids.forEach(id -> {
+//                new Thread(() -> {
+//                    meals.add(new MealGetterImpl().getMealById(id));
+//                    latch.countDown();
+//                }).start();
+//            });
+//            try {
+//                latch.await();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
             // meals = new MealGetterImpl().getMealsByIds(ids);
-            EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.FAVOURITE));
+//            EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.FAVOURITE));
+            EventBusFactory.getEventBus().post(new ShowMealsByIdsEvent(ids, View.FAVOURITE));
         });
     }
 
@@ -90,8 +84,9 @@ public class DrawerController implements Initializable {
     public void onLastViewedClick(){
         CompletableFuture.runAsync(() -> {
             List<String> ids = UserProxy.getInstance().getLatest();
-            List<Meal> meals = new MealGetterImpl().getMealsByIds(ids);
-            EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.LATEST));
+//            List<Meal> meals = new MealGetterImpl().getMealsByIds(ids);
+//            EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.LATEST));
+            EventBusFactory.getEventBus().post(new ShowMealsByIdsEvent(new HashSet<>(ids), View.LATEST));
         });
     }
 

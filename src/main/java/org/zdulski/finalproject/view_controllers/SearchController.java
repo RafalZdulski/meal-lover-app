@@ -15,6 +15,7 @@ import org.zdulski.finalproject.config.PropertyManager;
 import org.zdulski.finalproject.data.dto.Meal;
 import org.zdulski.finalproject.eventbus.EventBusFactory;
 import org.zdulski.finalproject.eventbus.ReturnEvent;
+import org.zdulski.finalproject.eventbus.ShowMealsByIdsEvent;
 import org.zdulski.finalproject.eventbus.ShowMealsEvent;
 import org.zdulski.finalproject.mealdbAPI.MealGetterImpl;
 import org.zdulski.finalproject.mealdbAPI.SearchEngineImpl;
@@ -126,9 +127,10 @@ public class SearchController implements Initializable {
                 new SearchEngineImpl().getIDs(wordsFilters, areasFilter, categoryFilters)
         ).thenApply(ids -> {
             if (!ids.isEmpty()) {
-                List<Meal> meals = new MealGetterImpl().getMealsByIds(ids);
-                LOG.info("search engine found " + meals.size() + " recipes");
-                EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.BROWSE));
+//                List<Meal> meals = new MealGetterImpl().getMealsByIds(ids);
+                LOG.info("search engine found " + ids.size() + " recipes");
+//                EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.BROWSE));
+                EventBusFactory.getEventBus().post(new ShowMealsByIdsEvent(ids, View.BROWSE));
             } else {
                 //TODO ADD popup message saying there is nothing to show;
                 System.err.println("nothing found");

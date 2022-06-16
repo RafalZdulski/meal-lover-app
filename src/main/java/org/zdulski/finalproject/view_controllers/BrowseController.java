@@ -10,18 +10,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import org.zdulski.finalproject.config.PropertyManager;
 import org.zdulski.finalproject.data.dto.Meal;
-import org.zdulski.finalproject.eventbus.EventBusFactory;
-import org.zdulski.finalproject.eventbus.NextMealEvent;
-import org.zdulski.finalproject.eventbus.OpenSearchDrawerEvent;
-import org.zdulski.finalproject.eventbus.ShowMealEvent;
+import org.zdulski.finalproject.eventbus.*;
 import org.zdulski.finalproject.mealdbAPI.MealGetterImpl;
 import org.zdulski.finalproject.view_auxs.MealCellFactory;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CountDownLatch;
 
 public class BrowseController implements MealsController {
     private List<Meal> meals = new ArrayList<>();
@@ -79,6 +78,28 @@ public class BrowseController implements MealsController {
                 lastPage.setText(String.valueOf(pages));
                 update();
             }
+        });
+    }
+
+    @Override
+    public void setMealsByIds(Collection<String> ids) {
+        meals = new ArrayList<>();
+        CompletableFuture.runAsync(()-> {
+            CountDownLatch latch = new CountDownLatch(ids.size());
+            ids.forEach(id -> {
+                new Thread(() -> {
+                    meals.add(new MealGetterImpl().getMealById(id));
+                    latch.countDown();
+                }).start();
+            });
+            try {
+                latch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            update();
+            // meals = new MealGetterImpl().getMealsByIds(ids);
+            EventBusFactory.getEventBus().post(new LoadingFinishedEvent());
         });
     }
 

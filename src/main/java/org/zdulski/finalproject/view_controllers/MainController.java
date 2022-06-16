@@ -214,6 +214,35 @@ public class MainController implements Initializable {
     }
 
     @Subscribe
+    public void showMealsByIds(ShowMealsByIdsEvent event){
+        this.openLoadingSlider();
+
+        String url = event.getViewType().getUrl();
+        CompletableFuture.supplyAsync(
+                () -> new FXMLLoader(getClass().getResource(url))
+        ).thenApplyAsync(loader -> {
+            try {
+                Pane pane = loader.load();
+                if (event.getViewType() == View.BROWSE)
+                    latestBrowseView = pane;
+                this.setCenterView(pane);
+                menuDrawer.close();
+                searchDrawer.close();
+                MealsController controller = loader.getController();
+                controller.setMealsByIds(event.getIds());
+            } catch (IOException e) {
+                LOG.error("couldn't show meals, as" + event.getViewType());
+                e.printStackTrace();
+            }
+            LOG.info("showing " + event.getIds().size() + " meals, as: " + event.getViewType());
+            return loader;
+        }).thenApplyAsync(loader -> {
+            setHeader(event.getViewType());
+            return loader;
+        });
+    }
+
+    @Subscribe
     public void openDrawer(OpenSearchDrawerEvent event){
         search();
     }

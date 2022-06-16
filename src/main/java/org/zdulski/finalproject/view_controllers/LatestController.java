@@ -8,14 +8,19 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import org.zdulski.finalproject.data.dto.Meal;
 import org.zdulski.finalproject.eventbus.EventBusFactory;
+import org.zdulski.finalproject.eventbus.LoadingFinishedEvent;
 import org.zdulski.finalproject.eventbus.NextMealEvent;
 import org.zdulski.finalproject.eventbus.ShowMealEvent;
+import org.zdulski.finalproject.mealdbAPI.MealGetterImpl;
 import org.zdulski.finalproject.view_auxs.MealCellFactory;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CountDownLatch;
 
 public class LatestController implements MealsController {
     private List<Meal> meals = new ArrayList<>();
@@ -33,11 +38,37 @@ public class LatestController implements MealsController {
     public void setMeals(List<Meal> meals){
         if (meals.isEmpty()){
             emptyInfoBox.setVisible(true);
-        }else {
-            emptyInfoBox.setVisible(false);
-            this.meals = meals;
-            update();
+            return;
         }
+        emptyInfoBox.setVisible(false);
+        this.meals = meals;
+        update();
+    }
+
+    public void setMealsByIds(Collection<String> ids){
+        if (ids.isEmpty()){
+            emptyInfoBox.setVisible(true);
+            return;
+        }
+        emptyInfoBox.setVisible(false);
+        meals = new ArrayList<>();
+        CompletableFuture.runAsync(()-> {
+            CountDownLatch latch = new CountDownLatch(ids.size());
+            ids.forEach(id -> {
+                new Thread(() -> {
+                    meals.add(new MealGetterImpl().getMealById(id));
+                    latch.countDown();
+                }).start();
+            });
+            try {
+                latch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            update();
+            // meals = new MealGetterImpl().getMealsByIds(ids);
+            EventBusFactory.getEventBus().post(new LoadingFinishedEvent());
+        });
     }
 
     @Override
