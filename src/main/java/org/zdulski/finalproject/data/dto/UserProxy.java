@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * handle access to the currently logged-in user
+ * */
 public class UserProxy {
     private static final Logger LOG = LogManager.getLogger(UserProxy.class);
 

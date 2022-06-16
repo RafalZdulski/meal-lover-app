@@ -1,13 +1,13 @@
 package org.zdulski.finalproject.data.repository;
 
-import jakarta.persistence.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.RollbackException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.zdulski.finalproject.MainApplication;
 import org.zdulski.finalproject.data.dto.User;
-import org.zdulski.finalproject.data.pojos.FavouriteMealPojo;
-import org.zdulski.finalproject.data.pojos.UserPojo;
-import org.zdulski.finalproject.data.pojos.UserPojoMapper;
+import org.zdulski.finalproject.data.pojos.*;
 
 import java.util.List;
 import java.util.Set;

@@ -264,6 +264,7 @@ public class MainController implements Initializable {
             setCenterView(getInspiredView);
             setHeader(View.BY_INGREDIENTS);
             menuDrawer.close();
+            searchDrawer.close();
             return;
         }
 

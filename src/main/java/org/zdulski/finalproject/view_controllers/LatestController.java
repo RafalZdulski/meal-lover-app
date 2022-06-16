@@ -48,6 +48,7 @@ public class LatestController implements MealsController {
     public void setMealsByIds(Collection<String> ids){
         if (ids.isEmpty()){
             emptyInfoBox.setVisible(true);
+            EventBusFactory.getEventBus().post(new LoadingFinishedEvent());
             return;
         }
         emptyInfoBox.setVisible(false);

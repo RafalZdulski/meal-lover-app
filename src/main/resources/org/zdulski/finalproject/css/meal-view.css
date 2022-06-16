@@ -25,7 +25,8 @@
 
 .text-area{
     -fx-font-family: "Segoe Print";
-    -fx-font-size: 18;
+    -fx-font-size: 16;
+    -fx-text-alignment: justify;
 }
 
 /* TABBED PANE */
