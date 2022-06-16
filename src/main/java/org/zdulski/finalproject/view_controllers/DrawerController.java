@@ -15,10 +15,12 @@ import org.zdulski.finalproject.eventbus.ShowMealsEvent;
 import org.zdulski.finalproject.mealdbAPI.MealGetterImpl;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CountDownLatch;
 
 public class DrawerController implements Initializable {
     @FXML
@@ -61,9 +63,25 @@ public class DrawerController implements Initializable {
 
     @FXML
     public void onFavouriteClick(){
+
+        //for now this simple multi threading is enough but
+        //TODO FIX move fetching meal details form drawer to favourite controller
+        List<Meal> meals = new ArrayList<>();
         CompletableFuture.runAsync(()-> {
             Set<String> ids = UserProxy.getInstance().getFavourites();
-            List<Meal> meals = new MealGetterImpl().getMealsByIds(ids);
+            CountDownLatch latch = new CountDownLatch(ids.size());
+            ids.forEach(id -> {
+                new Thread(() -> {
+                    meals.add(new MealGetterImpl().getMealById(id));
+                    latch.countDown();
+                }).start();
+            });
+            try {
+                latch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            // meals = new MealGetterImpl().getMealsByIds(ids);
             EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.FAVOURITE));
         });
     }
