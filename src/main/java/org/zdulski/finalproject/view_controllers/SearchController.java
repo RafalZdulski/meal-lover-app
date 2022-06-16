@@ -1,13 +1,26 @@
 package org.zdulski.finalproject.view_controllers;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.zdulski.finalproject.MainApplication;
@@ -126,19 +139,52 @@ public class SearchController implements Initializable {
         CompletableFuture.supplyAsync(() ->
                 new SearchEngineImpl().getIDs(wordsFilters, areasFilter, categoryFilters)
         ).thenApply(ids -> {
+            loadingCircles.setVisible(false);
             if (!ids.isEmpty()) {
 //                List<Meal> meals = new MealGetterImpl().getMealsByIds(ids);
                 LOG.info("search engine found " + ids.size() + " recipes");
 //                EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.BROWSE));
                 EventBusFactory.getEventBus().post(new ShowMealsByIdsEvent(ids, View.BROWSE));
             } else {
-                //TODO ADD popup message saying there is nothing to show;
-                System.err.println("nothing found");
-                LOG.debug("search engine found nothing");
+                LOG.info("search engine found nothing");
+                showMessage("nothing found!");
             }
-            loadingCircles.setVisible(false);
             return ids;
         });
+    }
+
+    private void showMessage(String message) {
+        double WIDTH = mainPane.getWidth();
+        int messageHeight = 300;
+        Text text = new Text(message);
+        text.setFont(Font.font("system", FontWeight.BOLD, FontPosture.ITALIC,18));
+        text.setFill(Color.DARKRED);
+        HBox popup = new HBox(text);
+        popup.setLayoutX(WIDTH);
+        popup.setLayoutY(messageHeight);
+        popup.setPrefWidth(180);
+        popup.setAlignment(Pos.CENTER);
+        popup.setPadding(new Insets(7));
+        popup.setStyle("-fx-background-color: pink; -fx-background-radius: 15 0 0 15");
+        KeyValue heightVal = new KeyValue(popup.layoutXProperty(), WIDTH-popup.getPrefWidth());
+        KeyFrame heightFrame = new KeyFrame(Duration.millis(750), heightVal);
+        Timeline show = new Timeline(heightFrame);
+        KeyValue heightVal2 = new KeyValue(popup.layoutXProperty(), WIDTH);
+        KeyFrame heightFrame2 = new KeyFrame(Duration.millis(750), heightVal2);
+        Timeline hide = new Timeline(heightFrame2);
+
+        Platform.runLater(() -> mainPane.getChildren().add(popup));
+
+        new Thread(() -> {
+            show.play();
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+            hide.play();
+        }).start();
+
     }
 
     @FXML
