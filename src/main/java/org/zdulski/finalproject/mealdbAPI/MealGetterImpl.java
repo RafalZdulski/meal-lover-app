@@ -151,10 +151,11 @@ public class MealGetterImpl implements MealGetter{
                 for (Object meal : jsonArray)
                     ret.add(new Meal((JSONObject) meal));
         } catch (IOException e) {
-            LOG.error("IOException in getMeals(): " + e.getMessage());
+            LOG.error("IOException in getMeals(): " + e.getMessage() );
             e.printStackTrace();
         } catch (ParseException e) {
             LOG.error("ParseException in getMeals(): " + e.getMessage());
+            LOG.error("couldn't parse: " + url);
             e.printStackTrace();
         }
         return ret;

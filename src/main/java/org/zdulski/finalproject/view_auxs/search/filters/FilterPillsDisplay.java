@@ -67,7 +67,7 @@ public class FilterPillsDisplay extends FlowPane {
         pill.setPadding(new Insets(0, 0, 0, 7));
 
         Text text = new Text(filter);
-        text.setFont(Font.font(16));
+        text.setFont(Font.font("Segoe Print",14));
         pill.getChildren().add(text);
 
         Button btn = new Button();

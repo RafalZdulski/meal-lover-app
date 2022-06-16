@@ -16,23 +16,26 @@
             <Font name="Pristina" size="31.0" />
          </font>
       </Text>
-      <TextField fx:id="searchField" layoutX="100.0" layoutY="281.0" prefHeight="25.0" prefWidth="223.0" promptText="name" />
-      <ScrollPane fx:id="fridgePane" hbarPolicy="NEVER" layoutX="12.0" layoutY="54.0" prefHeight="156.0" prefWidth="336.0" />
-      <TableView fx:id="ingredientsTable" layoutX="-1.0" layoutY="307.0" prefHeight="278.0" prefWidth="360.0">
+      <TextField fx:id="searchField" layoutX="95.0" layoutY="210.0" prefHeight="30.0" prefWidth="209.0" promptText="name">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
+      <ScrollPane fx:id="fridgePane" hbarPolicy="NEVER" layoutX="12.0" layoutY="54.0" prefHeight="150.0" prefWidth="336.0" />
+      <TableView fx:id="ingredientsTable" layoutX="-1.0" layoutY="251.0" prefHeight="275.0" prefWidth="360.0">
         <columns>
-          <TableColumn fx:id="nameCol" editable="false" maxWidth="235.0" minWidth="-Infinity" prefWidth="235.0" resizable="false" text="choose ingredient" />
-            <TableColumn fx:id="addCol" editable="false" maxWidth="110.0" prefWidth="110.0" resizable="false" sortable="false" />
+          <TableColumn fx:id="nameCol" editable="false" maxWidth="235.0" minWidth="-Infinity" prefWidth="235.0" resizable="false" text="Pick Ingredients" />
+            <TableColumn fx:id="addCol" editable="false" maxWidth="135.0" prefWidth="110.0" resizable="false" sortable="false" />
         </columns>
       </TableView>
-      <Button contentDisplay="TOP" graphicTextGap="1.0" layoutX="32.0" layoutY="216.0" mnemonicParsing="false" onAction="#search" prefHeight="50.0" prefWidth="301.0" text="What can I do with this?">
-         <font>
-            <Font name="Pristina" size="21.0" />
-         </font>
-      </Button>
-      <Text layoutX="46.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="search:">
+      <Text layoutX="38.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="search:">
          <font>
             <Font name="Pristina" size="22.0" />
          </font>
       </Text>
+      <Button id="searchBtn" contentDisplay="TOP" graphicTextGap="1.0" layoutY="525.0" mnemonicParsing="false" onAction="#search" prefHeight="61.0" prefWidth="360.0" text="What can I do with this?">
+         <font>
+            <Font name="Pristina" size="21.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

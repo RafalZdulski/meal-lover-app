@@ -1,4 +1,17 @@
+#searchBtn{
+    -fx-background-radius: 20 20 0 0;
+    -fx-background-color: #D0B2A6;
+    -fx-border-width: 2 2 0 2;
+    -fx-border-radius: 20 20 0 0;
+    -fx-border-color: black;
+}
+#searchBtn:hover:pressed {
+    -fx-background-color: #80726b;
+}
 
+#searchBtn:hover {
+    -fx-background-color: #e4dcd9;
+}
 
 .button{
     -fx-background-radius: 20;
@@ -24,6 +37,10 @@
     -fx-background-color: transparent;
 }
 
+.text-field{
+    -fx-font-family: "Segoe Print";
+}
+
 /* SCROLL PANE */
 .scroll-pane{
     -fx-arc-height: 10;
@@ -46,6 +63,17 @@
     -fx-background-color: transparent;
 }
 
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background{
+    -fx-background-color: linear-gradient(to bottom, #D0B2A6, #e4dcd9);
+    -fx-background-radius: 7px 7px 0px 0px;
+    -fx-background-insets: 0 11px 0 0;
+    -fx-padding: 0 0 5px 0;
+}
+
 .table-view:focused{
     -fx-background-color: transparent;
 }
@@ -60,6 +88,13 @@
 
 .table-cell:focused{
     -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-fill: black;
+}
+
+.table-cell {
+    -fx-font-size:20;
+    -fx-font-family: "Segoe Print";
 }
 
 /* SCROLL BAR */

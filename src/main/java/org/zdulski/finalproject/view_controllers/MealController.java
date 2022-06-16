@@ -46,13 +46,13 @@ public class MealController implements ViewController {
     private Hyperlink ytLink;
 
     @FXML
-    private TableColumn ingredientCol;
+    private TableColumn<Map, String> ingredientCol;
 
     @FXML
-    private TableColumn ingredientMeasureCol;
+    private TableColumn<Map,String> ingredientMeasureCol;
 
     @FXML
-    private TableView ingredientsTable;
+    private TableView<Map<String,String>> ingredientsTable;
 
     @FXML
     private TextArea executionText;
@@ -91,8 +91,8 @@ public class MealController implements ViewController {
 
     @FXML
     public void onYtLinkClick(){
-        //TODO ADD implement onYtLinkClick()
-        System.out.println("link clicked");
+        //TODO add popup window with embedded yt video
+        //WebView doesnt work - fond substitute
     }
 
     @FXML
@@ -122,10 +122,10 @@ public class MealController implements ViewController {
             temp.put("Measure", ingredients.get(ingredient));
             list.add(temp);
         }
-        //TODO BEAUTIFY resize font - should be bigger
         //TODO FIX wrapping when ingredient or its measure value is to long to fit (now it get cut with '...')
         ingredientCol.setCellValueFactory(new MapValueFactory<>("Ingredient"));
         ingredientMeasureCol.setCellValueFactory(new MapValueFactory<>("Measure"));
+
         ingredientsTable.getItems().addAll(list);
     }
 
@@ -189,4 +189,6 @@ public class MealController implements ViewController {
         DISABLE,
         YOUTUBE
     }
+
+
 }
