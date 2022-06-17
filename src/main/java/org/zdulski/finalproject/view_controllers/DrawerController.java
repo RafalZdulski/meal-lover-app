@@ -59,7 +59,7 @@ public class DrawerController implements Initializable {
 
         //for now this simple multi threading is enough but
         //TODO FIX move fetching meal details form drawer to favourite controller
-        List<Meal> meals = new ArrayList<>();
+//        List<Meal> meals = new ArrayList<>();
         CompletableFuture.runAsync(()-> {
             Set<String> ids = UserProxy.getInstance().getFavourites();
 //            CountDownLatch latch = new CountDownLatch(ids.size());

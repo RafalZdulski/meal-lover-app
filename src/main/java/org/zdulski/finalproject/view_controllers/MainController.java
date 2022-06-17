@@ -68,6 +68,7 @@ public class MainController implements Initializable {
     protected void openDrawer() {
         if (menuDrawer.isClosed()){
             menuDrawer.open();
+            searchDrawer.close();
         }else
             menuDrawer.close();
     }
@@ -125,7 +126,7 @@ public class MainController implements Initializable {
         closeLoadingSlider();
     }
 
-    public void search(){
+    public void openSearchDrawer(){
         if (searchDrawer.isClosed()){
             searchDrawer.open();
         }else
@@ -244,11 +245,11 @@ public class MainController implements Initializable {
 
     @Subscribe
     public void openDrawer(OpenSearchDrawerEvent event){
-        search();
+        openSearchDrawer();
     }
 
     @Subscribe
-    public void goBackToLastView(ReturnEvent event){
+    public void goToLastView(ReturnEvent event){
         //TODO FIX distinguish between closing drawers and going to previous view
         if (searchDrawer.isOpened())
             searchDrawer.close();

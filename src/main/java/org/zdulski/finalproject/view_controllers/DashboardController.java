@@ -11,7 +11,7 @@ import org.zdulski.finalproject.view_auxs.loading.LoadingSlider;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class DashboardController implements ViewController{
+public class    DashboardController implements ViewController{
 
     @FXML
     private AnchorPane mainPane;

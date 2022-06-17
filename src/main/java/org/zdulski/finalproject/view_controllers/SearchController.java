@@ -132,6 +132,7 @@ public class SearchController implements Initializable {
             CompletableFuture.runAsync(()-> {
                 List<Meal> meals = new MealGetterImpl().getAllMeals();
                 EventBusFactory.getEventBus().post(new ShowMealsEvent(meals, View.BROWSE));
+                loadingCircles.setVisible(false);
             });
             return;
         }
