@@ -38,7 +38,7 @@ public class MealCellFactory implements Callback<ListView<Meal>, ListCell<Meal>>
             ListCell<Meal> cell = new ListCell<>() {
                 public void updateItem(Meal meal, boolean empty) {
                     super.updateItem(meal, empty);
-                    if (!empty) {
+                    if (meal != null && !empty) {
                         GridPane gridPane = new GridPane();
                         gridPane.setHgap(5);
                         gridPane.setVgap(5);
@@ -87,11 +87,13 @@ public class MealCellFactory implements Callback<ListView<Meal>, ListCell<Meal>>
             };
             return cell;
         }).thenApplyAsync(cell -> {
-            cell.setPrefHeight(100);
-            cell.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> {
-                System.out.println("clicked on: " + cell.getItem().getName());
-                EventBusFactory.getEventBus().post(new ShowMealEvent(cell.getItem(), MealController.Action.NEXT_MEAL, sourceView));
-            });
+            if (cell != null) {
+                cell.setPrefHeight(100);
+                cell.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> {
+                    System.out.println("clicked on: " + cell.getItem().getName());
+                    EventBusFactory.getEventBus().post(new ShowMealEvent(cell.getItem(), MealController.Action.NEXT_MEAL, sourceView));
+                });
+            }
             return cell;
         });
         try {

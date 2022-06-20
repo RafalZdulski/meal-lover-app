@@ -12,8 +12,6 @@ import org.zdulski.finalproject.data.dto.Meal;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,13 +20,6 @@ import java.util.concurrent.CountDownLatch;
 
 public class MealGetterImpl implements MealGetter{
     private static final Logger LOG = LogManager.getLogger(MealGetterImpl.class);
-
-    private URLConnection newConnection(String url) throws IOException {
-        URLConnection connection = new URL(url).openConnection();
-        connection.setRequestProperty("X-RapidAPI-Host", PropertyManager.getInstance().getProperty("RapidApiHost"));
-        connection.setRequestProperty("X-RapidAPI-Key", PropertyManager.getInstance().getProperty("RapidApiKey"));
-        return connection;
-    }
 
     public List<Meal> getMealsByIds(Collection<String> ids){
         List<Meal> meals = new ArrayList<>();
@@ -76,7 +67,7 @@ public class MealGetterImpl implements MealGetter{
         List<String> ret = new ArrayList<>();
         try {
             String url = PropertyManager.getInstance().getProperty("listURL")+"?c=list";
-            InputStream is = newConnection(url).getInputStream();
+            InputStream is = APIConnector.getInputStream(url);
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(is, StandardCharsets.UTF_8));
             JSONArray jsonArray = (JSONArray) jsonObject.get("meals");
@@ -99,7 +90,7 @@ public class MealGetterImpl implements MealGetter{
         List<String> ret = new ArrayList<>();
         try {
             String url = PropertyManager.getInstance().getProperty("listURL")+"?a=list";
-            InputStream is = newConnection(url).getInputStream();
+            InputStream is = APIConnector.getInputStream(url);
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(is, StandardCharsets.UTF_8));
             JSONArray jsonArray = (JSONArray) jsonObject.get("meals");
@@ -122,7 +113,7 @@ public class MealGetterImpl implements MealGetter{
         List<String> ret = new ArrayList<>();
         try {
             String url = PropertyManager.getInstance().getProperty("listURL")+"?i=list";
-            InputStream is = newConnection(url).getInputStream();
+            InputStream is = APIConnector.getInputStream(url);
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(is, StandardCharsets.UTF_8));
             JSONArray jsonArray = (JSONArray) jsonObject.get("meals");
@@ -143,7 +134,7 @@ public class MealGetterImpl implements MealGetter{
     private List<Meal> getMeals(String url){
         List<Meal> ret = new ArrayList<>();
         try {
-            InputStream is = newConnection(url).getInputStream();
+            InputStream is = APIConnector.getInputStream(url);
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(is, StandardCharsets.UTF_8));
             JSONArray jsonArray = (JSONArray) jsonObject.get("meals");

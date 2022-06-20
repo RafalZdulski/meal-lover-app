@@ -11,21 +11,12 @@ import org.zdulski.finalproject.config.PropertyManager;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class SearchEngineImpl implements SearchEngine{
     private static final Logger LOG = LogManager.getLogger(SearchEngineImpl.class);
-
-    private URLConnection newConnection(String url) throws IOException {
-        URLConnection connection = new URL(url).openConnection();
-        connection.setRequestProperty("X-RapidAPI-Host", PropertyManager.getInstance().getProperty("RapidApiHost"));
-        connection.setRequestProperty("X-RapidAPI-Key", PropertyManager.getInstance().getProperty("RapidApiKey"));
-        return connection;
-    }
 
     /**
      * filter by schema:
@@ -157,7 +148,7 @@ public class SearchEngineImpl implements SearchEngine{
     private List<String> getIds(String url) throws IOException {
         //TODO IMPROVE decoding to url standard shouldn't be done by hand, check: org.apache.commons.codec.net.URLCodec
         url = url.replaceAll(",","%2C").replaceAll(" ","%20");
-        InputStream is = newConnection(url).getInputStream();
+        InputStream is = APIConnector.getInputStream(url);
         JSONParser jsonParser = new JSONParser();
         try {
             JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(is, StandardCharsets.UTF_8));
